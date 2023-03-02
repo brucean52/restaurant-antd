@@ -1,26 +1,33 @@
 import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import { Routes, Route } from 'react-router-dom';
+import AppLayout from './components/AppLayout';
+import Home from './pages/Home';
+import Menu from './pages/Menu';
+import Checkout from './pages/Checkout';
+import NoMatch from './pages/NoMatch';
+import { ConfigProvider } from 'antd';
 
-function App() {
+const App: React.FC = () => {
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <ConfigProvider 
+      theme={{
+        token: {
+          colorPrimary: '#C11316',
+          colorBgLayout: '#E6E6E6'
+        }
+      }}
+    >
+      <Routes>
+        <Route path="/" element={<AppLayout />}>
+          <Route index element={<Home />} />
+          <Route path="menu" element={<Menu />} />
+          <Route path="checkout" element={<Checkout />} />
+          <Route path="*" element={<NoMatch />} />
+        </Route>
+      </Routes>
+    </ConfigProvider>
   );
-}
+};
 
 export default App;
