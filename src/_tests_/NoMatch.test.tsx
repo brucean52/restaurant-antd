@@ -1,4 +1,4 @@
-import { BrowserRouter } from 'react-router-dom';
+import { HashRouter } from 'react-router-dom';
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import NoMatch from '../pages/NoMatch';
@@ -12,9 +12,9 @@ jest.mock('react-router-dom', () => ({
 
 test('no match page render test', () => {
   render(
-    <BrowserRouter>
+    <HashRouter>
       <NoMatch />
-    </BrowserRouter>
+    </HashRouter>
   );
 
   expect(screen.getByText(/Sorry, the page you visited does not exist./i)).toBeInTheDocument();

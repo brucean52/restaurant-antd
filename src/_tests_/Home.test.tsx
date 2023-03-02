@@ -1,4 +1,4 @@
-import { BrowserRouter } from 'react-router-dom';
+import { HashRouter } from 'react-router-dom';
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import Home from '../pages/Home';
@@ -14,11 +14,11 @@ jest.mock('react-router-dom', () => ({
 
 test('home page render test', () => {
   render(
-    <BrowserRouter>
+    <HashRouter>
       <BagContext.Provider value={mockContextValues}>
         <Home />
       </BagContext.Provider>
-    </BrowserRouter>
+    </HashRouter>
   );
 
   expect(screen.getByText(/new chopstix restaurant/i)).toBeInTheDocument();

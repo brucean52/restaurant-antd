@@ -1,4 +1,4 @@
-import { BrowserRouter } from 'react-router-dom';
+import { HashRouter } from 'react-router-dom';
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import BagDrawer from '../components/BagDrawer';
@@ -15,11 +15,11 @@ describe('Bag Drawer component tests', () => {
 
   test('bag drawer is hidden', () => {
     render(
-      <BrowserRouter>
+      <HashRouter>
         <BagContext.Provider value={mockEmptyContextValues}>
           <BagDrawer openDrawer={false} setOpenDrawer={mockSetOpenDrawer}/>
         </BagContext.Provider>
-      </BrowserRouter>
+      </HashRouter>
     );
 
     expect(screen.queryByText(/my bag/i)).not.toBeInTheDocument();
@@ -28,11 +28,11 @@ describe('Bag Drawer component tests', () => {
 
   test('bag drawer is empty', () => {
     render(
-      <BrowserRouter>
+      <HashRouter>
         <BagContext.Provider value={mockEmptyContextValues}>
           <BagDrawer openDrawer={true} setOpenDrawer={mockSetOpenDrawer}/>
         </BagContext.Provider>
-      </BrowserRouter>
+      </HashRouter>
     );
 
     expect(screen.getByText(/my bag/i)).toBeInTheDocument();
@@ -44,11 +44,11 @@ describe('Bag Drawer component tests', () => {
 
   test('bag drawer renders content', () => {
     render(
-      <BrowserRouter>
+      <HashRouter>
         <BagContext.Provider value={mockContextValues}>
           <BagDrawer openDrawer={true} setOpenDrawer={mockSetOpenDrawer}/>
         </BagContext.Provider>
-      </BrowserRouter>
+      </HashRouter>
     );
 
     expect(screen.getByText(/my bag/i)).toBeInTheDocument();

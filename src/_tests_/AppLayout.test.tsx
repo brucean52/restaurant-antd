@@ -1,4 +1,4 @@
-import { BrowserRouter } from 'react-router-dom';
+import { HashRouter } from 'react-router-dom';
 import { render, screen, waitFor } from '@testing-library/react';
 import AppLayout from '../components/AppLayout';
 import { mockContextValues } from '../assets/mockdata';
@@ -6,11 +6,11 @@ import { BagContext } from '../BagContext';
 
 test('app layout header render test', async () => {
   render(
-    <BrowserRouter>
+    <HashRouter>
       <BagContext.Provider value={mockContextValues}>
         <AppLayout />
       </BagContext.Provider>
-    </BrowserRouter>
+    </HashRouter>
   );
 
   expect(screen.getByText(/menu/i)).toBeInTheDocument();

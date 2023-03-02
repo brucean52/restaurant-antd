@@ -1,4 +1,4 @@
-import { BrowserRouter } from 'react-router-dom';
+import { HashRouter } from 'react-router-dom';
 import { render, screen, waitFor } from '@testing-library/react';
 import Menu from '../pages/Menu';
 import { mockContextValues } from '../assets/mockdata';
@@ -13,11 +13,11 @@ jest.mock('react-router-dom', () => ({
 
 test('menu page render test', async () => {
   render(
-    <BrowserRouter>
+    <HashRouter>
       <BagContext.Provider value={mockContextValues}>
         <Menu />
       </BagContext.Provider>
-    </BrowserRouter>
+    </HashRouter>
   );
 
   await waitFor(() => {
