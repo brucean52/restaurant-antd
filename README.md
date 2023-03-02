@@ -1,6 +1,6 @@
 # Restaurant AntD -> New Chopstix Restaurant
 
-### [Live demo](https://brucean52.github.io/restaurant-antd/)
+### [Live demo](https://restaurant-antd.netlify.app/)
 
 ## Description
 
@@ -25,7 +25,7 @@ Installs the necessary modules to run the application.
 
 ### `npm start`
 Runs the app in development mode.
-Open [http://localhost:3000/restaurant-antd](http://localhost:3000/restaurant-antd) to view it in your browser.
+Open [http://localhost:3000/](http://localhost:3000/) to view it in your browser.
 
 ### `npm test`
 Runs the applications tests. Test code was wrtten using React Testing Library.
