@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { Anchor, Row, Typography, Menu } from 'antd';
 import { useMediaQuery } from 'react-responsive';
 import { HashLink } from 'react-router-hash-link';
@@ -26,60 +26,8 @@ const MenuPage: React.FC = () => {
     fontWeight: 500
   }
 
-  const [appetizersItemArray, setAppetizersItemArray] = useState<MenuItem[]>([]);
-  const [soupsItemArray, setSoupsItemArray] = useState<MenuItem[]>([]);
-  const [mainEntreesItemArray, setMainEntreesItemArray] = useState<MenuItem[]>([]);
-  const [bowlsItemArray, setBowlsItemArray] = useState<MenuItem[]>([]);
-  const [friedRiceNoodlesItemArray, seFriedRiceNoodlesItemArray] = useState<MenuItem[]>([]);
-  const [sideOrdersItemArray, setSideOrdersItemArray] = useState<MenuItem[]>([]);
-  const [beveragesItemArray, setBeveragesItemArray] = useState<MenuItem[]>([]);
   const [selectedMenuItem, setSelectedMenuItem] = useState<MenuItem>(defaultMenuItem);
   const [isModalOpen, setIsModalOpen] = useState(false);
-
-  useEffect(() => {
-    let appetizersArray: MenuItem[] = [];
-    let soupsArray: MenuItem[] = [];
-    let mainEntreesArray: MenuItem[] = [];
-    let bowlsArray: MenuItem[] = [];
-    let friedRiceNoodlesArray: MenuItem[] = [];
-    let sideOrdersArray: MenuItem[] = [];
-    let beveragesArray: MenuItem[] = [];
-
-    for (let i = 0; i < menuDataArray.length; i++) {
-      switch(menuDataArray[i].category) {
-        case 'appetizers':
-          appetizersArray.push(menuDataArray[i]);
-          break;
-        case 'soups':
-          soupsArray.push(menuDataArray[i]);
-          break;
-        case 'main-entree':
-          mainEntreesArray.push(menuDataArray[i]);
-          break;
-        case 'bowls':
-          bowlsArray.push(menuDataArray[i]);
-          break;
-        case 'fried-rice-noodles':
-          friedRiceNoodlesArray.push(menuDataArray[i]);
-          break;
-        case 'side-orders':
-          sideOrdersArray.push(menuDataArray[i]);
-          break;
-        case 'beverages':
-          beveragesArray.push(menuDataArray[i]);
-          break;
-        default:
-      }
-    }
-
-    setAppetizersItemArray(appetizersArray);
-    setSoupsItemArray(soupsArray);
-    setMainEntreesItemArray(mainEntreesArray);
-    setBowlsItemArray(bowlsArray);
-    seFriedRiceNoodlesItemArray(friedRiceNoodlesArray);
-    setSideOrdersItemArray(sideOrdersArray);
-    setBeveragesItemArray(beveragesArray);
-  }, []);
 
   const handleModalClose = () => {
     setSelectedMenuItem(defaultMenuItem);
@@ -102,43 +50,43 @@ const MenuPage: React.FC = () => {
       key: 'appetizers',
       href: '#appetizers',
       title: 'APPETIZERS',
-      label: (<HashLink to='#appetizers' smooth scroll={el => scrollWithOffset(el)}>APPETIZERS</HashLink>),
+      label: (<HashLink aria-label="link-appetizers" to='#appetizers' smooth scroll={el => scrollWithOffset(el)}>APPETIZERS</HashLink>),
     },
     {
       key: 'soups',
       href: '#soups',
       title: 'SOUPS', 
-      label: (<HashLink to='#soups' smooth scroll={el => scrollWithOffset(el)}>SOUPS</HashLink>),
+      label: (<HashLink aria-label="link-soups" to='#soups' smooth scroll={el => scrollWithOffset(el)}>SOUPS</HashLink>),
     },
     {
       key: 'main-entrees',
       href: '#main-entrees',
       title: 'MAIN ENTREÉS',
-      label: (<HashLink to='#main-entrees' smooth scroll={el => scrollWithOffset(el)}>MAIN ENTREÉS</HashLink>),
+      label: (<HashLink aria-label="link-main-entrees" to='#main-entrees' smooth scroll={el => scrollWithOffset(el)}>MAIN ENTREÉS</HashLink>),
     },
     {
       key: 'bowls',
       href: '#bowls',
       title: 'ALL DAY RICE BOWLS',
-      label: (<HashLink to='#bowls' smooth scroll={el => scrollWithOffset(el)}>ALL DAY RICE BOWLS</HashLink>),
+      label: (<HashLink aria-label="link-bowls" to='#bowls' smooth scroll={el => scrollWithOffset(el)}>ALL DAY RICE BOWLS</HashLink>),
     },
     {
       key: 'fried-rice-noodles',
       href: '#fried-rice-noodles',
       title: 'FRIED RICE & NOODLES',
-      label: (<HashLink to='#fried-rice-noodles' smooth scroll={el => scrollWithOffset(el)}>FRIED RICE & NOODLES</HashLink>),
+      label: (<HashLink aria-label="link-fried-rice-noodles" to='#fried-rice-noodles' smooth scroll={el => scrollWithOffset(el)}>FRIED RICE & NOODLES</HashLink>),
     },
     {
       key: 'side-orders',
       href: '#side-orders',
       title: 'SIDE ORDERS',
-      label: (<HashLink to='#side-orders' smooth scroll={el => scrollWithOffset(el)}>SIDE ORDERS</HashLink>),
+      label: (<HashLink aria-label="link-side-orders" to='#side-orders' smooth scroll={el => scrollWithOffset(el)}>SIDE ORDERS</HashLink>),
     },
     {
       key: 'beverages',
       href: '#beverages',
       title: 'BEVERAGES',
-      label: (<HashLink to='#beverages' smooth scroll={el => scrollWithOffset(el)}>BEVERAGES</HashLink>),
+      label: (<HashLink aria-label="link-beverages" to='#beverages' smooth scroll={el => scrollWithOffset(el)}>BEVERAGES</HashLink>),
     },
   ];
 
@@ -163,7 +111,7 @@ const MenuPage: React.FC = () => {
           <div id="appetizers">
             <Title level={2} className="menu-title appetizers">APPETIZERS</Title>
             <Row>
-              {appetizersItemArray.map((menuItem: MenuItem) => {
+              {menuDataArray.filter((item: MenuItem) => item.category === 'appetizers').map((menuItem: MenuItem) => {
                 return (
                   <MenuItemCard key={menuItem.id} menuItem={menuItem} handleMenuItemClicked={handleMenuItemClicked}/>
                 )
@@ -173,7 +121,7 @@ const MenuPage: React.FC = () => {
           <div id="soups">
             <Title level={2} className="menu-title soup">SOUPS</Title>
             <Row>
-              {soupsItemArray.map((menuItem: MenuItem) => {
+              {menuDataArray.filter((item: MenuItem) => item.category === 'soups').map((menuItem: MenuItem) => {
                 return (
                   <MenuItemCard key={menuItem.id} menuItem={menuItem} handleMenuItemClicked={handleMenuItemClicked}/>
                 )
@@ -183,7 +131,7 @@ const MenuPage: React.FC = () => {
           <div id="main-entrees">
             <Title level={2} className="menu-title main">MAIN ENTREÉS</Title>
             <Row>
-              {mainEntreesItemArray.map((menuItem: MenuItem) => {
+              {menuDataArray.filter((item: MenuItem) => item.category === 'main-entree').map((menuItem: MenuItem) => {
                 return (
                   <MenuItemCard key={menuItem.id} menuItem={menuItem} handleMenuItemClicked={handleMenuItemClicked}/>
                 )
@@ -193,7 +141,7 @@ const MenuPage: React.FC = () => {
           <div id="bowls">
             <Title level={2} className="menu-title bowl">ALL DAY RICE BOWLS</Title>
             <Row>
-              {bowlsItemArray.map((menuItem: MenuItem) => {
+              {menuDataArray.filter((item: MenuItem) => item.category === 'bowls').map((menuItem: MenuItem) => {
                 return (
                   <MenuItemCard key={menuItem.id} menuItem={menuItem} handleMenuItemClicked={handleMenuItemClicked}/>
                 )
@@ -203,7 +151,7 @@ const MenuPage: React.FC = () => {
           <div id="fried-rice-noodles">
             <Title level={2} className="menu-title noodles">FRIED RICE & NOODLES</Title>
             <Row>
-              {friedRiceNoodlesItemArray.map((menuItem: MenuItem) => {
+              {menuDataArray.filter((item: MenuItem) => item.category === 'fried-rice-noodles').map((menuItem: MenuItem) => {
                 return (
                   <MenuItemCard key={menuItem.id} menuItem={menuItem} handleMenuItemClicked={handleMenuItemClicked}/>
                 )
@@ -213,7 +161,7 @@ const MenuPage: React.FC = () => {
           <div id="side-orders">
             <Title level={2} className="menu-title side">SIDE ORDERS</Title>
             <Row>
-              {sideOrdersItemArray.map((menuItem: MenuItem) => {
+              {menuDataArray.filter((item: MenuItem) => item.category === 'side-orders').map((menuItem: MenuItem) => {
                 return (
                   <MenuItemCard key={menuItem.id} menuItem={menuItem} handleMenuItemClicked={handleMenuItemClicked}/>
                 )
@@ -223,7 +171,7 @@ const MenuPage: React.FC = () => {
           <div id="beverages">
             <Title level={2} className="menu-title beverages">BEVERAGES</Title>
             <Row>
-              {beveragesItemArray.map((menuItem: MenuItem) => {
+              {menuDataArray.filter((item: MenuItem) => item.category === 'beverages').map((menuItem: MenuItem) => {
                 return (
                   <MenuItemCard key={menuItem.id} menuItem={menuItem} handleMenuItemClicked={handleMenuItemClicked}/>
                 )

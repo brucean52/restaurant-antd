@@ -1,5 +1,5 @@
 import { BrowserRouter } from 'react-router-dom';
-import { render, screen } from '@testing-library/react';
+import { render, screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import BagDrawer from '../components/BagDrawer';
 import { mockContextValues, mockEmptyContextValues } from '../assets/mockdata';
@@ -64,6 +64,49 @@ describe('Bag Drawer component tests', () => {
     expect(screen.getByText(/111.30/i)).toBeInTheDocument();
     expect(screen.getByText(/checkout/i)).toBeInTheDocument();
     userEvent.click(screen.getByLabelText('checkout-button'));
+    expect(mockSetOpenDrawer).toHaveBeenCalledTimes(1);
+  });
+
+  test('bag drawer edit item click test', async () => {
+    render(
+      <BrowserRouter>
+        <BagContext.Provider value={mockContextValues}>
+          <BagDrawer openDrawer={true} setOpenDrawer={mockSetOpenDrawer}/>
+        </BagContext.Provider>
+      </BrowserRouter>
+    );
+
+    userEvent.click(screen.getByLabelText('edit-item-1'));
+    await waitFor(() => {
+      expect(screen.getByText('Update Item $29.00')).toBeInTheDocument();
+    });
+  });
+
+  test('bag drawer delete item click test', async () => {
+    render(
+      <BrowserRouter>
+        <BagContext.Provider value={mockContextValues}>
+          <BagDrawer openDrawer={true} setOpenDrawer={mockSetOpenDrawer}/>
+        </BagContext.Provider>
+      </BrowserRouter>
+    );
+
+    userEvent.click(screen.getByLabelText('delete-item-1'));
+    await waitFor(() => {
+      expect(screen.getByText('Remove Item')).toBeInTheDocument();
+    });
+  });
+
+  test('bag drawer close button click test', () => {
+    render(
+      <BrowserRouter>
+        <BagContext.Provider value={mockContextValues}>
+          <BagDrawer openDrawer={true} setOpenDrawer={mockSetOpenDrawer}/>
+        </BagContext.Provider>
+      </BrowserRouter>
+    );
+
+    userEvent.click(screen.getByLabelText('close-drawer-button'));
     expect(mockSetOpenDrawer).toHaveBeenCalledTimes(1);
   });
 });

@@ -96,14 +96,14 @@ const MenuItemModal: React.FC<MenuItemModalProps> = (props) => {
     let priceInt = parseFloat(price);
     let calcPrice = (priceInt * values.quantity).toFixed(2);
     let newId: string = '';
-    if (props.isEdit && props.editItemOptions?.bagId) {
-      newId = props.editItemOptions.bagId;
+    if (props.isEdit && props.editItemOptions?.bagItemId) {
+      newId = props.editItemOptions.bagItemId;
     } else {
       newId = uuidv4();
     }
     
     const bagItem: BagItem = {
-      bagId: newId,
+      bagItemId: newId,
       totalItemPrice: calcPrice,
       quantity: values.quantity,
       specialInstructions: values.specialInstructions,

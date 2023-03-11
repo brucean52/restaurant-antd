@@ -69,7 +69,7 @@ const BagDrawer: React.FC<BagDrawerProps> = (props) => {
 
   const handleEditItemClicked = (item: BagItem) => {
     const itemOptions: BagItemOptions = {
-      bagId: item.bagId,
+      bagItemId: item.bagItemId,
       totalItemPrice: item.totalItemPrice,
       quantity: item.quantity,
       specialInstructions: item.specialInstructions,
@@ -101,7 +101,7 @@ const BagDrawer: React.FC<BagDrawerProps> = (props) => {
   };
 
   const handleDeleteItemClicked = (item: BagItem) => {
-    setDeleteOptions({ bagId: item.bagId, name: item.name });
+    setDeleteOptions({ bagId: item.bagItemId, name: item.name });
     setIsDeleteModalOpen(true);
   };
 
@@ -116,6 +116,7 @@ const BagDrawer: React.FC<BagDrawerProps> = (props) => {
     <Space style={{ justifyContent: 'space-between', width: '100%'}}>
       <span style={{ fontSize: '24px'}}>My Bag</span>
       <Button
+        aria-label="close-drawer-button"
         shape="circle"
         size="large"
         icon={<CloseOutlined />}
@@ -173,7 +174,7 @@ const BagDrawer: React.FC<BagDrawerProps> = (props) => {
             header={renderListHeader}
             bordered
             dataSource={bag}
-            renderItem={(item) => (
+            renderItem={(item, index) => (
               <List.Item style={{ display: 'block'}}>
                 <div style={listItemStyle}>
                   <div style={{ ...boldFontStyle, fontSize: '16px' }}>{item.name}</div>
@@ -183,8 +184,8 @@ const BagDrawer: React.FC<BagDrawerProps> = (props) => {
                 {item.specialInstructions && <div>Note: {item.specialInstructions}</div>}
                 <div style={{...listItemStyle, justifyContent: 'flex-start', gap: '10px'}}>
                   <div>Quantity: {item.quantity}</div>
-                  <div className="bag-modify-text" onClick={() => handleEditItemClicked(item)}>Edit</div>
-                  <div className="bag-modify-text" onClick={() => handleDeleteItemClicked(item)}>Remove</div>
+                  <div aria-label={`edit-item-${index}`} className="bag-modify-text" onClick={() => handleEditItemClicked(item)}>Edit</div>
+                  <div aria-label={`delete-item-${index}`} className="bag-modify-text" onClick={() => handleDeleteItemClicked(item)}>Remove</div>
                 </div>
                 
               </List.Item>

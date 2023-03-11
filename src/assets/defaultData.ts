@@ -1,7 +1,7 @@
 import { MenuItem, BagItem, MenuItemFormValues, BagItemOptions } from '../types';
 
 export const defaultBagItem: BagItem = {
-  bagId: '',
+  bagItemId: '',
   id: '',
   category: '',
   name: '',
@@ -13,7 +13,7 @@ export const defaultBagItem: BagItem = {
 }
 
 export const defaultBagItemOptions: BagItemOptions = {
-  bagId: '',
+  bagItemId: '',
   totalItemPrice: '',
   quantity: 0,
   specialInstructions: '',

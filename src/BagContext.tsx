@@ -35,7 +35,7 @@ const BagProvider: React.FC<{ children: any }> = ({ children }) => {
 
   const updateItem = (bagItem: BagItem) => {
     let editedBag = [...bag];
-    let index = bag.findIndex( item => item.bagId === bagItem.bagId);
+    let index = bag.findIndex( item => item.bagItemId === bagItem.bagItemId);
     let previousItemSubtotal = parseFloat(bag[index].totalItemPrice);
     let parseSubtotal = parseFloat(subtotalText);
     let currentItemSubtotal = parseFloat(bagItem.totalItemPrice);
@@ -50,9 +50,9 @@ const BagProvider: React.FC<{ children: any }> = ({ children }) => {
     setTotalItems(currentTotalItems);
   }
 
-  const deleteItem = (bagId: string) => {
+  const deleteItem = (bagItemId: string) => {
     let editedBag = [...bag];
-    let index = bag.findIndex( item => item.bagId === bagId);
+    let index = bag.findIndex( item => item.bagItemId === bagItemId);
     let deleteItemSubtotal = parseFloat(bag[index].totalItemPrice);
     let parseSubtotal = parseFloat(subtotalText);
     let calcSubotal = (parseSubtotal - deleteItemSubtotal).toFixed(2);

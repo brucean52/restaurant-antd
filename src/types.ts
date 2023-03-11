@@ -27,7 +27,7 @@ export type MenuItemFormValues = {
 };
 
 export type BagItemOptions = {
-  bagId: string;
+  bagItemId: string;
   totalItemPrice: string;
   quantity: number;
   radioOption?: string,
@@ -35,7 +35,7 @@ export type BagItemOptions = {
 }
 
 export interface BagItem extends MenuItem {
-  bagId: string;
+  bagItemId: string;
   totalItemPrice: string;
   quantity: number;
   radioOption?: string,
@@ -50,5 +50,5 @@ export type BagContextType = {
   totalText: string;
   addItem: (bagItem: BagItem) => void;
   updateItem: (bagItem: BagItem) => void;
-  deleteItem: (bagId: string) => void;
+  deleteItem: (bagItemId: string) => void;
 };

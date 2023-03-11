@@ -3,7 +3,7 @@ import userEvent from '@testing-library/user-event';
 import MenuItemModal from '../components/MenuItemModal';
 import { menuDataArray } from '../assets/menuData';
 import { defaultBagItemOptions } from '../assets/defaultData';
-import { mockContextValues, mockBagItemOptions } from '../assets/mockdata';
+import { mockContextValues, mockBagItemOptions1, mockBagItemOptions2, mockBagItemOptions3 } from '../assets/mockdata';
 import { BagContext } from '../BagContext';
 
 describe('Menu Item Modal component tests', () => {
@@ -97,14 +97,16 @@ describe('Menu Item Modal component tests', () => {
     userEvent.click(screen.getByLabelText('qty-add-button'));
     expect(quantityInput.value).toBe('2');
     expect(screen.getByText('Add to Bag $0.00')).toBeInTheDocument();
+    userEvent.click(screen.getByLabelText('cup-radio'));
+    expect(screen.getByText('Add to Bag $15.00')).toBeInTheDocument();
   });
 
-  test('renders with edit options and can update options', async () => {
+  test('renders with edit dumpling options and update is clicked', async () => {
     render(
       <BagContext.Provider value={mockContextValues}>
         <MenuItemModal
           isEdit={true}
-          editItemOptions={mockBagItemOptions}
+          editItemOptions={mockBagItemOptions2}
           isModalOpen={true}
           menuItem={menuDataArray[5]}
           handleModalClose={mockHandleModalClose}
@@ -133,4 +135,33 @@ describe('Menu Item Modal component tests', () => {
     expect(mockContextValues.addItem).toHaveBeenCalledTimes(0);
     expect(mockContextValues.updateItem).toHaveBeenCalledTimes(1);
   });
+
+  test('renders with edit protein options, but close modal clicked', async () => {
+    render(
+      <BagContext.Provider value={mockContextValues}>
+        <MenuItemModal
+          isEdit={true}
+          editItemOptions={mockBagItemOptions3}
+          isModalOpen={true}
+          menuItem={menuDataArray[34]}
+          handleModalClose={mockHandleModalClose}
+        />
+      </BagContext.Provider>
+    );
+
+    const quantityInput = screen.getByLabelText('qty-input') as HTMLInputElement;
+    
+    expect(screen.getByText('Pad Thai')).toBeInTheDocument();
+    expect(quantityInput.value).toBe('1');
+    expect(screen.getByText('Update Item $23.50')).toBeInTheDocument();
+    userEvent.click(screen.getByLabelText('chicken-radio'));
+    expect(screen.getByText('Update Item $20.00')).toBeInTheDocument();
+    userEvent.click(screen.getByLabelText('close-item-modal-btn'));
+    await waitFor(() => {
+      expect(mockHandleModalClose).toHaveBeenCalledTimes(1);
+    });
+    expect(mockContextValues.addItem).toHaveBeenCalledTimes(0);
+    expect(mockContextValues.updateItem).toHaveBeenCalledTimes(0);
+  });
+
 });

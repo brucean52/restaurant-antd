@@ -1,17 +1,11 @@
 import { BrowserRouter } from 'react-router-dom';
 import { render, screen, waitFor } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
 import Menu from '../pages/Menu';
 import { mockContextValues } from '../assets/mockdata';
 import { BagContext } from '../BagContext';
 
-const mockNavigate = jest.fn();
-
-jest.mock('react-router-dom', () => ({
-  ...jest.requireActual('react-router-dom'),
- useNavigate: () => mockNavigate
-}));
-
-test('menu page render test', async () => {
+test('menu page render test and click menu nav', async () => {
   render(
     <BrowserRouter>
       <BagContext.Provider value={mockContextValues}>
@@ -19,7 +13,6 @@ test('menu page render test', async () => {
       </BagContext.Provider>
     </BrowserRouter>
   );
-
   await waitFor(() => {
     const appetizersText = screen.getAllByText(/appetizers/i);
     expect(appetizersText).toHaveLength(2);
@@ -33,5 +26,10 @@ test('menu page render test', async () => {
   await waitFor(() => {
     const sideOrdersText = screen.getAllByText(/side orders/i);
     expect(sideOrdersText).toHaveLength(2);
+  });
+  
+  userEvent.click(screen.getByLabelText('link-beverages'));
+  await waitFor(() => {
+    expect(window.location.hash).toEqual('#beverages');
   });
 });

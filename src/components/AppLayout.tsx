@@ -103,6 +103,7 @@ const AppLayout: React.FC = () => {
           <Space size="middle" style={{ marginTop: '6px'}}>
             <Badge color={colorPrimary} count={totalItems}>
               <Button
+                aria-label="bag-button"
                 type="primary"
                 shape="round"
                 size="large"

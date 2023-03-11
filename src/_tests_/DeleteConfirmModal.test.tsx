@@ -6,7 +6,7 @@ import { BagContext } from '../BagContext';
 
 describe('Delete Confirm Modal tests', () => {
   const mockHandleModalClose = jest.fn();
-  const mockDeleteItem = { bagId: mockItem1.bagId, name: mockItem1.name };
+  const mockDeleteItem = { bagId: mockItem1.bagItemId, name: mockItem1.name };
 
   afterEach(() => {
     jest.clearAllMocks();
@@ -28,7 +28,7 @@ describe('Delete Confirm Modal tests', () => {
     expect(screen.queryByText(/chicken lettuce wraps/i)).not.toBeInTheDocument();
   });
 
-  test('delete modal is renders', () => {
+  test('delete modal is renders and remove is clicked', () => {
     render(
       <BagContext.Provider value={mockContextValues}>
         <DeleteConfirmModal
@@ -45,6 +45,25 @@ describe('Delete Confirm Modal tests', () => {
     userEvent.click(screen.getByLabelText('remove-button'));
     expect(mockHandleModalClose).toHaveBeenCalledTimes(1);
     expect(mockContextValues.deleteItem).toHaveBeenCalledTimes(1);
+  });
+
+  test('delete modal is renders and cancel is clicked', () => {
+    render(
+      <BagContext.Provider value={mockContextValues}>
+        <DeleteConfirmModal
+          isModalOpen={true}
+          handleModalClose={mockHandleModalClose}
+          deleteItemOptions={mockDeleteItem}
+        />
+      </BagContext.Provider>
+    );
+
+    expect(screen.getByText(/remove item/i)).toBeInTheDocument();
+    expect(screen.getByText(/are you sure you want to remove/i)).toBeInTheDocument();
+    expect(screen.getByText(/chicken lettuce wraps/i)).toBeInTheDocument();
+    userEvent.click(screen.getByLabelText('cancel-button'));
+    expect(mockHandleModalClose).toHaveBeenCalledTimes(1);
+    expect(mockContextValues.deleteItem).toHaveBeenCalledTimes(0);
   });
 });
 
