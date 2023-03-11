@@ -1,6 +1,6 @@
 import { BagItem, BagContextType, BagItemOptions } from '../types'
 
-export const mockItem1: BagItem = {
+export const mockItemOne: BagItem = {
   bagItemId: 'abc123',
   id: 'chicken-lettuce-wraps',
   category: 'appetizers',
@@ -12,7 +12,7 @@ export const mockItem1: BagItem = {
   specialInstructions: ''
 }
 
-export const editedMockItem1: BagItem = {
+export const editedMockItemOne: BagItem = {
   bagItemId: 'abc123',
   id: 'chicken-lettuce-wraps',
   category: 'appetizers',
@@ -24,7 +24,7 @@ export const editedMockItem1: BagItem = {
   specialInstructions: 'add spicy'
 }
 
-export const mockItem2: BagItem = {
+export const mockItemTwo: BagItem = {
   bagItemId: 'abc456',
   id: 'pork-dumplings',
   category: 'appetizers',
@@ -47,7 +47,7 @@ export const mockItem2: BagItem = {
   radioOption: 'steamed+'
 }
 
-export const mockItem3: BagItem = {
+export const mockItemThree: BagItem = {
   bagItemId: 'abc789',
   id: 'pad-thai',
   category: 'fried-rice-noodles',
@@ -78,7 +78,7 @@ export const mockItem3: BagItem = {
 }
 
 export const mockContextValues: BagContextType = {
-  bag: [mockItem1, mockItem2, mockItem3],
+  bag: [mockItemOne, mockItemTwo, mockItemThree],
   totalItems: 6,
   subtotalText: '100.50',
   taxText: '10.80',
@@ -99,26 +99,26 @@ export const mockEmptyContextValues: BagContextType = {
   deleteItem: jest.fn(),
 }
 
-export const mockBagItemOptions1 : BagItemOptions = {
-  bagItemId: mockItem1.bagItemId,
+export const mockBagItemOptionsOne : BagItemOptions = {
+  bagItemId: mockItemOne.bagItemId,
   totalItemPrice: '48.00',
   quantity: 3,
   specialInstructions: '',
   radioOption: ''
 }
 
-export const mockBagItemOptions2 : BagItemOptions = {
-  bagItemId: mockItem2.bagItemId,
+export const mockBagItemOptionsTwo : BagItemOptions = {
+  bagItemId: mockItemTwo.bagItemId,
   totalItemPrice: '29.00',
   quantity: 2,
   specialInstructions: 'extra spicy',
-  radioOption: mockItem2.radioOption
+  radioOption: mockItemTwo.radioOption
 }
 
-export const mockBagItemOptions3 : BagItemOptions = {
-  bagItemId: mockItem3.bagItemId,
+export const mockBagItemOptionsThree : BagItemOptions = {
+  bagItemId: mockItemThree.bagItemId,
   totalItemPrice: '23.50',
   quantity: 1,
   specialInstructions: '',
-  radioOption: mockItem3.radioOption
+  radioOption: mockItemThree.radioOption
 }

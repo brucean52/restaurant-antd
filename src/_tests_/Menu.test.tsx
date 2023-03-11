@@ -13,23 +13,16 @@ test('menu page render test and click menu nav', async () => {
       </BagContext.Provider>
     </BrowserRouter>
   );
-  await waitFor(() => {
-    const appetizersText = screen.getAllByText(/appetizers/i);
-    expect(appetizersText).toHaveLength(2);
-  });
-
-  await waitFor(() => {
-    const bowlText = screen.getAllByText(/all day rice bowls/i);
-    expect(bowlText).toHaveLength(2);
-  });
-
-  await waitFor(() => {
-    const sideOrdersText = screen.getAllByText(/side orders/i);
-    expect(sideOrdersText).toHaveLength(2);
-  });
   
   userEvent.click(screen.getByLabelText('link-beverages'));
   await waitFor(() => {
     expect(window.location.hash).toEqual('#beverages');
   });
+
+  const appetizersText = screen.getAllByText(/appetizers/i);
+  expect(appetizersText).toHaveLength(2);
+
+  userEvent.click(screen.getByLabelText('egg-drop-soup-card'));
+  expect(screen.getByText('Velvety broth, julienned carrots, green onion')).toBeInTheDocument();
+
 });

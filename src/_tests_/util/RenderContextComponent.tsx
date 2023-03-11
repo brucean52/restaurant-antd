@@ -1,9 +1,9 @@
 import { useContext} from 'react';
-import { mockItem1, mockItem2, mockItem3, editedMockItem1 } from '../../assets/mockdata';
+import { mockItemOne, mockItemTwo, mockItemThree, editedMockItemOne } from '../../assets/mockdata';
 import { BagContext } from '../../BagContext';
 import { BagContextType } from '../../types';
 
-const mockBagItemsArray = [mockItem1, mockItem2, mockItem3];
+const mockBagItemsArray = [mockItemOne, mockItemTwo, mockItemThree];
 
 const RenderContextTestComponent = () => {
   const { 
@@ -41,7 +41,7 @@ const RenderContextTestComponent = () => {
 
       <button
         aria-label={`edit-btn-item1`}
-        onClick={() => updateItem(editedMockItem1)}
+        onClick={() => updateItem(editedMockItemOne)}
       >update mock item 1</button>
     </div>
   )

@@ -3,7 +3,7 @@ import userEvent from '@testing-library/user-event';
 import MenuItemModal from '../components/MenuItemModal';
 import { menuDataArray } from '../assets/menuData';
 import { defaultBagItemOptions } from '../assets/defaultData';
-import { mockContextValues, mockBagItemOptions1, mockBagItemOptions2, mockBagItemOptions3 } from '../assets/mockdata';
+import { mockContextValues, mockBagItemOptionsThree, mockBagItemOptionsTwo } from '../assets/mockdata';
 import { BagContext } from '../BagContext';
 
 describe('Menu Item Modal component tests', () => {
@@ -106,7 +106,7 @@ describe('Menu Item Modal component tests', () => {
       <BagContext.Provider value={mockContextValues}>
         <MenuItemModal
           isEdit={true}
-          editItemOptions={mockBagItemOptions2}
+          editItemOptions={mockBagItemOptionsTwo}
           isModalOpen={true}
           menuItem={menuDataArray[5]}
           handleModalClose={mockHandleModalClose}
@@ -141,7 +141,7 @@ describe('Menu Item Modal component tests', () => {
       <BagContext.Provider value={mockContextValues}>
         <MenuItemModal
           isEdit={true}
-          editItemOptions={mockBagItemOptions3}
+          editItemOptions={mockBagItemOptionsThree}
           isModalOpen={true}
           menuItem={menuDataArray[34]}
           handleModalClose={mockHandleModalClose}

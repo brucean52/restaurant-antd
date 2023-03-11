@@ -1,12 +1,12 @@
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import DeleteConfirmModal from '../components/DeleteConfirmModal';
-import { mockContextValues, mockItem1 } from '../assets/mockdata';
+import { mockContextValues, mockItemOne } from '../assets/mockdata';
 import { BagContext } from '../BagContext';
 
 describe('Delete Confirm Modal tests', () => {
   const mockHandleModalClose = jest.fn();
-  const mockDeleteItem = { bagId: mockItem1.bagItemId, name: mockItem1.name };
+  const mockDeleteItem = { bagId: mockItemOne.bagItemId, name: mockItemOne.name };
 
   afterEach(() => {
     jest.clearAllMocks();
