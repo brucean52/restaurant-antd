@@ -1,6 +1,6 @@
 import { render, screen, within } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import RenderContextTestComponent from './util/RenderContextComponent';
+import RenderContextTestComponent from './util/RenderContextTestComponent';
 import BagProvider from '../BagContext';
 
 describe('Bag Context Tests', () => {

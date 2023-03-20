@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
-import { Anchor, Row, Typography, Menu } from 'antd';
+import { Anchor, Row, Typography } from 'antd';
 import { useMediaQuery } from 'react-responsive';
-import { HashLink } from 'react-router-hash-link';
 import MenuItemCard from '../components/MenuItemCard';
 import MenuItemModal from '../components/MenuItemModal';
 import { MenuItem } from '../types';
@@ -19,13 +18,6 @@ const MenuPage: React.FC = () => {
     padding: isScreenLg ? '0 15% 0 10%' : '0'
   };
 
-  const mobileMenuNav: React.CSSProperties = {
-    position: 'sticky',
-    top: '75px',
-    zIndex: 5,
-    fontWeight: 500
-  }
-
   const [selectedMenuItem, setSelectedMenuItem] = useState<MenuItem>(defaultMenuItem);
   const [isModalOpen, setIsModalOpen] = useState(false);
 
@@ -37,76 +29,56 @@ const MenuPage: React.FC = () => {
   const handleMenuItemClicked = (menuItem: MenuItem) => {
     setSelectedMenuItem(menuItem);
     setIsModalOpen(true);
-  }
-
-  const scrollWithOffset = (el: HTMLElement) => {
-    const yCoordinate = el.getBoundingClientRect().top + window.pageYOffset;
-    const yOffset = -150; 
-    window.scrollTo({ top: yCoordinate + yOffset, behavior: 'smooth' }); 
-}
+  };
 
   const navMenuItems = [
     {
       key: 'appetizers',
       href: '#appetizers',
-      title: 'APPETIZERS',
-      label: (<HashLink aria-label="link-appetizers" to='#appetizers' smooth scroll={el => scrollWithOffset(el)}>APPETIZERS</HashLink>),
+      title: 'APPETIZERS'
     },
     {
       key: 'soups',
       href: '#soups',
-      title: 'SOUPS', 
-      label: (<HashLink aria-label="link-soups" to='#soups' smooth scroll={el => scrollWithOffset(el)}>SOUPS</HashLink>),
+      title: 'SOUPS'
     },
     {
       key: 'main-entrees',
       href: '#main-entrees',
-      title: 'MAIN ENTREÉS',
-      label: (<HashLink aria-label="link-main-entrees" to='#main-entrees' smooth scroll={el => scrollWithOffset(el)}>MAIN ENTREÉS</HashLink>),
+      title: 'MAIN ENTREÉS'
     },
     {
       key: 'bowls',
       href: '#bowls',
-      title: 'ALL DAY RICE BOWLS',
-      label: (<HashLink aria-label="link-bowls" to='#bowls' smooth scroll={el => scrollWithOffset(el)}>ALL DAY RICE BOWLS</HashLink>),
+      title: 'ALL DAY RICE BOWLS'
     },
     {
       key: 'fried-rice-noodles',
       href: '#fried-rice-noodles',
-      title: 'FRIED RICE & NOODLES',
-      label: (<HashLink aria-label="link-fried-rice-noodles" to='#fried-rice-noodles' smooth scroll={el => scrollWithOffset(el)}>FRIED RICE & NOODLES</HashLink>),
+      title: 'FRIED RICE & NOODLES'
     },
     {
       key: 'side-orders',
       href: '#side-orders',
-      title: 'SIDE ORDERS',
-      label: (<HashLink aria-label="link-side-orders" to='#side-orders' smooth scroll={el => scrollWithOffset(el)}>SIDE ORDERS</HashLink>),
+      title: 'SIDE ORDERS'
     },
     {
       key: 'beverages',
       href: '#beverages',
-      title: 'BEVERAGES',
-      label: (<HashLink aria-label="link-beverages" to='#beverages' smooth scroll={el => scrollWithOffset(el)}>BEVERAGES</HashLink>),
+      title: 'BEVERAGES'
     },
   ];
 
   return (
     <>
       <div style={layoutStyle}>
-        {isScreenLg ? (
-          <Anchor
-            className="anchor"
-            offsetTop={76}
-            targetOffset={125}
-            items={navMenuItems}
-          />
-        ) : (
-          <Menu
-            mode="horizontal"
-            style={mobileMenuNav}
-            items={navMenuItems}
-          />
-        )}
+        <Anchor
+          className="anchor"
+          direction={isScreenLg ? 'vertical': 'horizontal'}
+          offsetTop={75}
+          targetOffset={125}
+          items={navMenuItems}
+        />
         <div>
           <div id="appetizers">
             <Title level={2} className="menu-title appetizers">APPETIZERS</Title>

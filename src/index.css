@@ -515,7 +515,12 @@ body {
   }
 }
 
-@media (max-device-width: 991px) { 
+@media (max-device-width: 991px) {
+  .anchor > .ant-anchor {
+    background-color: #FFFFFF;
+    padding: 0 20px;
+  }
+
   ul.ant-menu.ant-menu-sub.ant-menu-vertical {
     margin: 0;
   }

@@ -13,8 +13,10 @@ test('menu page render test and click menu nav', async () => {
       </BagContext.Provider>
     </BrowserRouter>
   );
+
+  const beveragesText = screen.getAllByText(/beverages/i)[0] as HTMLAnchorElement;
   
-  userEvent.click(screen.getByLabelText('link-beverages'));
+  userEvent.click(beveragesText);
   await waitFor(() => {
     expect(window.location.hash).toEqual('#beverages');
   });

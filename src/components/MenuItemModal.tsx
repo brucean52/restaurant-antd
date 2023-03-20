@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useContext } from 'react';
 import { useForm, Controller, useWatch } from 'react-hook-form';
 import { v4 as uuidv4 } from 'uuid';
-import { Input, Divider, Button, Row, Col, InputNumber, Modal, Typography } from 'antd';
+import { Input, Divider, Button, Row, Col, InputNumber, Modal, Typography, Space } from 'antd';
 import { PlusOutlined, MinusOutlined, CloseCircleOutlined } from '@ant-design/icons';
 import MenuRadioOptions from './MenuRadioOptions';
 import { BagContext } from '../BagContext';
@@ -235,7 +235,7 @@ const MenuItemModal: React.FC<MenuItemModalProps> = (props) => {
           control={control}
           render={({ field: { value, onChange } }) => (
             <Col span={4} style={{ alignSelf: 'center' }}>
-              <Input.Group compact style={{display: 'flex', marginLeft: '20px'}}>
+              <Space.Compact style={{display: 'flex', marginLeft: '20px'}}>
                 <Button aria-label="qty-minus-button" style={{ marginRight: '0.01px'}} icon={<MinusOutlined />} onClick={() => updateQty('decrement')} />
                 <InputNumber
                   className="qty-input"
@@ -248,7 +248,7 @@ const MenuItemModal: React.FC<MenuItemModalProps> = (props) => {
                   onChange={(e) => onChange(e)}
                 />
                 <Button aria-label="qty-add-button" style={{ marginLeft: '0.05px'}} icon={<PlusOutlined />} onClick={() => updateQty('increment')}/>
-              </Input.Group>        
+              </Space.Compact>        
             </Col>
             )}
         />
