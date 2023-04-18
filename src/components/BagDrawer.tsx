@@ -79,6 +79,7 @@ const BagDrawer: React.FC<BagDrawerProps> = (props) => {
     let menuOptions: MenuItem = {
       id: item.id,
       category: item.category,
+      imgSrc: item.imgSrc,
       name: item.name,
       description: item.description,
       price: item.price,

@@ -125,7 +125,7 @@ const MenuItemModal: React.FC<MenuItemModalProps> = (props) => {
       <img
         style={imgTitleStyle}
         alt={props.menuItem.name}
-        src={require(`../assets/images/${props.menuItem.category}/${props.menuItem.id}.webp`)}
+        src={props.menuItem.imgSrc}
       />
     </div>
   );

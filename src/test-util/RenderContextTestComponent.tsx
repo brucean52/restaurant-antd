@@ -1,7 +1,7 @@
 import { useContext} from 'react';
-import { mockItemOne, mockItemTwo, mockItemThree, editedMockItemOne } from '../../assets/mockdata';
-import { BagContext } from '../../BagContext';
-import { BagContextType } from '../../types';
+import { mockItemOne, mockItemTwo, mockItemThree, editedMockItemOne } from './mockdata';
+import { BagContext } from '../BagContext';
+import { BagContextType } from '../types';
 
 const mockBagItemsArray = [mockItemOne, mockItemTwo, mockItemThree];
 

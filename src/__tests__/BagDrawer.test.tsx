@@ -2,7 +2,7 @@ import { BrowserRouter } from 'react-router-dom';
 import { render, screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import BagDrawer from '../components/BagDrawer';
-import { mockContextValues, mockEmptyContextValues } from '../assets/mockdata';
+import { mockContextValues, mockEmptyContextValues } from '../test-util/mockdata';
 import { BagContext } from '../BagContext';
 
 describe('Bag Drawer component tests', () => {
@@ -26,7 +26,7 @@ describe('Bag Drawer component tests', () => {
     expect(screen.queryByText(/start your order/i)).not.toBeInTheDocument();
   });
 
-  test('bag drawer is empty', () => {
+  test('bag drawer is empty', async () => {
     render(
       <BrowserRouter>
         <BagContext.Provider value={mockEmptyContextValues}>
@@ -39,10 +39,12 @@ describe('Bag Drawer component tests', () => {
     expect(screen.getByText(/your bag is empty/i)).toBeInTheDocument();
     expect(screen.getByText(/start your order/i)).toBeInTheDocument();
     userEvent.click(screen.getByLabelText('start-order-button'));
-    expect(mockSetOpenDrawer).toHaveBeenCalledTimes(1);
+    await waitFor(() => {
+      expect(mockSetOpenDrawer).toHaveBeenCalledTimes(1);
+    });
   });
 
-  test('bag drawer renders content', () => {
+  test('bag drawer renders content', async () => {
     render(
       <BrowserRouter>
         <BagContext.Provider value={mockContextValues}>
@@ -64,7 +66,9 @@ describe('Bag Drawer component tests', () => {
     expect(screen.getByText(/111.30/i)).toBeInTheDocument();
     expect(screen.getByText(/checkout/i)).toBeInTheDocument();
     userEvent.click(screen.getByLabelText('checkout-button'));
-    expect(mockSetOpenDrawer).toHaveBeenCalledTimes(1);
+    await waitFor(() => {
+      expect(mockSetOpenDrawer).toHaveBeenCalledTimes(1);
+    });
   });
 
   test('bag drawer edit item click test', async () => {
@@ -97,7 +101,7 @@ describe('Bag Drawer component tests', () => {
     });
   });
 
-  test('bag drawer close button click test', () => {
+  test('bag drawer close button click test', async () => {
     render(
       <BrowserRouter>
         <BagContext.Provider value={mockContextValues}>
@@ -107,6 +111,8 @@ describe('Bag Drawer component tests', () => {
     );
 
     userEvent.click(screen.getByLabelText('close-drawer-button'));
-    expect(mockSetOpenDrawer).toHaveBeenCalledTimes(1);
+    await waitFor(() => {
+      expect(mockSetOpenDrawer).toHaveBeenCalledTimes(1);
+    });
   });
 });

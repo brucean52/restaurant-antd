@@ -1,8 +1,8 @@
 import { BrowserRouter } from 'react-router-dom';
-import { render, screen } from '@testing-library/react';
+import { render, screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import Home from '../pages/Home';
-import { mockContextValues } from '../assets/mockdata';
+import { mockContextValues } from '../test-util/mockdata';
 import { BagContext } from '../BagContext';
 
 const mockNavigate = jest.fn();
@@ -12,7 +12,7 @@ jest.mock('react-router-dom', () => ({
  useNavigate: () => mockNavigate
 }));
 
-test('home page render test', () => {
+test('home page render test', async () => {
   render(
     <BrowserRouter>
       <BagContext.Provider value={mockContextValues}>
@@ -27,6 +27,8 @@ test('home page render test', () => {
   expect(screen.getByText(/business hours/i)).toBeInTheDocument();
   expect(screen.getByText(/location/i)).toBeInTheDocument();
   userEvent.click(screen.getByText(/order now/i));
-  expect(mockNavigate).toHaveBeenCalledTimes(1);
+  await waitFor(() => {
+    expect(mockNavigate).toHaveBeenCalledTimes(1);
+  });
   expect(mockNavigate).toHaveBeenCalledWith('/menu');
 });

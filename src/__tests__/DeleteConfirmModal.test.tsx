@@ -1,7 +1,7 @@
-import { render, screen } from '@testing-library/react';
+import { render, screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import DeleteConfirmModal from '../components/DeleteConfirmModal';
-import { mockContextValues, mockItemOne } from '../assets/mockdata';
+import { mockContextValues, mockItemOne } from '../test-util/mockdata';
 import { BagContext } from '../BagContext';
 
 describe('Delete Confirm Modal tests', () => {
@@ -28,7 +28,7 @@ describe('Delete Confirm Modal tests', () => {
     expect(screen.queryByText(/chicken lettuce wraps/i)).not.toBeInTheDocument();
   });
 
-  test('delete modal is renders and remove is clicked', () => {
+  test('delete modal is renders and remove is clicked', async () => {
     render(
       <BagContext.Provider value={mockContextValues}>
         <DeleteConfirmModal
@@ -43,11 +43,13 @@ describe('Delete Confirm Modal tests', () => {
     expect(screen.getByText(/are you sure you want to remove/i)).toBeInTheDocument();
     expect(screen.getByText(/chicken lettuce wraps/i)).toBeInTheDocument();
     userEvent.click(screen.getByLabelText('remove-button'));
-    expect(mockHandleModalClose).toHaveBeenCalledTimes(1);
+    await waitFor(() => {
+      expect(mockHandleModalClose).toHaveBeenCalledTimes(1);
+    });
     expect(mockContextValues.deleteItem).toHaveBeenCalledTimes(1);
   });
 
-  test('delete modal is renders and cancel is clicked', () => {
+  test('delete modal is renders and cancel is clicked', async () => {
     render(
       <BagContext.Provider value={mockContextValues}>
         <DeleteConfirmModal
@@ -62,7 +64,9 @@ describe('Delete Confirm Modal tests', () => {
     expect(screen.getByText(/are you sure you want to remove/i)).toBeInTheDocument();
     expect(screen.getByText(/chicken lettuce wraps/i)).toBeInTheDocument();
     userEvent.click(screen.getByLabelText('cancel-button'));
-    expect(mockHandleModalClose).toHaveBeenCalledTimes(1);
+    await waitFor(() => {
+      expect(mockHandleModalClose).toHaveBeenCalledTimes(1);
+    });
     expect(mockContextValues.deleteItem).toHaveBeenCalledTimes(0);
   });
 });

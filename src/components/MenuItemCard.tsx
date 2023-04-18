@@ -40,7 +40,7 @@ const MenuItemCard: React.FC<MenuItemCardProps> = (props) => {
         className="menu-item-card"
         aria-label={`${props.menuItem.id}-card`}
         style={cardStyle}
-        cover={<img alt={props.menuItem.name} src={require(`../assets/images/${props.menuItem.category}/${props.menuItem.id}.webp`)} />}
+        cover={<img alt={props.menuItem.name} src={props.menuItem.imgSrc} />}
         onClick={() => props.handleMenuItemClicked(props.menuItem)}
       >
         <Title level={4} style={titleTextStyle}>{props.menuItem.name}</Title>

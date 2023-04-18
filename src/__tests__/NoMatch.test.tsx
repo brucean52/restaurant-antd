@@ -1,5 +1,5 @@
 import { BrowserRouter } from 'react-router-dom';
-import { render, screen } from '@testing-library/react';
+import { render, screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import NoMatch from '../pages/NoMatch';
 
@@ -10,7 +10,7 @@ jest.mock('react-router-dom', () => ({
  useNavigate: () => mockNavigate
 }));
 
-test('no match page render test', () => {
+test('no match page render test', async () => {
   render(
     <BrowserRouter>
       <NoMatch />
@@ -21,6 +21,8 @@ test('no match page render test', () => {
   expect(screen.getByText(/404/i)).toBeInTheDocument();
   expect(screen.getByText(/back home/i)).toBeInTheDocument();
   userEvent.click(screen.getByText(/back home/i));
-  expect(mockNavigate).toHaveBeenCalledTimes(1);
+  await waitFor(() => {
+    expect(mockNavigate).toHaveBeenCalledTimes(1);
+  });
   expect(mockNavigate).toHaveBeenCalledWith('/');
 });

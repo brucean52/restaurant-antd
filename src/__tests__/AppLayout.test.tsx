@@ -2,7 +2,7 @@ import { BrowserRouter, MemoryRouter } from 'react-router-dom';
 import { render, screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import AppLayout from '../components/AppLayout';
-import { mockContextValues } from '../assets/mockdata';
+import { mockContextValues } from '../test-util/mockdata';
 import { BagContext } from '../BagContext';
 
 const mockNavigate = jest.fn();

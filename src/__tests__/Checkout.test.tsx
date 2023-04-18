@@ -1,9 +1,9 @@
 import { ReactNode } from 'react';
 import { MemoryRouter, Routes, Route, Outlet } from 'react-router-dom';
-import { render, screen } from '@testing-library/react';
+import { render, screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import Checkout from '../pages/Checkout';
-import { mockContextValues } from '../assets/mockdata';
+import { mockContextValues } from '../test-util/mockdata';
 import { BagContext } from '../BagContext';
 
 interface RenderRouteWithOutletContextProps<T = any> {
@@ -29,7 +29,7 @@ const RenderRouteWithOutletContext = <T,>({
 
 const outletContextMock = jest.fn();
 
-test('checkout page render test', () => {
+test('checkout page render test', async () => {
   render(
     <RenderRouteWithOutletContext context={{setOpenDrawer: outletContextMock}}>
       <BagContext.Provider value={mockContextValues}>
@@ -54,6 +54,8 @@ test('checkout page render test', () => {
   expect(screen.getByText(/111.30/i)).toBeInTheDocument();
 
   userEvent.click(screen.getByText(/edit order/i));
-  expect(outletContextMock).toHaveBeenCalledTimes(1);
+  await waitFor(() => {
+    expect(outletContextMock).toHaveBeenCalledTimes(1);
+  });
   expect(screen.getByText(/mock menu page/i)).toBeInTheDocument();
 });

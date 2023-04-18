@@ -1,8 +1,8 @@
-import { render, screen } from '@testing-library/react';
+import { render, screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import MenuItemCard from '../components/MenuItemCard';
 import { menuDataArray } from '../assets/menuData';
-import { mockContextValues } from '../assets/mockdata';
+import { mockContextValues } from '../test-util/mockdata';
 import { BagContext } from '../BagContext';
 
 describe('Menu Item Card component tests', () => {
@@ -13,7 +13,7 @@ describe('Menu Item Card component tests', () => {
     jest.clearAllMocks();
   });
 
-  test('renders item with no options, shows price', () => {
+  test('renders item with no options, shows price', async () => {
     render(
       <BagContext.Provider value={mockContextValues}>
         <MenuItemCard
@@ -26,10 +26,12 @@ describe('Menu Item Card component tests', () => {
     expect(screen.getByText(/chicken lettuce wraps/i)).toBeInTheDocument();
     expect(screen.getByText(/16.00/i)).toBeInTheDocument();
     userEvent.click(screen.getByLabelText('chicken-lettuce-wraps-card'));
-    expect(mockHandleMenuItemClicked).toHaveBeenCalledTimes(1);
+    await waitFor(() => {
+      expect(mockHandleMenuItemClicked).toHaveBeenCalledTimes(1);
+    });
   });
 
-  test('renders item with options, does not show price', () => {
+  test('renders item with options, does not show price', async () => {
     render(
       <BagContext.Provider value={mockContextValues}>
         <MenuItemCard
@@ -42,7 +44,9 @@ describe('Menu Item Card component tests', () => {
     expect(screen.getByText(/egg drop soup/i)).toBeInTheDocument();
     expect(screen.queryByText(/0.00/i)).not.toBeInTheDocument();
     userEvent.click(screen.getByLabelText('egg-drop-soup-card'));
-    expect(mockHandleMenuItemClicked).toHaveBeenCalledTimes(1);
+    await waitFor(() => {
+      expect(mockHandleMenuItemClicked).toHaveBeenCalledTimes(1);
+    });
   });
 });
 

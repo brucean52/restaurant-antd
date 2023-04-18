@@ -1,9 +1,13 @@
-import { BagItem, BagContextType, BagItemOptions } from '../types'
+import cknLettuceWrapsImg from '../assets/images/appetizers/chicken-lettuce-wraps.webp';
+import porkDumplingsImg from '../assets/images/appetizers/pork-dumplings.webp';
+import padThaiImg from '../assets/images/fried-rice-noodles/pad-thai.webp';
+import { BagItem, BagContextType, BagItemOptions } from '../types';
 
 export const mockItemOne: BagItem = {
   bagItemId: 'abc123',
   id: 'chicken-lettuce-wraps',
   category: 'appetizers',
+  imgSrc: cknLettuceWrapsImg,
   name: 'Chicken Lettuce Wraps',
   description: 'A secret family recipe and our signature dish. Enough said.',
   price: '16.00',
@@ -16,6 +20,7 @@ export const editedMockItemOne: BagItem = {
   bagItemId: 'abc123',
   id: 'chicken-lettuce-wraps',
   category: 'appetizers',
+  imgSrc: cknLettuceWrapsImg,
   name: 'Chicken Lettuce Wraps',
   description: 'A secret family recipe and our signature dish. Enough said.',
   price: '16.00',
@@ -28,6 +33,7 @@ export const mockItemTwo: BagItem = {
   bagItemId: 'abc456',
   id: 'pork-dumplings',
   category: 'appetizers',
+  imgSrc: porkDumplingsImg,
   name: 'Pork Dumplings | 6 Count',
   description: 'Pan-fried or steamed, light chili sauce drizzle',
   price: '14.50',
@@ -51,6 +57,7 @@ export const mockItemThree: BagItem = {
   bagItemId: 'abc789',
   id: 'pad-thai',
   category: 'fried-rice-noodles',
+  imgSrc: padThaiImg,
   name: 'Pad Thai',
   description: 'Rice noodles, Thai spices, tofu, green onion, peanuts',
   price: '0.00',

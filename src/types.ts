@@ -9,6 +9,7 @@ export type MenuCategory = '' |'appetizers' | 'soups' | 'main-entree' | 'bowls' 
 export interface MenuItem {
   id: string;
   category: MenuCategory;
+  imgSrc: string
   name: string;
   description: string;
   price: string;

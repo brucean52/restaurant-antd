@@ -4,6 +4,7 @@ export const defaultBagItem: BagItem = {
   bagItemId: '',
   id: '',
   category: '',
+  imgSrc: '',
   name: '',
   description: '',
   price: '',
@@ -23,6 +24,7 @@ export const defaultBagItemOptions: BagItemOptions = {
 export const defaultMenuItem: MenuItem = {
   id: '',
   category: '',
+  imgSrc: '',
   name: '',
   description: '',
   price: '',
