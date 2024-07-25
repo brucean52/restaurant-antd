@@ -28,20 +28,28 @@ const Checkout: React.FC = () => {
     boxShadow: boxShadowTertiary
   }
 
-  const listItemStyle = {
+  const listItemStyle: React.CSSProperties = {
     display: 'flex',
     justifyContent: 'space-between',
     width: '100%'
   };
 
-  const boldFontStyle = {
+  const boldFontStyle: React.CSSProperties = {
     fontWeight: 500
   }
 
-  const titleFontSizeStyle = {
-    fontSize: isScreenMD ? '38px' : '32px'
+  const titleTextStyle: React.CSSProperties = {
+    fontSize: isScreenMD ? '38px' : '32px',
+    lineHeight: 0.5,
+    textAlign: 'center',
+    position: 'relative',
+    marginBottom: '30px'
   }
 
+  const orderButtonStyle: React.CSSProperties = {
+    borderRadius: 0,
+    fontWeight: 600
+  }
 
   const { bag, subtotalText, taxText, totalText } = useContext(BagContext) as BagContextType;
   const {setOpenDrawer} = useBagDrawer();
@@ -55,7 +63,7 @@ const Checkout: React.FC = () => {
 
   return (
     <div style={layoutStyle}>
-      <Title level={1} className="checkout-title" style={titleFontSizeStyle}>CHECKOUT</Title>
+      <Title level={1} style={titleTextStyle}>CHECKOUT</Title>
       <Row>
         <Col span={24} lg={12}>
           <Card title={<Title level={3}>Guest Information</Title>} style={cardStyle}>
@@ -106,7 +114,7 @@ const Checkout: React.FC = () => {
             <Divider style={{ margin: '6px 0'}}/>
 
             <List
-              className="checkout-list"
+              style={{border: 'none'}}
               size="large"
               bordered
               dataSource={bag}
@@ -132,7 +140,7 @@ const Checkout: React.FC = () => {
             <Divider style={{ margin: '6px 0'}}/>
             <div style={{ marginBottom: '18px' }}><span style={{ ...boldFontStyle, fontSize: '16px', }}>Total:</span> ${totalText}</div>
             <Button
-              className="primary-btn"
+              style={orderButtonStyle}
               type="primary"
               size="large"
               disabled

@@ -7,10 +7,10 @@ import { BagContext } from '../BagContext';
 
 describe('Menu Item Card component tests', () => {
 
-  const mockHandleMenuItemClicked = jest.fn();
+  const mockHandleMenuItemClicked = vi.fn();
 
   afterEach(() => {
-    jest.clearAllMocks();
+    vi.clearAllMocks();
   });
 
   test('renders item with no options, shows price', async () => {

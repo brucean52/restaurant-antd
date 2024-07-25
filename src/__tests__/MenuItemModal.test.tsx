@@ -8,10 +8,10 @@ import { BagContext } from '../BagContext';
 
 describe('Menu Item Modal component tests', () => {
 
-  const mockHandleModalClose = jest.fn();
+  const mockHandleModalClose = vi.fn();
 
   afterEach(() => {
-    jest.clearAllMocks();
+    vi.clearAllMocks();
   });
 
   test('modal is hidden', () => {
@@ -52,29 +52,17 @@ describe('Menu Item Modal component tests', () => {
     expect(quantityInput.value).toBe('1');
     expect(screen.getByText('Add to Bag $16.00')).toBeInTheDocument();
 
-    userEvent.click(screen.getByLabelText('qty-add-button'));
-    await waitFor(() => {
-      expect(quantityInput.value).toBe('2');
-    });
-    expect(screen.getByText('Add to Bag $32.00')).toBeInTheDocument();
-
-    userEvent.click(screen.getByLabelText('qty-add-button'));
-    await waitFor(() => {
-      expect(quantityInput.value).toBe('3');
-    });
-    expect(screen.getByText('Add to Bag $48.00')).toBeInTheDocument();
-
-    userEvent.click(screen.getByLabelText('qty-minus-button'));
-    await waitFor(() => {
-      expect(quantityInput.value).toBe('2');
-    });
-    expect(screen.getByText('Add to Bag $32.00')).toBeInTheDocument();
-
     fireEvent.change(quantityInput, {target: {value: '23'}});
     await waitFor(() => {
       expect(quantityInput.value).toBe('23');
     });
     expect(screen.getByText('Add to Bag $368.00')).toBeInTheDocument();
+
+    fireEvent.change(quantityInput, {target: {value: '1'}});
+    await waitFor(() => {
+      expect(quantityInput.value).toBe('1');
+    });
+    expect(screen.getByText('Add to Bag $16.00')).toBeInTheDocument();
 
     userEvent.click(screen.getByLabelText('submit-button'));
     await waitFor(() => {
@@ -97,7 +85,6 @@ describe('Menu Item Modal component tests', () => {
       </BagContext.Provider>
     );
 
-    const quantityInput = screen.getByLabelText('qty-input') as HTMLInputElement;
     const specialInstructionsInput = screen.getByLabelText('special-instructions-textarea') as HTMLInputElement;
     
     expect(screen.getByText(/egg drop soup/i)).toBeInTheDocument();
@@ -109,16 +96,10 @@ describe('Menu Item Modal component tests', () => {
       expect(screen.getByText('less spicy')).toBeInTheDocument();
     });
     expect(screen.getByText('Add to Bag $0.00')).toBeInTheDocument();
-    
-    userEvent.click(screen.getByLabelText('qty-add-button'));
-    await waitFor(() => {
-      expect(quantityInput.value).toBe('2');
-    });
-    expect(screen.getByText('Add to Bag $0.00')).toBeInTheDocument();
 
     userEvent.click(screen.getByLabelText('cup-radio'));
     await waitFor(() => {
-      expect(screen.getByText('Add to Bag $15.00')).toBeInTheDocument();
+      expect(screen.getByText('Add to Bag $7.50')).toBeInTheDocument();
     });
   });
 
@@ -149,12 +130,6 @@ describe('Menu Item Modal component tests', () => {
     await waitFor(() => {
       expect(screen.queryByText('extra spicy')).not.toBeInTheDocument();
     });
-    
-    userEvent.click(screen.getByLabelText('qty-add-button'));
-    await waitFor(() => {
-      expect(quantityInput.value).toBe('3');
-    });
-    expect(screen.getByText('Update Item $43.50')).toBeInTheDocument();
 
     userEvent.click(screen.getByLabelText('submit-button'));
     await waitFor(() => {

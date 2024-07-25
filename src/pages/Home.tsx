@@ -3,6 +3,7 @@ import {  useNavigate } from 'react-router-dom';
 import { Button, Typography, Space, theme } from 'antd';
 import { PhoneFilled, EnvironmentFilled } from '@ant-design/icons';
 import { useMediaQuery } from 'react-responsive';
+import backgroundMain from '../assets/images/main.webp'
 
 const { Title, Paragraph } = Typography;
 
@@ -16,6 +17,14 @@ const Home: React.FC = () => {
   const isScreenXL = useMediaQuery({minWidth: 1200});
   const isScreen4K = useMediaQuery({minWidth: 2500});
 
+  const homeBannerStyle: React.CSSProperties = {
+    backgroundImage: `url(${backgroundMain})`,
+    backgroundRepeat: 'no-repeat',
+    backgroundSize: 'cover',
+    backgroundPosition: 'center',
+    height: isScreen4K ? '450px' : isScreenMD ? '360px' : '250px'
+  }
+
   const titleStyle: React.CSSProperties = {
     padding: isScreenMD ? '75px 50px' : '50px 25px',
     width: '100%',
@@ -24,13 +33,26 @@ const Home: React.FC = () => {
 
   const titleTextStyle: React.CSSProperties = {
     fontWeight: 700,
-    fontSize: isScreenXL ? '52px' : isScreenMD ? '42px' : '28px'
+    fontSize: isScreenXL ? '52px' : isScreenMD ? '42px' : '22px'
+  }
+
+  const menuButtonStyle: React.CSSProperties = {
+    borderRadius: 0,
+    fontWeight: 600
   }
   
   const aboutStyle: React.CSSProperties = {
     backgroundColor: '#0d0d0d',
     textAlign: 'center',
-    padding: isScreen4K ? '24px 20%' : '24px 12%'
+    padding: isScreen4K ? '24px 24%' : '24px 18%'
+  }
+
+  const aboutTextStyle: React.CSSProperties = {
+    lineHeight: '0.5',
+    textAlign: 'center',
+    display: 'inline-block',
+    position: 'relative',
+    marginTop: 0
   }
 
   const textStyle: React.CSSProperties = {
@@ -61,11 +83,11 @@ const Home: React.FC = () => {
 
   return (
     <>
-      <div className="home-banner">
+      <div style={homeBannerStyle}>
         <Space direction="vertical" align="center" style={titleStyle}>
           <Title level={1} style={{ ...whiteTextStyle, ...titleTextStyle }}>NEW CHOPSTIX RESTAURANT</Title>
           <Button
-            className="primary-btn"
+            style={menuButtonStyle}
             type="primary"
             size="large"
             onClick={() => navigate('/menu')}
@@ -73,7 +95,7 @@ const Home: React.FC = () => {
         </Space>
       </div>
       <div style={aboutStyle}>
-        <Title className="header" level={2} style={{ ...whiteTextStyle, marginTop: 0, ...subHeaderTextStyle }}>ABOUT</Title>
+        <Title level={2} style={{ ...whiteTextStyle, ...aboutTextStyle, ...subHeaderTextStyle }}>ABOUT</Title>
         <Paragraph style={{ ...textStyle, ...whiteTextStyle }}>{aboutText}</Paragraph>
       </div>
       <div style={{ display: 'flex', justifyContent: 'center'}}>

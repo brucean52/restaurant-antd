@@ -5,12 +5,17 @@ import Home from '../pages/Home';
 import { mockContextValues } from '../test-util/mockdata';
 import { BagContext } from '../BagContext';
 
-const mockNavigate = jest.fn();
+const mockNavigate = vi.fn();
 
-jest.mock('react-router-dom', () => ({
-  ...jest.requireActual('react-router-dom'),
- useNavigate: () => mockNavigate
-}));
+vi.mock("react-router-dom", async () => {
+  const mod = await vi.importActual<typeof import("react-router-dom")>(
+    "react-router-dom"
+  );
+  return {
+    ...mod,
+    useNavigate: () => mockNavigate,
+  };
+});
 
 test('home page render test', async () => {
   render(

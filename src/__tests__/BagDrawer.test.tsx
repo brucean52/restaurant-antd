@@ -7,10 +7,10 @@ import { BagContext } from '../BagContext';
 
 describe('Bag Drawer component tests', () => {
 
-  const mockSetOpenDrawer = jest.fn();
+  const mockSetOpenDrawer = vi.fn();
 
   afterEach(() => {
-    jest.clearAllMocks();
+    vi.clearAllMocks();
   });
 
   test('bag drawer is hidden', () => {

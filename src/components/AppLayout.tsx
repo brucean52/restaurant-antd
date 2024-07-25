@@ -122,7 +122,7 @@ const AppLayout: React.FC = () => {
         <Outlet context={{setOpenDrawer}}/>
       </Content>
       <Footer style={footerStyle}>
-        <span>New Chopstix Restaurant ©2023 Created by Bruce An</span>
+        <span>New Chopstix Restaurant ©2024 Created by Bruce An</span>
       </Footer>
     </Layout>
   );

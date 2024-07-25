@@ -16,6 +16,11 @@ type DeleteConfirmModalProps = {
 
 const DeleteConfirmModal: React.FC<DeleteConfirmModalProps> = (props) => {
 
+  const removeButtonStyle: React.CSSProperties = {
+    borderRadius: 0,
+    fontWeight: 600
+  }
+
   const { deleteItem } = useContext(BagContext) as BagContextType;
 
   const onSubmit = () => {
@@ -26,13 +31,13 @@ const DeleteConfirmModal: React.FC<DeleteConfirmModalProps> = (props) => {
   const renderFooter = (
     <div>
       <Button
-        className="cancel-btn-text"
+        style={{ borderRadius: 0 }}
         aria-label="cancel-button"
         type="text"
         onClick={() => props.handleModalClose()}
       >CANCEL</Button>
       <Button
-        className="primary-btn"
+        style={removeButtonStyle}
         aria-label="remove-button"
         type="primary"
         htmlType="submit"

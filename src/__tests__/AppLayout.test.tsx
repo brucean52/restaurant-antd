@@ -5,17 +5,22 @@ import AppLayout from '../components/AppLayout';
 import { mockContextValues } from '../test-util/mockdata';
 import { BagContext } from '../BagContext';
 
-const mockNavigate = jest.fn();
+const mockNavigate = vi.fn();
 
-jest.mock('react-router-dom', () => ({
-  ...jest.requireActual('react-router-dom'),
- useNavigate: () => mockNavigate
-}));
+vi.mock("react-router-dom", async () => {
+  const mod = await vi.importActual<typeof import("react-router-dom")>(
+    "react-router-dom"
+  );
+  return {
+    ...mod,
+    useNavigate: () => mockNavigate,
+  };
+});
 
 describe('App Layout Component Tests', () => {
 
   afterEach(() => {
-    jest.clearAllMocks();
+    vi.clearAllMocks();
   });
 
   test('app layout header render test', async () => {
@@ -28,7 +33,7 @@ describe('App Layout Component Tests', () => {
     );
   
     expect(screen.getByText(/menu/i)).toBeInTheDocument();
-    expect(screen.getByText('New Chopstix Restaurant ©2023 Created by Bruce An')).toBeInTheDocument();
+    expect(screen.getByText('New Chopstix Restaurant ©2024 Created by Bruce An')).toBeInTheDocument();
     await waitFor(() => {
       expect(screen.getByText(/6/i)).toBeInTheDocument();
     });

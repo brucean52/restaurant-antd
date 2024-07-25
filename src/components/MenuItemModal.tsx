@@ -2,7 +2,7 @@ import React, { useState, useEffect, useContext } from 'react';
 import { useForm, Controller, useWatch } from 'react-hook-form';
 import { v4 as uuidv4 } from 'uuid';
 import { Input, Divider, Button, Row, Col, InputNumber, Modal, Typography, Space } from 'antd';
-import { PlusOutlined, MinusOutlined, CloseCircleOutlined } from '@ant-design/icons';
+import { CloseCircleOutlined } from '@ant-design/icons';
 import MenuRadioOptions from './MenuRadioOptions';
 import { BagContext } from '../BagContext';
 import { MenuItem, MenuItemFormValues, BagItem, BagContextType, BagItemOptions } from '../types';
@@ -32,6 +32,11 @@ const MenuItemModal: React.FC<MenuItemModalProps> = (props) => {
   const imgTitleStyle: React.CSSProperties = {
     transform: 'translate(0, -200px)',
     width: '100%',
+  }
+
+  const footerButtonStyle: React.CSSProperties = {
+    borderRadius: 0,
+    fontWeight: 600
   }
 
   const { addItem, updateItem } = useContext(BagContext) as BagContextType;
@@ -75,16 +80,6 @@ const MenuItemModal: React.FC<MenuItemModalProps> = (props) => {
       setTotalItemPrice(props.menuItem.price);
     }
   }, [radioChange, quantityChange, props.menuItem.price]);
-
-  const updateQty = (action: string) => {
-    let qty = getValues('quantity');
-    if (action === 'increment') {
-      qty = qty + 1;
-    } else if (action === 'decrement') {
-      qty = qty === 1 ? 1 : qty - 1;
-    }
-    setValue('quantity', qty);
-  }
 
   const closeModal = () => {
     reset();
@@ -194,7 +189,7 @@ const MenuItemModal: React.FC<MenuItemModalProps> = (props) => {
     <div style={{padding: '0px 24px 24px 24px'}}>
       <Divider />
       <Button
-        className="primary-btn"
+        style={footerButtonStyle}
         aria-label="submit-button"
         type="primary"
         size="large"
@@ -206,7 +201,7 @@ const MenuItemModal: React.FC<MenuItemModalProps> = (props) => {
 
   return (
     <Modal
-      className="menu-item-modal"
+      styles={{content: { padding: 0 }, body: { padding: '0 24px' }}}
       centered
       open={props.isModalOpen}
       onCancel={closeModal}
@@ -236,18 +231,13 @@ const MenuItemModal: React.FC<MenuItemModalProps> = (props) => {
           render={({ field: { value, onChange } }) => (
             <Col span={4} style={{ alignSelf: 'center' }}>
               <Space.Compact style={{display: 'flex', marginLeft: '20px'}}>
-                <Button aria-label="qty-minus-button" style={{ marginRight: '0.01px'}} icon={<MinusOutlined />} onClick={() => updateQty('decrement')} />
                 <InputNumber
-                  className="qty-input"
                   aria-label="qty-input"
                   type="number"
-                  controls={false}
                   min={1}
-                  style={{ width: '75px'}}
                   value={value}
                   onChange={(e) => onChange(e)}
                 />
-                <Button aria-label="qty-add-button" style={{ marginLeft: '0.05px'}} icon={<PlusOutlined />} onClick={() => updateQty('increment')}/>
               </Space.Compact>        
             </Col>
             )}
@@ -262,7 +252,9 @@ const MenuItemModal: React.FC<MenuItemModalProps> = (props) => {
         render={({ field }) => (
           <TextArea
             {...field}
-            className="special-instructions-textarea"
+            styles={{ textarea: {
+              color: 'rgba(0, 0, 0, 0.5)'}
+            }}
             aria-label="special-instructions-textarea"
             rows={2}
             placeholder={placeHolderText}

@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Anchor, Row, Typography } from 'antd';
+import { Anchor, Row, Typography, theme } from 'antd';
 import { useMediaQuery } from 'react-responsive';
 import MenuItemCard from '../components/MenuItemCard';
 import MenuItemModal from '../components/MenuItemModal';
@@ -10,12 +10,24 @@ import { defaultMenuItem } from '../assets/defaultData';
 const { Title } = Typography;
 
 const MenuPage: React.FC = () => {
+  const {
+    token: { colorPrimary },
+  } = theme.useToken();
 
   const isScreenLg = useMediaQuery({minWidth: 992});
 
   const layoutStyle: React.CSSProperties = {
     display: isScreenLg ? 'flex' : 'block',
     padding: isScreenLg ? '0 15% 0 10%' : '0'
+  }
+
+  const menuTitleStyle: React.CSSProperties = {
+    color: colorPrimary,
+    fontWeight: 600,
+    lineHeight: 0.5,
+    textAlign: 'center',
+    position: 'relative',
+    marginBottom: '30px'
   };
 
   const [selectedMenuItem, setSelectedMenuItem] = useState<MenuItem>(defaultMenuItem);
@@ -43,8 +55,8 @@ const MenuPage: React.FC = () => {
       title: 'SOUPS'
     },
     {
-      key: 'main-entrees',
-      href: '#main-entrees',
+      key: 'main-entree',
+      href: '#main-entree',
       title: 'MAIN ENTREÉS'
     },
     {
@@ -80,79 +92,28 @@ const MenuPage: React.FC = () => {
           items={navMenuItems}
         />
         <div>
-          <div id="appetizers">
-            <Title level={2} className="menu-title appetizers">APPETIZERS</Title>
-            <Row>
-              {menuDataArray.filter((item: MenuItem) => item.category === 'appetizers').map((menuItem: MenuItem) => {
-                return (
-                  <MenuItemCard key={menuItem.id} menuItem={menuItem} handleMenuItemClicked={handleMenuItemClicked}/>
-                )
-              })}
-            </Row>
-          </div>
-          <div id="soups">
-            <Title level={2} className="menu-title soup">SOUPS</Title>
-            <Row>
-              {menuDataArray.filter((item: MenuItem) => item.category === 'soups').map((menuItem: MenuItem) => {
-                return (
-                  <MenuItemCard key={menuItem.id} menuItem={menuItem} handleMenuItemClicked={handleMenuItemClicked}/>
-                )
-              })}
-            </Row>
-          </div>
-          <div id="main-entrees">
-            <Title level={2} className="menu-title main">MAIN ENTREÉS</Title>
-            <Row>
-              {menuDataArray.filter((item: MenuItem) => item.category === 'main-entree').map((menuItem: MenuItem) => {
-                return (
-                  <MenuItemCard key={menuItem.id} menuItem={menuItem} handleMenuItemClicked={handleMenuItemClicked}/>
-                )
-              })}
-            </Row>
-          </div>
-          <div id="bowls">
-            <Title level={2} className="menu-title bowl">ALL DAY RICE BOWLS</Title>
-            <Row>
-              {menuDataArray.filter((item: MenuItem) => item.category === 'bowls').map((menuItem: MenuItem) => {
-                return (
-                  <MenuItemCard key={menuItem.id} menuItem={menuItem} handleMenuItemClicked={handleMenuItemClicked}/>
-                )
-              })}
-            </Row>
-          </div>
-          <div id="fried-rice-noodles">
-            <Title level={2} className="menu-title noodles">FRIED RICE & NOODLES</Title>
-            <Row>
-              {menuDataArray.filter((item: MenuItem) => item.category === 'fried-rice-noodles').map((menuItem: MenuItem) => {
-                return (
-                  <MenuItemCard key={menuItem.id} menuItem={menuItem} handleMenuItemClicked={handleMenuItemClicked}/>
-                )
-              })}
-            </Row>
-          </div>
-          <div id="side-orders">
-            <Title level={2} className="menu-title side">SIDE ORDERS</Title>
-            <Row>
-              {menuDataArray.filter((item: MenuItem) => item.category === 'side-orders').map((menuItem: MenuItem) => {
-                return (
-                  <MenuItemCard key={menuItem.id} menuItem={menuItem} handleMenuItemClicked={handleMenuItemClicked}/>
-                )
-              })}
-            </Row>
-          </div>
-          <div id="beverages">
-            <Title level={2} className="menu-title beverages">BEVERAGES</Title>
-            <Row>
-              {menuDataArray.filter((item: MenuItem) => item.category === 'beverages').map((menuItem: MenuItem) => {
-                return (
-                  <MenuItemCard key={menuItem.id} menuItem={menuItem} handleMenuItemClicked={handleMenuItemClicked}/>
-                )
-              })}
-            </Row>
-          </div>
+          {navMenuItems.map(navItem => {
+            return (
+              <div id={navItem.key} key={navItem.key}>
+                <Title level={2} style={menuTitleStyle}>{navItem.title}</Title>
+                <Row>
+                  {menuDataArray.filter((item: MenuItem) => item.category === navItem.key).map((menuItem: MenuItem) => {
+                    return (
+                      <MenuItemCard key={menuItem.id} menuItem={menuItem} handleMenuItemClicked={handleMenuItemClicked}/>
+                    )
+                  })}
+                </Row>
+              </div>
+            )
+          })}
         </div>
       </div>
-      <MenuItemModal isEdit={false} menuItem={selectedMenuItem} isModalOpen={isModalOpen} handleModalClose={handleModalClose}/>
+      <MenuItemModal
+        isEdit={false}
+        menuItem={selectedMenuItem}
+        isModalOpen={isModalOpen}
+        handleModalClose={handleModalClose}
+      />
     </>
   );
 };

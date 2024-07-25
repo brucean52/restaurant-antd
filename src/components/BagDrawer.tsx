@@ -27,20 +27,25 @@ const BagDrawer: React.FC<BagDrawerProps> = (props) => {
     token: { colorPrimary },
   } = theme.useToken();
 
-  const emptyTextStyle = {
+  const emptyTextStyle: React.CSSProperties = {
     fontSize: '28px',
     color: '#000000',
     marginBottom: '25px'
   };
 
-  const listItemStyle = {
+  const listItemStyle: React.CSSProperties = {
     display: 'flex',
     justifyContent: 'space-between',
     width: '100%'
   };
 
-  const boldFontStyle = {
+  const boldFontStyle: React.CSSProperties = {
     fontWeight: 500
+  }
+
+  const mainButtonStyle: React.CSSProperties = {
+    borderRadius: 0,
+    fontWeight: 600
   }
 
   const { bag, subtotalText, taxText, totalText } = useContext(BagContext) as BagContextType;
@@ -147,7 +152,7 @@ const BagDrawer: React.FC<BagDrawerProps> = (props) => {
     <div style={{ textAlign: 'center', marginTop: '10vh' }}>
       <div style={emptyTextStyle}>Your bag is empty</div>
       <Button
-        className="primary-btn"
+        style={mainButtonStyle}
         aria-label="start-order-button"
         type="primary"
         size="large"
@@ -165,7 +170,7 @@ const BagDrawer: React.FC<BagDrawerProps> = (props) => {
         onClose={() => props.setOpenDrawer(false)}
         open={props.openDrawer}
         key={'bag-drawer'}
-        bodyStyle={{padding: '0px', display: 'flex', flexDirection: 'column', justifyContent: 'space-between'}}
+        styles={{body: {padding: '0px', display: 'flex', flexDirection: 'column', justifyContent: 'space-between'}}}
         width={isScreenXXS ? 300 : 378}
       >
         <ConfigProvider renderEmpty={customRenderEmpty}>
@@ -199,7 +204,7 @@ const BagDrawer: React.FC<BagDrawerProps> = (props) => {
             <div>
               <Button
                 block
-                className="primary-btn"
+                style={mainButtonStyle}
                 aria-label="checkout-button"
                 type="primary"
                 size="large"

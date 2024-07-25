@@ -32,7 +32,6 @@ Runs the applications tests. Test code was wrtten using React Testing Library.
 
 ## References
 
-- [jest-with-vite](https://github.com/nvh95/jest-with-vite)
 - Menu items & pictures are from [P.F. Chang's](https://www.pfchangs.com/)
 - Rice bowl pictures are from [https://www.pressurecookrecipes.com/](https://www.pressurecookrecipes.com/)
 - [Logo](https://www.dreamstime.com/chinese-plate-chopsticks-logo-template-asian-style-plate-vector-design-chinese-plate-chopsticks-logo-template-asian-image108252892)

@@ -3,6 +3,12 @@ import { useNavigate } from 'react-router-dom';
 import { Button, Result } from 'antd';
 
 const NoMatch: React.FC = () => {
+
+  const removeButtonStyle: React.CSSProperties = {
+    borderRadius: 0,
+    fontWeight: 600
+  }
+
   const navigate = useNavigate();
 
   return (
@@ -11,7 +17,7 @@ const NoMatch: React.FC = () => {
         status="404"
         title="404"
         subTitle="Sorry, the page you visited does not exist."
-        extra={<Button type="primary" className="primary-btn" onClick={() => navigate('/')}>BACK HOME</Button>}
+        extra={<Button type="primary" style={removeButtonStyle} onClick={() => navigate('/')}>BACK HOME</Button>}
       />
     </div>
   );

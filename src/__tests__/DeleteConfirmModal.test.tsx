@@ -5,11 +5,11 @@ import { mockContextValues, mockItemOne } from '../test-util/mockdata';
 import { BagContext } from '../BagContext';
 
 describe('Delete Confirm Modal tests', () => {
-  const mockHandleModalClose = jest.fn();
+  const mockHandleModalClose = vi.fn();
   const mockDeleteItem = { bagId: mockItemOne.bagItemId, name: mockItemOne.name };
 
   afterEach(() => {
-    jest.clearAllMocks();
+    vi.clearAllMocks();
   });
 
   test('delete modal is hidden', () => {
@@ -46,7 +46,9 @@ describe('Delete Confirm Modal tests', () => {
     await waitFor(() => {
       expect(mockHandleModalClose).toHaveBeenCalledTimes(1);
     });
-    expect(mockContextValues.deleteItem).toHaveBeenCalledTimes(1);
+    await waitFor(() => {
+      expect(mockContextValues.deleteItem).toHaveBeenCalledTimes(1);
+    });
   });
 
   test('delete modal is renders and cancel is clicked', async () => {
@@ -67,7 +69,9 @@ describe('Delete Confirm Modal tests', () => {
     await waitFor(() => {
       expect(mockHandleModalClose).toHaveBeenCalledTimes(1);
     });
-    expect(mockContextValues.deleteItem).toHaveBeenCalledTimes(0);
+    await waitFor(() => {
+      expect(mockContextValues.deleteItem).toHaveBeenCalledTimes(0);
+    });
   });
 });
 

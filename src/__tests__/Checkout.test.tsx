@@ -27,7 +27,7 @@ const RenderRouteWithOutletContext = <T,>({
   );
 };
 
-const outletContextMock = jest.fn();
+const outletContextMock = vi.fn();
 
 test('checkout page render test', async () => {
   render(
