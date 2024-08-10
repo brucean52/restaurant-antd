@@ -1,4 +1,19 @@
-import { MenuItem, BagItem, MenuItemFormValues, BagItemOptions } from '../types';
+import { 
+  MenuItem,
+  BagItem,
+  MenuItemFormValues,
+  BagItemOptions,
+  NutriTableHeader
+} from '../types';
+
+export const maxWidthXXS = 350;
+export const maxWidthXS = 576;
+export const maxWidthMdOrLess = 769;
+
+export const minWidthMD = 768;
+export const minWidthLG = 992;
+export const minWidthXL = 1200;
+export const minWidth4K = 2500;
 
 export const defaultBagItem: BagItem = {
   bagItemId: '',
@@ -37,3 +52,21 @@ export const defaultMenuItemFormValues: MenuItemFormValues =  {
 }
 
 export const TAX_RATE = '10.75';
+
+export const nutriTableHeaders: NutriTableHeader[] = [
+  { title: 'Name', id: 'name' },
+  { title: 'Servings', id: 'servings' },
+  { title: 'Calories', id: 'calories' },
+  { title: 'Cals from Fat', id: 'calFromFat' },
+  { title: 'Fat', id: 'fat' },
+  { title: 'Saturated Fat', id: 'saturatedFats' },
+  { title: 'Trans Fat', id: 'transFat' },
+  { title: 'Cholesterol', id: 'cholesterol' },
+  { title: 'Sodium', id: 'sodium' },
+  { title: 'Carbs', id: 'carbs' },
+  { title: 'Fiber', id: 'fiber' },
+  { title: 'Sugar', id: 'sugar' },
+  { title: 'Protein', id: 'protein' },
+];
+
+export const RADIAN = Math.PI / 180;

@@ -7,7 +7,7 @@ import MenuItemModal from './MenuItemModal';
 import DeleteConfirmModal from './DeleteConfirmModal';
 import { BagContext } from '../BagContext';
 import { BagContextType, BagItem, MenuItem, BagItemOptions } from '../types';
-import { defaultMenuItem, defaultBagItemOptions, TAX_RATE } from '../assets/defaultData';
+import { defaultMenuItem, defaultBagItemOptions, TAX_RATE, maxWidthXXS } from '../assets/defaultData';
 
 type BagDrawerProps = {
   openDrawer: boolean,
@@ -20,8 +20,7 @@ const defaultDeleteOptions = {
 }
 
 const BagDrawer: React.FC<BagDrawerProps> = (props) => {
-
-  const isScreenXXS = useMediaQuery({maxWidth: 350});
+  const isScreenXXS = useMediaQuery({maxWidth: maxWidthXXS});
 
   const {
     token: { colorPrimary },

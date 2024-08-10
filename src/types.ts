@@ -53,3 +53,31 @@ export type BagContextType = {
   updateItem: (bagItem: BagItem) => void;
   deleteItem: (bagItemId: string) => void;
 };
+
+export type NutriTableKey = 'id' |'category' | 'name' | 'servings' | 'calories'
+  | 'calFromFat' | 'fat' | 'saturatedFats'| 'transFat' | 'cholesterol' | 'sodium'
+  | 'carbs' | 'fiber' | 'sugar'| 'protein';
+
+
+export type NutriTableHeader = {
+  title: string;
+  id: NutriTableKey
+}
+
+export interface NutritionItem {
+  id: string;
+  category: MenuCategory;
+  name: string;
+  servings: number;
+  calories: number;
+  calFromFat: number;
+  fat: string;
+  saturatedFats: string;
+  transFat: string;
+  cholesterol: string;
+  sodium: string;
+  carbs: string;
+  fiber: string;
+  sugar: string;
+  protein: string;
+}

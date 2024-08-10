@@ -1,25 +1,24 @@
 import React, { useContext } from 'react';
-import { useMediaQuery } from 'react-responsive';
 import { Link } from 'react-router-dom';
 import { Typography, Row, Button, Col, Input, Card, Divider, List, theme } from 'antd';
 import { PhoneFilled, EnvironmentFilled } from '@ant-design/icons';
+import { useMediaQuery } from 'react-responsive';
 import { BagContext } from '../BagContext';
 import { BagContextType } from '../types';
-import { TAX_RATE } from '../assets/defaultData';
+import { TAX_RATE, minWidthMD, minWidthLG } from '../assets/defaultData';
 import useBagDrawer from '../hooks/UseBagDrawer';
 
 const { Title } = Typography
 
 const Checkout: React.FC = () => {
-
+  const isScreenMD = useMediaQuery({minWidth: minWidthMD});
+  const isScreenLG = useMediaQuery({minWidth: minWidthLG});
   const {
     token: { colorPrimary, boxShadowTertiary },
   } = theme.useToken();
-  const isScreenMD = useMediaQuery({minWidth: 768});
-  const isScreenLg = useMediaQuery({minWidth: 992});
 
   const layoutStyle: React.CSSProperties = {
-    padding: isScreenLg ? '0 15%' : '0 5%'
+    padding: isScreenLG ? '0 15%' : '0 5%'
   };
 
   const cardStyle: React.CSSProperties = {
@@ -100,7 +99,7 @@ const Checkout: React.FC = () => {
             </Row>
           </Card>
         </Col>
-        <Col span={24} offset={isScreenLg ? 3 : 0} lg={9}>
+        <Col span={24} offset={isScreenLG ? 3 : 0} lg={9}>
           <Card
             title={<Title level={3}>Order Details</Title>}
             extra={<Link to="/menu" onClick={() => setOpenDrawer(true)}>Edit Order</Link>}

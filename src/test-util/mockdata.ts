@@ -129,3 +129,18 @@ export const mockBagItemOptionsThree : BagItemOptions = {
   specialInstructions: '',
   radioOption: mockItemThree.radioOption
 }
+
+export const mockChartData = [
+  {
+    name: 'Fat',
+    value: 15
+  },
+  {
+    name: 'Carbs',
+    value: 50
+  },
+  {
+    name: 'Protein',
+    value: 35
+  },
+];

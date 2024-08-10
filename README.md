@@ -15,6 +15,8 @@ A demo restaurant app using Ant Design. Includes the following:
 ![Alt text](https://github.com/brucean52/restaurant-antd/blob/master/add-item.png "add-item")
 ![Alt text](https://github.com/brucean52/restaurant-antd/blob/master/drawer.png "drawer")
 ![Alt text](https://github.com/brucean52/restaurant-antd/blob/master/checkout.png "checkout")
+![Alt text](https://github.com/brucean52/restaurant-antd/blob/master/nutrition.png "nutrition")
+![Alt text](https://github.com/brucean52/restaurant-antd/blob/master/nutrition-chart.png "nutrition-chart")
 
 ## Installation and Setup
 
@@ -25,7 +27,7 @@ Installs the necessary modules to run the application.
 
 ### `npm start` or `npm run dev`
 Runs the app in development mode.
-Open [http://localhost:3000/](http://localhost:3000/) to view it in your browser.
+Open [http://localhost:5173/](http://localhost:5173/) to view it in your browser.
 
 ### `npm test`
 Runs the applications tests. Test code was wrtten using React Testing Library.
@@ -34,4 +36,5 @@ Runs the applications tests. Test code was wrtten using React Testing Library.
 
 - Menu items & pictures are from [P.F. Chang's](https://www.pfchangs.com/)
 - Rice bowl pictures are from [https://www.pressurecookrecipes.com/](https://www.pressurecookrecipes.com/)
-- [Logo](https://www.dreamstime.com/chinese-plate-chopsticks-logo-template-asian-style-plate-vector-design-chinese-plate-chopsticks-logo-template-asian-image108252892)
+- [Logo Graphic](https://www.dreamstime.com/chinese-plate-chopsticks-logo-template-asian-style-plate-vector-design-chinese-plate-chopsticks-logo-template-asian-image108252892)
+- [Frame Graphic](https://www.freepik.com/free-vector/oriental-frames-set_8610267.htm#fromView=search&page=2&position=18&uuid=55f16bb0-8292-4e5e-a01f-54186389595a)

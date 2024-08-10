@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useContext } from 'react';
 import { useForm, Controller, useWatch } from 'react-hook-form';
 import { v4 as uuidv4 } from 'uuid';
-import { Input, Divider, Button, Row, Col, InputNumber, Modal, Typography, Space } from 'antd';
+import { Input, Divider, Button, Row, Col, InputNumber, Modal, Typography, Space, theme } from 'antd';
 import { CloseCircleOutlined } from '@ant-design/icons';
 import MenuRadioOptions from './MenuRadioOptions';
 import { BagContext } from '../BagContext';
@@ -20,13 +20,17 @@ type MenuItemModalProps = {
 }
 
 const MenuItemModal: React.FC<MenuItemModalProps> = (props) => {
+  const {
+    token: { colorPrimary },
+  } = theme.useToken();
 
   const titleStyle: React.CSSProperties = {
     overflow: 'hidden',
     height: '175px',
     width: '100%',
     borderTopLeftRadius: '8px',
-    borderTopRightRadius: '8px'
+    borderTopRightRadius: '8px',
+    borderBottom: `${colorPrimary} 6px solid`
   }
 
   const imgTitleStyle: React.CSSProperties = {
@@ -37,6 +41,10 @@ const MenuItemModal: React.FC<MenuItemModalProps> = (props) => {
   const footerButtonStyle: React.CSSProperties = {
     borderRadius: 0,
     fontWeight: 600
+  }
+
+  const dividerStyle: React.CSSProperties = {
+    borderBlockStart: '1px solid rgba(5, 5, 5, 0.12)'
   }
 
   const { addItem, updateItem } = useContext(BagContext) as BagContextType;
@@ -187,7 +195,7 @@ const MenuItemModal: React.FC<MenuItemModalProps> = (props) => {
 
   const renderFooter = (
     <div style={{padding: '0px 24px 24px 24px'}}>
-      <Divider />
+      <Divider style={dividerStyle}/>
       <Button
         style={footerButtonStyle}
         aria-label="submit-button"
@@ -220,7 +228,7 @@ const MenuItemModal: React.FC<MenuItemModalProps> = (props) => {
       {renderTeaOptions}
       {renderCokeOptions}
 
-      <Divider />
+      <Divider style={dividerStyle}/>
       <Row>
         <Col span={4}>
           <Title level={4} style={{ marginTop: '10px'}}>Quantity</Title>
@@ -244,7 +252,7 @@ const MenuItemModal: React.FC<MenuItemModalProps> = (props) => {
         />
       </Row>
 
-      <Divider />
+      <Divider style={dividerStyle}/>
       <Title level={4} style={{ marginTop: '10px'}}>Special Instructions</Title>
       <Controller
         name="specialInstructions"

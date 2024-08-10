@@ -3,19 +3,25 @@ import {  useNavigate } from 'react-router-dom';
 import { Button, Typography, Space, theme } from 'antd';
 import { PhoneFilled, EnvironmentFilled } from '@ant-design/icons';
 import { useMediaQuery } from 'react-responsive';
-import backgroundMain from '../assets/images/main.webp'
+import {
+  maxWidthXS,
+  minWidthMD,
+  minWidthXL,
+  minWidth4K
+} from '../assets/defaultData';
+import backgroundMain from '../assets/images/main.webp';
 
 const { Title, Paragraph } = Typography;
 
 const Home: React.FC = () => {
+  const isScreenXS = useMediaQuery({maxWidth: maxWidthXS});
+  const isScreenMD = useMediaQuery({minWidth: minWidthMD});
+  const isScreenXL = useMediaQuery({minWidth: minWidthXL});
+  const isScreen4K = useMediaQuery({minWidth: minWidth4K});
 
   const {
     token: { colorPrimary },
   } = theme.useToken();
-  const isScreenXS = useMediaQuery({maxWidth: 576});
-  const isScreenMD = useMediaQuery({minWidth: 768});
-  const isScreenXL = useMediaQuery({minWidth: 1200});
-  const isScreen4K = useMediaQuery({minWidth: 2500});
 
   const homeBannerStyle: React.CSSProperties = {
     backgroundImage: `url(${backgroundMain})`,

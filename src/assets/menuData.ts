@@ -368,7 +368,7 @@ export const menuDataArray: MenuItem[] = [
     id: 'mongolian-beef-bowl',
     category: 'bowls',
     imgSrc: mongBeefBowlImg,
-    name: 'Mongolian Beef Beef',
+    name: 'Mongolian Beef Bowl',
     description: 'Sweet soy glaze, flank steak, garlic, snipped green onion',
     price: '17.50',
     bowl: bowlOptions

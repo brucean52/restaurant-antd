@@ -1,34 +1,73 @@
 import React, { useState } from 'react';
 import { Anchor, Row, Typography, theme } from 'antd';
-import { useMediaQuery } from 'react-responsive';
 import MenuItemCard from '../components/MenuItemCard';
 import MenuItemModal from '../components/MenuItemModal';
+import { useMediaQuery } from 'react-responsive';
 import { MenuItem } from '../types';
+import lineImg from '../assets/images/line.png';
 import { menuDataArray } from '../assets/menuData';
-import { defaultMenuItem } from '../assets/defaultData';
+import { defaultMenuItem, minWidthLG } from '../assets/defaultData';
 
 const { Title } = Typography;
 
+const navMenuItems = [
+  {
+    key: 'appetizers',
+    href: '#appetizers',
+    title: 'APPETIZERS'
+  },
+  {
+    key: 'soups',
+    href: '#soups',
+    title: 'SOUPS'
+  },
+  {
+    key: 'main-entree',
+    href: '#main-entree',
+    title: 'MAIN ENTREÉS'
+  },
+  {
+    key: 'bowls',
+    href: '#bowls',
+    title: 'ALL DAY RICE BOWLS'
+  },
+  {
+    key: 'fried-rice-noodles',
+    href: '#fried-rice-noodles',
+    title: 'FRIED RICE & NOODLES'
+  },
+  {
+    key: 'side-orders',
+    href: '#side-orders',
+    title: 'SIDE ORDERS'
+  },
+  {
+    key: 'beverages',
+    href: '#beverages',
+    title: 'BEVERAGES'
+  },
+];
+
 const MenuPage: React.FC = () => {
-  const {
-    token: { colorPrimary },
-  } = theme.useToken();
-
-  const isScreenLg = useMediaQuery({minWidth: 992});
-
+  const isScreenLG = useMediaQuery({minWidth: 992});
   const layoutStyle: React.CSSProperties = {
-    display: isScreenLg ? 'flex' : 'block',
-    padding: isScreenLg ? '0 15% 0 10%' : '0'
+    display: isScreenLG ? 'flex' : 'block',
+    padding: isScreenLG ? '0 15% 0 10%' : '0'
   }
 
   const menuTitleStyle: React.CSSProperties = {
-    color: colorPrimary,
     fontWeight: 600,
     lineHeight: 0.5,
     textAlign: 'center',
-    position: 'relative',
-    marginBottom: '30px'
+    position: 'relative'
   };
+
+  const lineStyle: React.CSSProperties = {
+    display: 'flex',
+    margin: 'auto',
+    height: '16px',
+    marginBottom: '30px'
+  }
 
   const [selectedMenuItem, setSelectedMenuItem] = useState<MenuItem>(defaultMenuItem);
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -43,50 +82,12 @@ const MenuPage: React.FC = () => {
     setIsModalOpen(true);
   };
 
-  const navMenuItems = [
-    {
-      key: 'appetizers',
-      href: '#appetizers',
-      title: 'APPETIZERS'
-    },
-    {
-      key: 'soups',
-      href: '#soups',
-      title: 'SOUPS'
-    },
-    {
-      key: 'main-entree',
-      href: '#main-entree',
-      title: 'MAIN ENTREÉS'
-    },
-    {
-      key: 'bowls',
-      href: '#bowls',
-      title: 'ALL DAY RICE BOWLS'
-    },
-    {
-      key: 'fried-rice-noodles',
-      href: '#fried-rice-noodles',
-      title: 'FRIED RICE & NOODLES'
-    },
-    {
-      key: 'side-orders',
-      href: '#side-orders',
-      title: 'SIDE ORDERS'
-    },
-    {
-      key: 'beverages',
-      href: '#beverages',
-      title: 'BEVERAGES'
-    },
-  ];
-
   return (
     <>
       <div style={layoutStyle}>
         <Anchor
           className="anchor"
-          direction={isScreenLg ? 'vertical': 'horizontal'}
+          direction={isScreenLG ? 'vertical': 'horizontal'}
           offsetTop={75}
           targetOffset={125}
           items={navMenuItems}
@@ -96,6 +97,7 @@ const MenuPage: React.FC = () => {
             return (
               <div id={navItem.key} key={navItem.key}>
                 <Title level={2} style={menuTitleStyle}>{navItem.title}</Title>
+                <img style={lineStyle} alt="line" src={lineImg} />
                 <Row>
                   {menuDataArray.filter((item: MenuItem) => item.category === navItem.key).map((menuItem: MenuItem) => {
                     return (

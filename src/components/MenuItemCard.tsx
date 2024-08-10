@@ -1,6 +1,7 @@
 import React from 'react';
 import { Col, Card, Typography, theme } from 'antd';
 import { useMediaQuery } from 'react-responsive';
+import { minWidthXL } from '../assets/defaultData';
 import { MenuItem } from '../types';
 
 const { Title, Paragraph } = Typography;
@@ -11,17 +12,17 @@ type MenuItemCardProps = {
 }
 
 const MenuItemCard: React.FC<MenuItemCardProps> = (props) => {
+  const isScreenXL = useMediaQuery({minWidth: minWidthXL});
 
   const {
-    token: { boxShadowTertiary },
+    token: { colorPrimary, boxShadowSecondary },
   } = theme.useToken();
-  const isScreenXL = useMediaQuery({minWidth: 1200});
 
   const cardStyle: React.CSSProperties = {
     width: '90%',
     marginLeft: '5%',
-    marginBottom: '20px',
-    boxShadow: boxShadowTertiary
+    marginBottom: '36px',
+    boxShadow: boxShadowSecondary
   }
 
   const titleTextStyle: React.CSSProperties = {
@@ -40,6 +41,9 @@ const MenuItemCard: React.FC<MenuItemCardProps> = (props) => {
         className="menu-item-card"
         aria-label={`${props.menuItem.id}-card`}
         style={cardStyle}
+        styles={{ cover: {
+          borderBottom: `${colorPrimary} 6px solid`
+        }}}
         cover={<img alt={props.menuItem.name} src={props.menuItem.imgSrc} />}
         onClick={() => props.handleMenuItemClicked(props.menuItem)}
       >

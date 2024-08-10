@@ -4,7 +4,8 @@ import { Layout, Menu, Button, Badge, Space, theme } from 'antd';
 import { ShoppingOutlined } from '@ant-design/icons';
 import type { MenuProps } from 'antd';
 import { useMediaQuery } from 'react-responsive';
-import logo from '../assets/images/logo.webp'
+import { minWidthLG, minWidth4K, maxWidthMdOrLess } from '../assets/defaultData';
+import logo from '../assets/images/logo-light.png'
 import BagDrawer from './BagDrawer';
 import { BagContext } from '../BagContext';
 import { BagContextType } from '../types';
@@ -15,17 +16,21 @@ const menuItems: MenuProps['items'] = [
   {
     label: 'MENU',
     key: 'menu',
+  },
+  {
+    label: 'NUTRITION',
+    key: 'nutrition',
   }
 ];
 
 const AppLayout: React.FC = () => {
 
   const {
-    token: { colorPrimary, colorBgContainer, boxShadowTertiary, colorBgLayout },
+    token: { colorPrimary, colorBgContainer, boxShadow, colorBgLayout },
   } = theme.useToken();
-  const isScreenMdOrLess = useMediaQuery({maxWidth: 769});
-  const isScreenLG = useMediaQuery({minWidth: 991});
-  const isScreen4K = useMediaQuery({minWidth: 2500});
+  const isScreenLG = useMediaQuery({minWidth: minWidthLG});
+  const isScreen4K = useMediaQuery({minWidth: minWidth4K});
+  const isScreenMdOrLess = useMediaQuery({maxWidth: maxWidthMdOrLess});
   
   const headerStyle: React.CSSProperties = {
     backgroundColor: colorBgContainer,
@@ -36,7 +41,7 @@ const AppLayout: React.FC = () => {
     zIndex: 1,
     top: 0,
     width: '100%',
-    boxShadow: boxShadowTertiary
+    boxShadow
   }
 
   const logoStyle: React.CSSProperties = {
@@ -74,10 +79,16 @@ const AppLayout: React.FC = () => {
   const [selectedMenu, setSelectedMenu] = useState<string>('');
 
   useEffect(() => {
-    if (location['pathname'] === '/menu') {
-      setSelectedMenu('menu');
-    } else {
-      setSelectedMenu('');
+    switch (location['pathname']) {
+      case '/menu':
+        setSelectedMenu('menu');
+        break;
+      case '/nutrition':
+        setSelectedMenu('nutrition');
+        break;
+      default:
+        setSelectedMenu('');
+        break;
     }
   }, [location]);
 

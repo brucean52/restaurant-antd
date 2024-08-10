@@ -19,9 +19,13 @@ const MenuRadioOptions: React.FC<MenuRadioOptionsProps> = (props) => {
     token: { colorPrimary },
   } = theme.useToken();
 
+  const dividerStyle: React.CSSProperties = {
+    borderBlockStart: '1px solid rgba(5, 5, 5, 0.12)'
+  }
+
   return (
     <>
-      <Divider />
+      <Divider style={dividerStyle}/>
       <Title level={4} style={{ marginTop: '10px'}}>{props.title}</Title>
       <span>Required | Select 1 option: </span>
       {props.errors.hasOwnProperty('radio') && <span style={{color: colorPrimary}}>Please make the required selection</span>}

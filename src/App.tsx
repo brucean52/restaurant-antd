@@ -7,6 +7,7 @@ import Home from './pages/Home';
 import Menu from './pages/Menu';
 import Checkout from './pages/Checkout';
 import NoMatch from './pages/NoMatch';
+import Nutrition from './pages/Nutrition';
 
 const App: React.FC = () => {
 
@@ -15,7 +16,7 @@ const App: React.FC = () => {
       theme={{
         token: {
           colorPrimary: '#C11316',
-          colorBgLayout: '#E6E6E6'
+          colorBgLayout: '#FFFFFF'
         }
       }}
     >
@@ -25,6 +26,7 @@ const App: React.FC = () => {
             <Route index element={<Home />} />
             <Route path="menu" element={<Menu />} />
             <Route path="checkout" element={<Checkout />} />
+            <Route path="nutrition" element={<Nutrition />} />
             <Route path="*" element={<NoMatch />} />
           </Route>
         </Routes>
