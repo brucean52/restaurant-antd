@@ -1,5 +1,5 @@
 import { BrowserRouter } from 'react-router-dom';
-import { render, screen, waitFor } from '@testing-library/react';
+import { render, screen, waitFor, fireEvent } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import BagDrawer from '../components/BagDrawer';
 import { mockContextValues, mockEmptyContextValues } from '../test-util/mockdata';
@@ -71,7 +71,7 @@ describe('Bag Drawer component tests', () => {
     });
   });
 
-  test('bag drawer edit item click test', async () => {
+  test('edit item click test', async () => {
     render(
       <BrowserRouter>
         <BagContext.Provider value={mockContextValues}>
@@ -86,7 +86,7 @@ describe('Bag Drawer component tests', () => {
     });
   });
 
-  test('bag drawer delete item click test', async () => {
+  test('delete item click test', async () => {
     render(
       <BrowserRouter>
         <BagContext.Provider value={mockContextValues}>
@@ -97,11 +97,11 @@ describe('Bag Drawer component tests', () => {
 
     userEvent.click(screen.getByLabelText('delete-item-1'));
     await waitFor(() => {
-      expect(screen.getByText('Remove Item')).toBeInTheDocument();
+      expect(screen.getByText(/are you sure you want to remove/i)).toBeInTheDocument();
     });
   });
 
-  test('bag drawer close button click test', async () => {
+  test('close button click test', async () => {
     render(
       <BrowserRouter>
         <BagContext.Provider value={mockContextValues}>
@@ -113,6 +113,50 @@ describe('Bag Drawer component tests', () => {
     userEvent.click(screen.getByLabelText('close-drawer-button'));
     await waitFor(() => {
       expect(mockSetOpenDrawer).toHaveBeenCalledTimes(1);
+    });
+  });
+
+  test('update quantity select test', async () => {
+    render(
+      <BrowserRouter>
+        <BagContext.Provider value={mockContextValues}>
+          <BagDrawer openDrawer={true} setOpenDrawer={mockSetOpenDrawer}/>
+        </BagContext.Provider>
+      </BrowserRouter>
+    );
+
+    userEvent.click(screen.getAllByLabelText('select-qty-0')[1]);
+    await waitFor(() => {
+      expect(screen.getByText('5')).toBeInTheDocument();
+    });
+    userEvent.click(screen.getByText('5'));
+    await waitFor(() => {
+      expect(mockContextValues.updateItem).toHaveBeenCalledTimes(1);
+    });
+  });
+
+  test('custom input update quantity test', async () => {
+    render(
+      <BrowserRouter>
+        <BagContext.Provider value={mockContextValues}>
+          <BagDrawer openDrawer={true} setOpenDrawer={mockSetOpenDrawer}/>
+        </BagContext.Provider>
+      </BrowserRouter>
+    );
+
+    userEvent.click(screen.getAllByLabelText('select-qty-1')[1]);
+    await waitFor(() => {
+      expect(screen.getByText('6+')).toBeInTheDocument();
+    });
+    userEvent.click(screen.getByText('6+'));
+    await waitFor(() => {
+      expect(screen.getByLabelText('custom-input-qty-1')).toBeInTheDocument();
+    });
+    expect(mockContextValues.updateItem).toHaveBeenCalledTimes(0);
+    fireEvent.change(screen.getByLabelText('custom-input-qty-1'), {target: {value: '10'}});
+    userEvent.click(screen.getByLabelText('update-qty-btn-1'));
+    await waitFor(() => {
+      expect(mockContextValues.updateItem).toHaveBeenCalledTimes(1);
     });
   });
 });

@@ -11,7 +11,7 @@ const COLORS = ["#9c1f16", "#d49b1c", "#68831c"];
 type NutritionItemLayoutProps = {
   nutriItem: NutritionItem,
   chartData: any
-}
+};
 
 const NutritionItemLayout: React.FC<NutritionItemLayoutProps> = (props) => {+
   useEffect(() => {
@@ -25,7 +25,7 @@ const NutritionItemLayout: React.FC<NutritionItemLayoutProps> = (props) => {+
     display: 'grid',
     gridTemplateColumns: '200px auto',
     padding: '1% 7%'
-  }
+  };
 
   const nutriDisplayItems = nutriTableHeaders.slice(1).map((column: NutriTableHeader) => {
     return {
@@ -42,7 +42,7 @@ const NutritionItemLayout: React.FC<NutritionItemLayoutProps> = (props) => {+
         <div>{item.children}</div>
       </List.Item>
     )
-  }
+  };
 
   const renderCustomLabel = (labelItem: any) => {
     if (labelItem.percent !== 0){

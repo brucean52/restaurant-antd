@@ -1,12 +1,13 @@
 import React, { useState, useEffect, useContext } from 'react';
 import { useForm, Controller, useWatch } from 'react-hook-form';
 import { v4 as uuidv4 } from 'uuid';
-import { Input, Divider, Button, Row, Col, InputNumber, Modal, Typography, Space, theme } from 'antd';
-import { CloseCircleOutlined } from '@ant-design/icons';
+import { Input, Divider, Button, Row, Col, Modal, Typography, Space, theme } from 'antd';
+import { PlusOutlined, MinusOutlined, CloseCircleOutlined } from '@ant-design/icons';
+import { useMediaQuery } from 'react-responsive';
 import MenuRadioOptions from './MenuRadioOptions';
 import { BagContext } from '../BagContext';
 import { MenuItem, MenuItemFormValues, BagItem, BagContextType, BagItemOptions } from '../types';
-import { defaultMenuItemFormValues } from '../assets/defaultData';
+import { defaultMenuItemFormValues, maxWidthXXS } from '../assets/defaultData';
 
 const { TextArea } = Input;
 const { Title, Paragraph } = Typography;
@@ -17,9 +18,10 @@ type MenuItemModalProps = {
   menuItem: MenuItem,
   isModalOpen: boolean,
   handleModalClose: () => void
-}
+};
 
 const MenuItemModal: React.FC<MenuItemModalProps> = (props) => {
+  const isScreenXXSCustom = useMediaQuery({maxWidth: 400});
   const {
     token: { colorPrimary },
   } = theme.useToken();
@@ -31,21 +33,21 @@ const MenuItemModal: React.FC<MenuItemModalProps> = (props) => {
     borderTopLeftRadius: '8px',
     borderTopRightRadius: '8px',
     borderBottom: `${colorPrimary} 6px solid`
-  }
+  };
 
   const imgTitleStyle: React.CSSProperties = {
-    transform: 'translate(0, -200px)',
+    transform: isScreenXXSCustom ? 'translate(0, -100px)' : 'translate(0, -200px)',
     width: '100%',
-  }
+  };
 
   const footerButtonStyle: React.CSSProperties = {
     borderRadius: 0,
     fontWeight: 600
-  }
+  };
 
   const dividerStyle: React.CSSProperties = {
     borderBlockStart: '1px solid rgba(5, 5, 5, 0.12)'
-  }
+  };
 
   const { addItem, updateItem } = useContext(BagContext) as BagContextType;
   const [totalItemPrice, setTotalItemPrice] =  useState<string>('0.00');
@@ -89,10 +91,28 @@ const MenuItemModal: React.FC<MenuItemModalProps> = (props) => {
     }
   }, [radioChange, quantityChange, props.menuItem.price]);
 
+  const updateInputQty = (event: React.FormEvent<HTMLInputElement>) => {
+    if (!/(^[0-9]+$|^$)/.test(event.currentTarget.value)) {
+      event.preventDefault();
+    } else {
+      setValue('quantity', parseInt(event.currentTarget.value) || 0);
+    }   
+  };
+
+  const updateQty = (action: string) => {
+    let qty = getValues('quantity');
+    if (action === 'increment') {
+      qty = qty + 1;
+    } else if (action === 'decrement' && qty !== 0) {
+      qty = qty === 1 ? 1 : qty - 1;
+    }
+    setValue('quantity', qty);
+  };
+
   const closeModal = () => {
     reset();
     props.handleModalClose();
-  }
+  };
 
   const onSubmit = (values: MenuItemFormValues) => {
     let price = values.radio.split('+')[1] ? values.radio.split('+')[1] : props.menuItem.price;
@@ -121,7 +141,7 @@ const MenuItemModal: React.FC<MenuItemModalProps> = (props) => {
     }
     
     closeModal();
-  }
+  };
 
   const renderModalTitle = props.menuItem.id && (
     <div style={titleStyle}>
@@ -230,25 +250,38 @@ const MenuItemModal: React.FC<MenuItemModalProps> = (props) => {
 
       <Divider style={dividerStyle}/>
       <Row>
-        <Col span={4}>
+        <Col xs={10} sm={6} md={4}>
           <Title level={4} style={{ marginTop: '10px'}}>Quantity</Title>
         </Col>     
         <Controller
           name="quantity"
           control={control}
-          render={({ field: { value, onChange } }) => (
-            <Col span={4} style={{ alignSelf: 'center' }}>
-              <Space.Compact style={{display: 'flex', marginLeft: '20px'}}>
-                <InputNumber
-                  aria-label="qty-input"
-                  type="number"
-                  min={1}
-                  value={value}
-                  onChange={(e) => onChange(e)}
-                />
-              </Space.Compact>        
-            </Col>
-            )}
+          rules={{ required: true, min: 1 }}
+          render={({ field: { value } }) => (
+            <>
+              <Col xs={12} sm={6} md={4} style={{ alignSelf: 'center' }}>
+                <Space.Compact style={{ display: 'flex', marginLeft: '20px' }}>
+                  <Button
+                    aria-label="qty-minus-button"
+                    icon={<MinusOutlined />} 
+                    onClick={() => updateQty('decrement')} 
+                  />
+                  <Input
+                    aria-label="qty-input"
+                    style={{ textAlign: 'center' }}
+                    value={value}
+                    onChange={(e) => updateInputQty(e)}
+                  />
+                  <Button
+                    aria-label="qty-add-button"
+                    icon={<PlusOutlined />}
+                    onClick={() => updateQty('increment')}
+                  />
+                </Space.Compact>       
+              </Col>
+              {value < 1 && <span style={{ color: colorPrimary, padding: '12px 0 0 12px' }}>Please enter a valid quantity</span>}
+            </>
+          )}
         />
       </Row>
 

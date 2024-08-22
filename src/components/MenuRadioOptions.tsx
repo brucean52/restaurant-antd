@@ -11,7 +11,7 @@ type MenuRadioOptionsProps = {
   errors: FieldErrors,
   options: CustomOption[] | undefined,
   control: Control<MenuItemFormValues>
-}
+};
 
 const MenuRadioOptions: React.FC<MenuRadioOptionsProps> = (props) => {
 
@@ -21,14 +21,14 @@ const MenuRadioOptions: React.FC<MenuRadioOptionsProps> = (props) => {
 
   const dividerStyle: React.CSSProperties = {
     borderBlockStart: '1px solid rgba(5, 5, 5, 0.12)'
-  }
+  };
 
   return (
     <>
       <Divider style={dividerStyle}/>
       <Title level={4} style={{ marginTop: '10px'}}>{props.title}</Title>
       <span>Required | Select 1 option: </span>
-      {props.errors.hasOwnProperty('radio') && <span style={{color: colorPrimary}}>Please make the required selection</span>}
+      {props.errors.hasOwnProperty('radio') && <span style={{color: colorPrimary, marginLeft: '8px'}}>Please make the required selection</span>}
       <Controller
         control={props.control}
         name="radio"

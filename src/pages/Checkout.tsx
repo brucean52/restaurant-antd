@@ -7,14 +7,15 @@ import { BagContext } from '../BagContext';
 import { BagContextType } from '../types';
 import { TAX_RATE, minWidthMD, minWidthLG } from '../assets/defaultData';
 import useBagDrawer from '../hooks/UseBagDrawer';
+import lineImg from '../assets/images/line.png';
 
-const { Title } = Typography
+const { Title } = Typography;
 
 const Checkout: React.FC = () => {
   const isScreenMD = useMediaQuery({minWidth: minWidthMD});
   const isScreenLG = useMediaQuery({minWidth: minWidthLG});
   const {
-    token: { colorPrimary, boxShadowTertiary },
+    token: { colorPrimary, boxShadowSecondary },
   } = theme.useToken();
 
   const layoutStyle: React.CSSProperties = {
@@ -23,11 +24,21 @@ const Checkout: React.FC = () => {
 
   const cardStyle: React.CSSProperties = {
     width: '100%',
-    marginBottom: '20px',
-    boxShadow: boxShadowTertiary
-  }
+    marginBottom: '30px',
+    boxShadow: boxShadowSecondary 
+  };
+
+  const cardHeaderStyle: React.CSSProperties = {
+    borderBottom: '1px solid rgba(5, 5, 5, 0.12)'
+  };
 
   const listItemStyle: React.CSSProperties = {
+    display: 'block',
+    padding: '16px 22px',
+    borderBottom: '1px solid rgba(5, 5, 5, 0.12)'
+  };
+
+  const listItemTextStyle: React.CSSProperties = {
     display: 'flex',
     justifyContent: 'space-between',
     width: '100%'
@@ -35,20 +46,32 @@ const Checkout: React.FC = () => {
 
   const boldFontStyle: React.CSSProperties = {
     fontWeight: 500
-  }
+  };
 
   const titleTextStyle: React.CSSProperties = {
     fontSize: isScreenMD ? '38px' : '32px',
     lineHeight: 0.5,
     textAlign: 'center',
-    position: 'relative',
-    marginBottom: '30px'
-  }
+    position: 'relative'
+  };
 
   const orderButtonStyle: React.CSSProperties = {
     borderRadius: 0,
-    fontWeight: 600
-  }
+    fontWeight: 600,
+    width: '100%'
+  };
+
+  const dividerStyle: React.CSSProperties = {
+    borderBlockStart: '1px solid rgba(5, 5, 5, 0.12)',
+    margin: '6px 0'
+  };
+
+  const lineStyle: React.CSSProperties = {
+    display: 'flex',
+    margin: 'auto',
+    height: '18px',
+    marginBottom: '48px'
+  };
 
   const { bag, subtotalText, taxText, totalText } = useContext(BagContext) as BagContextType;
   const {setOpenDrawer} = useBagDrawer();
@@ -63,9 +86,14 @@ const Checkout: React.FC = () => {
   return (
     <div style={layoutStyle}>
       <Title level={1} style={titleTextStyle}>CHECKOUT</Title>
+      <img style={lineStyle} alt="line" src={lineImg} />
       <Row>
         <Col span={24} lg={12}>
-          <Card title={<Title level={3}>Guest Information</Title>} style={cardStyle}>
+          <Card
+            title={<Title level={3}>Guest Information</Title>}
+            style={cardStyle}
+            styles={{header: cardHeaderStyle}}
+          >
             <Row gutter={[24, 24]}>
               <Col span={11} >
                 <Input disabled placeholder="First Name"/>
@@ -82,7 +110,11 @@ const Checkout: React.FC = () => {
             </Row>
           </Card>
 
-          <Card title={<Title level={3}>Credit Card Information</Title>} style={cardStyle}>
+          <Card
+            title={<Title level={3}>Credit Card Information</Title>}
+            style={cardStyle}
+            styles={{header: cardHeaderStyle}}
+          >
             <Row gutter={[24, 24]}>
               <Col span={11} >
                 <Input disabled placeholder="Credit Card Number"/>
@@ -104,45 +136,45 @@ const Checkout: React.FC = () => {
             title={<Title level={3}>Order Details</Title>}
             extra={<Link to="/menu" onClick={() => setOpenDrawer(true)}>Edit Order</Link>}
             style={{...cardStyle}}
+            styles={{header: cardHeaderStyle, body: { padding: 0 }}}
           >
-            <div>
+            <div style={{ padding: '22px'}}>
               <div style={{ ...boldFontStyle, fontSize: '20px'}}>New Chopstix Restaurant</div>
               <div><EnvironmentFilled style={{color: colorPrimary}}/> 123 Fake Street, Hayward, CA 94544</div>
               <div><PhoneFilled style={{color: colorPrimary}}/> (510) 555-1234</div>
             </div>
-            <Divider style={{ margin: '6px 0'}}/>
-
+            <Divider style={dividerStyle}/>
             <List
               style={{border: 'none'}}
               size="large"
               bordered
               dataSource={bag}
               renderItem={(item) => (
-                <List.Item style={{ display: 'block', padding: '18px 0'}}>
-                  <div style={listItemStyle}>
+                <List.Item style={listItemStyle}>
+                  <div style={listItemTextStyle}>
                     <div style={{ ...boldFontStyle, fontSize: '16px' }}>{item.name}</div>
                     <div>${item.totalItemPrice}</div>
                   </div>
                   {item.radioOption && <div>{parseRadioText(item.radioOption)}</div>}
                   {item.specialInstructions && <div>Note: {item.specialInstructions}</div>}
-                  <div style={{...listItemStyle, justifyContent: 'flex-start', gap: '10px'}}>
-                    <div>Quantity: {item.quantity}</div>
+                  <div style={{...listItemTextStyle, justifyContent: 'flex-start', gap: '10px'}}>
+                    <div>Qty : {item.quantity}</div>
                   </div>
-                  
                 </List.Item>
               )}
             />
-
-            <Divider style={{ margin: '6px 0'}}/>
-            <div><span style={boldFontStyle}>Subtotal:</span> ${subtotalText}</div>
-            <div>Tax ({TAX_RATE}%): ${taxText}</div>
-            <Divider style={{ margin: '6px 0'}}/>
-            <div style={{ marginBottom: '18px' }}><span style={{ ...boldFontStyle, fontSize: '16px', }}>Total:</span> ${totalText}</div>
+            <div style={{ padding: '8px 22px 0 22px'}}>
+              <span style={{ ...boldFontStyle, fontSize: '18px' }}>Subtotal: ${subtotalText}</span>
+            </div>
+            <div style={{ padding: '0 22px 8px 22px'}}>Tax ({TAX_RATE}%): ${taxText}</div>
+            <Divider style={dividerStyle}/>
+            <div style={{ padding: '16px 22px' }}>
+              <span style={{ ...boldFontStyle, fontSize: '18px' }}>Total: ${totalText}</span>
+            </div>
             <Button
               style={orderButtonStyle}
               type="primary"
               size="large"
-              disabled
             >PLACE ORDER</Button>
           </Card>
         </Col>

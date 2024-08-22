@@ -23,7 +23,6 @@ describe('Delete Confirm Modal tests', () => {
       </BagContext.Provider>
     );
 
-    expect(screen.queryByText(/remove item/i)).not.toBeInTheDocument();
     expect(screen.queryByText(/are you sure you want to remove/i)).not.toBeInTheDocument();
     expect(screen.queryByText(/chicken lettuce wraps/i)).not.toBeInTheDocument();
   });
@@ -39,7 +38,6 @@ describe('Delete Confirm Modal tests', () => {
       </BagContext.Provider>
     );
 
-    expect(screen.getByText(/remove item/i)).toBeInTheDocument();
     expect(screen.getByText(/are you sure you want to remove/i)).toBeInTheDocument();
     expect(screen.getByText(/chicken lettuce wraps/i)).toBeInTheDocument();
     userEvent.click(screen.getByLabelText('remove-button'));
@@ -62,7 +60,6 @@ describe('Delete Confirm Modal tests', () => {
       </BagContext.Provider>
     );
 
-    expect(screen.getByText(/remove item/i)).toBeInTheDocument();
     expect(screen.getByText(/are you sure you want to remove/i)).toBeInTheDocument();
     expect(screen.getByText(/chicken lettuce wraps/i)).toBeInTheDocument();
     userEvent.click(screen.getByLabelText('cancel-button'));

@@ -327,7 +327,7 @@ export const nutritionDataArray: NutritionItem[] = [
   {
     id: 'beef-broccoli',
     category: 'main-entree',
-    name: 'Beef with Brocooli',
+    name: 'Beef with Broccoli',
     servings: 2,
     calories: 330,
     calFromFat: 140,
@@ -1038,4 +1038,4 @@ export const nutritionDataArray: NutritionItem[] = [
     sugar: '12g',
     protein: '5g'
   },
-]
+];

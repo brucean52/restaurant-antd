@@ -29,29 +29,29 @@ const Home: React.FC = () => {
     backgroundSize: 'cover',
     backgroundPosition: 'center',
     height: isScreen4K ? '450px' : isScreenMD ? '360px' : '250px'
-  }
+  };
 
   const titleStyle: React.CSSProperties = {
     padding: isScreenMD ? '75px 50px' : '50px 25px',
     width: '100%',
     marginTop: isScreen4K ? '50px' : isScreenXL ? '10px' : isScreenMD ? '40px' :'25px'
-  }
+  };
 
   const titleTextStyle: React.CSSProperties = {
     fontWeight: 700,
     fontSize: isScreenXL ? '52px' : isScreenMD ? '42px' : '22px'
-  }
+  };
 
   const menuButtonStyle: React.CSSProperties = {
     borderRadius: 0,
     fontWeight: 600
-  }
+  };
   
   const aboutStyle: React.CSSProperties = {
     backgroundColor: '#0d0d0d',
     textAlign: 'center',
     padding: isScreen4K ? '24px 24%' : '24px 18%'
-  }
+  };
 
   const aboutTextStyle: React.CSSProperties = {
     lineHeight: '0.5',
@@ -59,27 +59,27 @@ const Home: React.FC = () => {
     display: 'inline-block',
     position: 'relative',
     marginTop: 0
-  }
+  };
 
   const textStyle: React.CSSProperties = {
     fontSize: '16px'
-  }
+  };
 
   const whiteTextStyle: React.CSSProperties = {
     color: '#FFFFFF'
-  }
+  };
 
   const subHeaderTextStyle: React.CSSProperties = {
     fontSize: isScreenXL ? '30px' : isScreenMD ? '24px' : '20px'
-  }
+  };
 
   const businessMarginStyle: React.CSSProperties = {
     marginLeft: isScreenXS ? '80px' : '95px'
-  }
+  };
 
   const locationMarginStyle: React.CSSProperties = {
     marginLeft: isScreenXS ? '50px' : '80px'
-  }
+  };
 
   const navigate = useNavigate();
 

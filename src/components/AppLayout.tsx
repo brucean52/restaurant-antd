@@ -42,24 +42,24 @@ const AppLayout: React.FC = () => {
     top: 0,
     width: '100%',
     boxShadow
-  }
+  };
 
   const logoStyle: React.CSSProperties = {
     height: isScreenMdOrLess ? '65px' : '75px',
     marginTop: isScreenMdOrLess ? '5px' : '1px'
-  }
+  };
 
   const menuStyle: React.CSSProperties = {
     flex: 1,
     marginLeft: '30px',
     fontSize: isScreenMdOrLess ? '20px' :'24px',
     fontWeight: 500
-  }
+  };
 
   const contentStyle: React.CSSProperties = {
     backgroundColor: colorBgLayout,
     minHeight: isScreen4K ? '88vh' : '85vh'
-  }
+  };
 
   const footerStyle: React.CSSProperties = {
     backgroundColor: '#0d0d0d',
@@ -69,7 +69,7 @@ const AppLayout: React.FC = () => {
     fontSize: '10px',
     paddingTop: '45px',
     paddingBottom: '5px'
-  }
+  };
 
   const location = useLocation();
   const navigate = useNavigate();
@@ -94,7 +94,7 @@ const AppLayout: React.FC = () => {
 
   const onSelectMenu= (item: any): void => {
     navigate(item.key);
-  }
+  };
 
   return (
     <Layout>

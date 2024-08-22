@@ -35,7 +35,6 @@ td:first-child, th:first-child {
 
 .nutri-anchor > .ant-anchor {
   justify-content: center;
-  background-color: '#FFFFFF';
 }
 
 .menu-item-card.ant-card > .ant-card-body {
@@ -82,7 +81,7 @@ td:first-child, th:first-child {
 }
 
 .bag-list.ant-list > .ant-spin-nested-loading > .ant-spin-container > ul.ant-list-items {
-  height: 60vh;
+  height: 55vh;
   overflow-y: auto;
 }
 
@@ -97,6 +96,10 @@ td:first-child, th:first-child {
 
 .recharts-default-legend > li {
   margin-right: 24px !important;
+}
+
+.ant-list-header {
+  border-bottom: 1px solid rgba(5, 5, 5, 0.12);
 }
 
 @media (max-device-width: 1600px) { 
@@ -125,4 +128,45 @@ td:first-child, th:first-child {
     height: 80px;
   }
 
+}
+
+@media (max-device-width: 768px) {
+  .nutri-anchor > .ant-anchor {
+    padding-left: 15%;
+  }
+}
+
+@media (max-device-width: 660px) {
+  .nutri-anchor > .ant-anchor {
+    padding-left: 25%;
+  }
+}
+
+@media (max-device-width: 605px) {
+  .nutri-anchor > .ant-anchor {
+    padding-left: 40%;
+  }
+}
+
+@media (max-device-width: 550px) {
+  .nutri-anchor > .ant-anchor {
+    padding-left: 60%;
+  }
+}
+
+@media (max-device-width: 475px) {
+  .nutri-anchor > .ant-anchor {
+    padding-left: 80%;
+  }
+}
+@media (max-device-width: 425px) {
+  .nutri-anchor > .ant-anchor {
+    padding-left: 100%;
+  }
+}
+
+@media (max-device-width: 370px) {
+  .nutri-anchor > .ant-anchor {
+    padding-left: 390px;
+  }
 }

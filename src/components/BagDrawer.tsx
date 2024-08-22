@@ -1,6 +1,6 @@
 import React, {useState, useContext, Dispatch, SetStateAction} from 'react';
 import { useNavigate } from 'react-router-dom';
-import { ConfigProvider, Button, Drawer, List, Space, Card, theme, Divider } from 'antd';
+import { ConfigProvider, Button, Drawer, List, Space, Card, theme, Divider, Select, InputNumber } from 'antd';
 import { PhoneFilled, EnvironmentFilled, CloseOutlined } from '@ant-design/icons';
 import { useMediaQuery } from 'react-responsive';
 import MenuItemModal from './MenuItemModal';
@@ -12,12 +12,12 @@ import { defaultMenuItem, defaultBagItemOptions, TAX_RATE, maxWidthXXS } from '.
 type BagDrawerProps = {
   openDrawer: boolean,
   setOpenDrawer: Dispatch<SetStateAction<boolean>>
-}
+};
 
 const defaultDeleteOptions = {
   bagId: '',
   name: ''
-}
+};
 
 const BagDrawer: React.FC<BagDrawerProps> = (props) => {
   const isScreenXXS = useMediaQuery({maxWidth: maxWidthXXS});
@@ -40,28 +40,58 @@ const BagDrawer: React.FC<BagDrawerProps> = (props) => {
 
   const boldFontStyle: React.CSSProperties = {
     fontWeight: 500
-  }
+  };
 
   const mainButtonStyle: React.CSSProperties = {
     borderRadius: 0,
     fontWeight: 600
-  }
+  };
 
-  const { bag, subtotalText, taxText, totalText } = useContext(BagContext) as BagContextType;
+  const listBtnRowStyle: React.CSSProperties = {
+    justifyContent: 'flex-start',
+    gap: '10px',
+    marginTop: '8px'
+  };
+
+  const drawerHeaderStyle: React.CSSProperties = {
+    borderBottom: '1px solid rgba(5, 5, 5, 0.12)'
+  };
+
+  const drawerBodyStyle: React.CSSProperties = {
+    padding: '0px',
+    display: 'flex',
+    flexDirection: 'column',
+    justifyContent: 'space-between'
+  };
+
+  const dividerStyle: React.CSSProperties = {
+    borderBlockStart: '1px solid rgba(5, 5, 5, 0.12)'
+  };
+
+  const { bag, subtotalText, taxText, totalText, updateItem } = useContext(BagContext) as BagContextType;
   const [selectedMenuItem, setSelectedMenuItem] = useState<MenuItem>(defaultMenuItem);
   const [itemOptions, setItemOptions] = useState<BagItemOptions>(defaultBagItemOptions);
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
   const [deleteOptions, setDeleteOptions] = useState(defaultDeleteOptions);
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
+  const [customQuantityValue, setCustomQuantityValue] = useState<number| null>(null);
+  const [isCustomQuantityId, setIsCustomQuantityId] = useState('');
   const navigate = useNavigate();
 
+  const closeDrawer = () => {
+    setIsCustomQuantityId('');
+    props.setOpenDrawer(false);
+  };
+
   const checkoutClicked = () => {
-    props.setOpenDrawer(false)
+    setIsCustomQuantityId('');
+    props.setOpenDrawer(false);
     navigate('/checkout');
   };
 
   const startOrderClicked = () => {
-    props.setOpenDrawer(false)
+    setIsCustomQuantityId('');
+    props.setOpenDrawer(false);
     navigate('/menu');
   };
 
@@ -95,6 +125,7 @@ const BagDrawer: React.FC<BagDrawerProps> = (props) => {
       ...(item.coke && { coke: item.coke })
     };
 
+    setIsCustomQuantityId('');
     setItemOptions(itemOptions);
     setSelectedMenuItem(menuOptions);
     setIsEditModalOpen(true);
@@ -106,6 +137,7 @@ const BagDrawer: React.FC<BagDrawerProps> = (props) => {
   };
 
   const handleDeleteItemClicked = (item: BagItem) => {
+    setIsCustomQuantityId('');
     setDeleteOptions({ bagId: item.bagItemId, name: item.name });
     setIsDeleteModalOpen(true);
   };
@@ -116,6 +148,49 @@ const BagDrawer: React.FC<BagDrawerProps> = (props) => {
     )
     return newText;
   };
+
+  const submitCustomInputQty = (item: BagItem) => {
+    if (customQuantityValue !== null) {
+      let updatedItem = {...item}
+      let itemPrice = parseFloat(item.price);
+
+      if (item.hasOwnProperty('soup')) {
+        let soupItem = item.soup && item.soup.find( option => option.id === item.radioOption)
+        itemPrice = parseFloat(soupItem?.price || '')
+      } else if (item.hasOwnProperty('protein')) {
+        let proteinItem = item.protein && item.protein.find( option => option.id === item.radioOption)
+        itemPrice = parseFloat(proteinItem?.price || '')
+      }
+
+      updatedItem.quantity = customQuantityValue;
+      updatedItem.totalItemPrice = (itemPrice * customQuantityValue).toFixed(2);
+      updateItem(updatedItem);
+      setCustomQuantityValue(null);
+    }
+    setIsCustomQuantityId('');
+  };
+
+  const qtyValueChange = (item: BagItem, value: string) => {
+    if (value !== 'custom') {
+      let updatedItem = {...item}
+      let itemPrice = parseFloat(item.price);
+
+      if (item.hasOwnProperty('soup')) {
+        let soupItem = item.soup && item.soup.find( option => option.id === item.radioOption)
+        itemPrice = parseFloat(soupItem?.price || '')
+      } else if (item.hasOwnProperty('protein')) {
+        let proteinItem = item.protein && item.protein.find( option => option.id === item.radioOption)
+        itemPrice = parseFloat(proteinItem?.price || '')
+      }
+
+      updatedItem.quantity = parseInt(value);
+      updatedItem.totalItemPrice = (itemPrice * parseInt(value)).toFixed(2);
+      updateItem(updatedItem);
+    } else {
+      setCustomQuantityValue(item.quantity);
+      setIsCustomQuantityId(item.bagItemId);
+    }
+  };
  
   const renderDrawerTitle = (
     <Space style={{ justifyContent: 'space-between', width: '100%'}}>
@@ -125,7 +200,7 @@ const BagDrawer: React.FC<BagDrawerProps> = (props) => {
         shape="circle"
         size="large"
         icon={<CloseOutlined />}
-        onClick={() => props.setOpenDrawer(false)}
+        onClick={closeDrawer}
       />
     </Space>
   );
@@ -139,11 +214,14 @@ const BagDrawer: React.FC<BagDrawerProps> = (props) => {
   );
 
   const renderCostFooter = (
-    <Card>
-      <div><span style={boldFontStyle}>Subtotal:</span> ${subtotalText}</div>
-      <div>Tax ({TAX_RATE}%): ${taxText}</div>
-      <Divider style={{ margin: '6px 0'}}/>
-      <div><span style={{ ...boldFontStyle, fontSize: '16px' }}>Total:</span> ${totalText}</div>
+    <Card
+      style={{ borderTop: '1px solid rgba(5, 5, 5, 0.12)' }}
+      styles={{ body: { padding: 0 }}}
+    >
+      <div style={{ padding: '16px 16px 0 16px' }}><span style={{...boldFontStyle, fontSize: '18px'}}>Subtotal: ${subtotalText}</span> </div>
+      <div style={{ padding: '0 16px 16px 16px' }}>Tax ({TAX_RATE}%): ${taxText}</div>
+      <Divider style={{ margin: '6px 0', ...dividerStyle}}/>
+      <div style={{ padding: '12px' }}><span style={{ ...boldFontStyle, fontSize: '18px' }}>Total: ${totalText}</span> </div>
     </Card>
   );
 
@@ -166,10 +244,13 @@ const BagDrawer: React.FC<BagDrawerProps> = (props) => {
         title={renderDrawerTitle}
         placement={'right'}
         closable={false}
-        onClose={() => props.setOpenDrawer(false)}
+        onClose={closeDrawer}
         open={props.openDrawer}
         key={'bag-drawer'}
-        styles={{body: {padding: '0px', display: 'flex', flexDirection: 'column', justifyContent: 'space-between'}}}
+        styles={{
+          header: drawerHeaderStyle,
+          body: drawerBodyStyle
+        }}
         width={isScreenXXS ? 300 : 378}
       >
         <ConfigProvider renderEmpty={customRenderEmpty}>
@@ -180,19 +261,50 @@ const BagDrawer: React.FC<BagDrawerProps> = (props) => {
             bordered
             dataSource={bag}
             renderItem={(item, index) => (
-              <List.Item style={{ display: 'block'}}>
+              <List.Item style={{ display: 'block', borderBottom: '1px solid rgba(5, 5, 5, 0.12)' }}>
                 <div style={listItemStyle}>
                   <div style={{ ...boldFontStyle, fontSize: '16px' }}>{item.name}</div>
-                  <div>${item.totalItemPrice}</div>
+                  <div style={{ marginTop: '4px' }}>${item.totalItemPrice}</div>
                 </div>
                 {item.radioOption && <div>{parseRadioText(item.radioOption)}</div>}
                 {item.specialInstructions && <div>Note: {item.specialInstructions}</div>}
-                <div style={{...listItemStyle, justifyContent: 'flex-start', gap: '10px'}}>
-                  <div>Quantity: {item.quantity}</div>
+                <div style={{...listItemStyle, ...listBtnRowStyle}}>
+                  {isCustomQuantityId === item.bagItemId ?
+                    <Space.Compact style={{ width: '100px' }}>
+                      <InputNumber
+                        aria-label={`custom-input-qty-${index}`}
+                        size="small"
+                        controls={false}
+                        min={1}
+                        value={customQuantityValue}
+                        onChange={(value) => setCustomQuantityValue(value)}
+                      />
+                      <Button
+                        aria-label={`update-qty-btn-${index}`}
+                        type="primary"
+                        size="small"
+                        onClick={() => submitCustomInputQty(item)}
+                      >Update</Button>
+                    </Space.Compact>
+                    :
+                    <Select
+                      aria-label={`select-qty-${index}`}
+                      value={`Qty: ${item.quantity}`}
+                      onChange={(value) => qtyValueChange(item, value)}
+                      size="small"
+                      options={[
+                        { value: '1', label: '1' },
+                        { value: '2', label: '2' },
+                        { value: '3', label: '3' },
+                        { value: '4', label: '4' },
+                        { value: '5', label: '5' },
+                        { value: 'custom', label: '6+' },
+                      ]}
+                    />
+                  }
                   <div aria-label={`edit-item-${index}`} className="bag-modify-text" onClick={() => handleEditItemClicked(item)}>Edit</div>
                   <div aria-label={`delete-item-${index}`} className="bag-modify-text" onClick={() => handleDeleteItemClicked(item)}>Remove</div>
                 </div>
-                
               </List.Item>
             )}
           />

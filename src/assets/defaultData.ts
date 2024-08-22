@@ -26,7 +26,7 @@ export const defaultBagItem: BagItem = {
   totalItemPrice: '',
   quantity: 0,
   specialInstructions: ''
-}
+};
 
 export const defaultBagItemOptions: BagItemOptions = {
   bagItemId: '',
@@ -34,7 +34,7 @@ export const defaultBagItemOptions: BagItemOptions = {
   quantity: 0,
   specialInstructions: '',
   radioOption: ''
-}
+};
 
 export const defaultMenuItem: MenuItem = {
   id: '',
@@ -43,13 +43,13 @@ export const defaultMenuItem: MenuItem = {
   name: '',
   description: '',
   price: '',
-}
+};
 
 export const defaultMenuItemFormValues: MenuItemFormValues =  {
   radio: '',
   quantity: 1,
   specialInstructions: '',
-}
+};
 
 export const TAX_RATE = '10.75';
 

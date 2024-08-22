@@ -7,11 +7,11 @@ import { NutritionItem, NutriTableHeader } from '../types';
 
 type NutritionTableLayoutProps = {
   nutritionDataArray: NutritionItem[],
-}
+};
 
 type TableDataRowProps = {
   nutriItem: NutritionItem,
-}
+};
 
 const NutritionTable: React.FC<NutritionTableLayoutProps> = (props) => {
   const {
@@ -30,7 +30,7 @@ const NutritionTable: React.FC<NutritionTableLayoutProps> = (props) => {
     width: '100%',
     overflowX: 'auto',
     margin: '0 1%'
-  }
+  };
 
   const tableStyle: React.CSSProperties = {
     borderSpacing: '0px',
@@ -39,14 +39,14 @@ const NutritionTable: React.FC<NutritionTableLayoutProps> = (props) => {
     margin: '0 1% 1% 2%',
     borderRadius,
     boxShadow: boxShadowSecondary
-  }
+  };
 
   const tableHeaderStyle: React.CSSProperties = {
     backgroundColor:  '#0d0d0d',
     borderBottom: `${colorPrimary} 4px solid`,
     color: '#FFFFFF',
     boxShadow: boxShadowSecondary,
-  }
+  };
 
   const renderTableHeaders = nutriTableHeaders.map((column: NutriTableHeader) => {
     return <th key={column.id} style={tableHeaderStyle} className="nutri-table-header">{column.title}</th>

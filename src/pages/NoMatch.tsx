@@ -7,7 +7,7 @@ const NoMatch: React.FC = () => {
   const removeButtonStyle: React.CSSProperties = {
     borderRadius: 0,
     fontWeight: 600
-  }
+  };
 
   const navigate = useNavigate();
 

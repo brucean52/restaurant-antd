@@ -630,4 +630,4 @@ export const menuDataArray: MenuItem[] = [
     description: '',
     price: '6.00'
   },
-]
+];

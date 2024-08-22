@@ -20,7 +20,7 @@ const BagProvider: React.FC<{ children: any }> = ({ children }) => {
 
     setTaxText(taxAmount.toFixed(2));
     setTotalText(totalAmount);
-  }
+  };
 
   const addItem = (bagItem: BagItem) => {
     let itemTotal = parseFloat(bagItem.totalItemPrice);
@@ -31,7 +31,7 @@ const BagProvider: React.FC<{ children: any }> = ({ children }) => {
     setBag([...bag, bagItem]);
     setTotalItems(totalItems + bagItem.quantity);
     setSubtotalText(calcSubtotal);
-  }
+  };
 
   const updateItem = (bagItem: BagItem) => {
     let editedBag = [...bag];
@@ -48,7 +48,7 @@ const BagProvider: React.FC<{ children: any }> = ({ children }) => {
     setBag(editedBag);
     setSubtotalText(calcSubotal);
     setTotalItems(currentTotalItems);
-  }
+  };
 
   const deleteItem = (bagItemId: string) => {
     let editedBag = [...bag];
@@ -64,7 +64,7 @@ const BagProvider: React.FC<{ children: any }> = ({ children }) => {
     setBag(editedBag);
     setSubtotalText(calcSubotal);
     setTotalItems(currentTotalItems);
-  }
+  };
 
   return (
     <BagContext.Provider value={{

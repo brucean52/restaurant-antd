@@ -5,4 +5,4 @@ type OutletContextType = { setOpenDrawer: Dispatch<SetStateAction<boolean>> };
 
 export default function useBagDrawer() {
   return useOutletContext<OutletContextType>();
-}
+};

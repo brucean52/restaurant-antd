@@ -14,7 +14,7 @@ export const mockItemOne: BagItem = {
   totalItemPrice: '48.00',
   quantity: 3,
   specialInstructions: ''
-}
+};
 
 export const editedMockItemOne: BagItem = {
   bagItemId: 'abc123',
@@ -27,7 +27,7 @@ export const editedMockItemOne: BagItem = {
   totalItemPrice: '32.00',
   quantity: 2,
   specialInstructions: 'add spicy'
-}
+};
 
 export const mockItemTwo: BagItem = {
   bagItemId: 'abc456',
@@ -51,7 +51,7 @@ export const mockItemTwo: BagItem = {
   quantity: 2,
   specialInstructions: 'extra spicy',
   radioOption: 'steamed+'
-}
+};
 
 export const mockItemThree: BagItem = {
   bagItemId: 'abc789',
@@ -82,7 +82,7 @@ export const mockItemThree: BagItem = {
   quantity: 1,
   specialInstructions: '',
   radioOption: 'combo+23.50'
-}
+};
 
 export const mockContextValues: BagContextType = {
   bag: [mockItemOne, mockItemTwo, mockItemThree],
@@ -93,7 +93,7 @@ export const mockContextValues: BagContextType = {
   addItem: vi.fn(),
   updateItem: vi.fn(),
   deleteItem: vi.fn(),
-}
+};
 
 export const mockEmptyContextValues: BagContextType = {
   bag: [],
@@ -104,7 +104,7 @@ export const mockEmptyContextValues: BagContextType = {
   addItem: vi.fn(),
   updateItem: vi.fn(),
   deleteItem: vi.fn(),
-}
+};
 
 export const mockBagItemOptionsOne : BagItemOptions = {
   bagItemId: mockItemOne.bagItemId,
@@ -112,7 +112,7 @@ export const mockBagItemOptionsOne : BagItemOptions = {
   quantity: 3,
   specialInstructions: '',
   radioOption: ''
-}
+};
 
 export const mockBagItemOptionsTwo : BagItemOptions = {
   bagItemId: mockItemTwo.bagItemId,
@@ -120,7 +120,7 @@ export const mockBagItemOptionsTwo : BagItemOptions = {
   quantity: 2,
   specialInstructions: 'extra spicy',
   radioOption: mockItemTwo.radioOption
-}
+};
 
 export const mockBagItemOptionsThree : BagItemOptions = {
   bagItemId: mockItemThree.bagItemId,
@@ -128,7 +128,7 @@ export const mockBagItemOptionsThree : BagItemOptions = {
   quantity: 1,
   specialInstructions: '',
   radioOption: mockItemThree.radioOption
-}
+};
 
 export const mockChartData = [
   {

@@ -2,7 +2,7 @@ export type CustomOption = {
   id: string;
   name: string;
   price?: string;
-}
+};
 
 export type MenuCategory = '' |'appetizers' | 'soups' | 'main-entree' | 'bowls' | 'fried-rice-noodles' | 'side-orders' | 'beverages';
 
@@ -19,7 +19,7 @@ export interface MenuItem {
   protein?: CustomOption[];
   tea?: CustomOption[];
   coke?: CustomOption[];
-}
+};
 
 export type MenuItemFormValues = {
   radio: string;
@@ -33,7 +33,7 @@ export type BagItemOptions = {
   quantity: number;
   radioOption?: string,
   specialInstructions: string;
-}
+};
 
 export interface BagItem extends MenuItem {
   bagItemId: string;
@@ -62,7 +62,7 @@ export type NutriTableKey = 'id' |'category' | 'name' | 'servings' | 'calories'
 export type NutriTableHeader = {
   title: string;
   id: NutriTableKey
-}
+};
 
 export interface NutritionItem {
   id: string;
@@ -80,4 +80,4 @@ export interface NutritionItem {
   fiber: string;
   sugar: string;
   protein: string;
-}
+};

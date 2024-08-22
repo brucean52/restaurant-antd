@@ -9,7 +9,7 @@ const { Title, Paragraph } = Typography;
 type MenuItemCardProps = {
   menuItem: MenuItem,
   handleMenuItemClicked: (menuItem: MenuItem) => void;
-}
+};
 
 const MenuItemCard: React.FC<MenuItemCardProps> = (props) => {
   const isScreenXL = useMediaQuery({minWidth: minWidthXL});
@@ -23,17 +23,17 @@ const MenuItemCard: React.FC<MenuItemCardProps> = (props) => {
     marginLeft: '5%',
     marginBottom: '36px',
     boxShadow: boxShadowSecondary
-  }
+  };
 
   const titleTextStyle: React.CSSProperties = {
     margin: 0,
     fontSize: isScreenXL ? '20px' : '16px'
-  }
+  };
 
   const priceTextStyle: React.CSSProperties = {
     margin: 0,
     fontSize: isScreenXL ? '14px' : '12px'
-  }
+  };
 
   return (
     <Col span={24} sm={12} md={8} style={{border: '1px'}}>

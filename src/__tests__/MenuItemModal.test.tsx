@@ -1,4 +1,4 @@
-import { render, screen, fireEvent, waitFor, act } from '@testing-library/react';
+import { render, screen, fireEvent, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import MenuItemModal from '../components/MenuItemModal';
 import { menuDataArray } from '../assets/menuData';
@@ -52,17 +52,29 @@ describe('Menu Item Modal component tests', () => {
     expect(quantityInput.value).toBe('1');
     expect(screen.getByText('Add to Bag $16.00')).toBeInTheDocument();
 
+    userEvent.click(screen.getByLabelText('qty-add-button'));
+    await waitFor(() => {
+      expect(quantityInput.value).toBe('2');
+    });
+    expect(screen.getByText('Add to Bag $32.00')).toBeInTheDocument();
+
+    userEvent.click(screen.getByLabelText('qty-add-button'));
+    await waitFor(() => {
+      expect(quantityInput.value).toBe('3');
+    });
+    expect(screen.getByText('Add to Bag $48.00')).toBeInTheDocument();
+
+    userEvent.click(screen.getByLabelText('qty-minus-button'));
+    await waitFor(() => {
+      expect(quantityInput.value).toBe('2');
+    });
+    expect(screen.getByText('Add to Bag $32.00')).toBeInTheDocument();
+
     fireEvent.change(quantityInput, {target: {value: '23'}});
     await waitFor(() => {
       expect(quantityInput.value).toBe('23');
     });
     expect(screen.getByText('Add to Bag $368.00')).toBeInTheDocument();
-
-    fireEvent.change(quantityInput, {target: {value: '1'}});
-    await waitFor(() => {
-      expect(quantityInput.value).toBe('1');
-    });
-    expect(screen.getByText('Add to Bag $16.00')).toBeInTheDocument();
 
     userEvent.click(screen.getByLabelText('submit-button'));
     await waitFor(() => {

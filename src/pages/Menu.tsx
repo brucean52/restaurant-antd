@@ -1,8 +1,9 @@
-import React, { useState } from 'react';
-import { Anchor, Row, Typography, theme } from 'antd';
+import React, { useState, useEffect } from 'react';
+import { Anchor, Row, Typography } from 'antd';
+import { useMediaQuery } from 'react-responsive';
+import { animateScroll } from 'react-scroll';
 import MenuItemCard from '../components/MenuItemCard';
 import MenuItemModal from '../components/MenuItemModal';
-import { useMediaQuery } from 'react-responsive';
 import { MenuItem } from '../types';
 import lineImg from '../assets/images/line.png';
 import { menuDataArray } from '../assets/menuData';
@@ -49,11 +50,11 @@ const navMenuItems = [
 ];
 
 const MenuPage: React.FC = () => {
-  const isScreenLG = useMediaQuery({minWidth: 992});
+  const isScreenLG = useMediaQuery({minWidth: minWidthLG});
   const layoutStyle: React.CSSProperties = {
     display: isScreenLG ? 'flex' : 'block',
     padding: isScreenLG ? '0 15% 0 10%' : '0'
-  }
+  };
 
   const menuTitleStyle: React.CSSProperties = {
     fontWeight: 600,
@@ -67,7 +68,11 @@ const MenuPage: React.FC = () => {
     margin: 'auto',
     height: '16px',
     marginBottom: '30px'
-  }
+  };
+
+  useEffect(() => {
+    animateScroll.scrollTo( 2, { duration: 0 });
+  }, []);
 
   const [selectedMenuItem, setSelectedMenuItem] = useState<MenuItem>(defaultMenuItem);
   const [isModalOpen, setIsModalOpen] = useState(false);
