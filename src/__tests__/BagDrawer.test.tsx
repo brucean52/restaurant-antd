@@ -26,7 +26,7 @@ describe('Bag Drawer component tests', () => {
     expect(screen.queryByText(/start your order/i)).not.toBeInTheDocument();
   });
 
-  test('bag drawer is empty', async () => {
+  test('can render empty bag', async () => {
     render(
       <BrowserRouter>
         <BagContext.Provider value={mockEmptyContextValues}>
@@ -44,7 +44,7 @@ describe('Bag Drawer component tests', () => {
     });
   });
 
-  test('bag drawer renders content', async () => {
+  test('can render bag with items', async () => {
     render(
       <BrowserRouter>
         <BagContext.Provider value={mockContextValues}>

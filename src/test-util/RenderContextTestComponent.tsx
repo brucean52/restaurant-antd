@@ -11,6 +11,7 @@ const RenderContextTestComponent = () => {
     taxText,
     totalText,
     totalItems,
+    isDarkMode,
     addItem,
     updateItem,
     deleteItem
@@ -22,6 +23,7 @@ const RenderContextTestComponent = () => {
       <p aria-label="tax-txt">{taxText}</p>
       <p aria-label="total-txt">{totalText}</p>
       <p aria-label="total-items">{totalItems}</p>
+      <p aria-label="is-dark-mode">{isDarkMode}</p>
       
       {mockBagItemsArray.map((item, index) => {
         let count = index + 1;

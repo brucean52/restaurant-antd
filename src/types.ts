@@ -49,9 +49,11 @@ export type BagContextType = {
   subtotalText: string;
   taxText: string;
   totalText: string;
+  isDarkMode: boolean;
   addItem: (bagItem: BagItem) => void;
   updateItem: (bagItem: BagItem) => void;
   deleteItem: (bagItemId: string) => void;
+  toggleDarkMode: (setDarkMode: boolean) => void;
 };
 
 export type NutriTableKey = 'id' |'category' | 'name' | 'servings' | 'calories'

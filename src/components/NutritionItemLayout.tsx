@@ -1,9 +1,11 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useContext } from 'react';
 import { List, Typography } from 'antd';
 import { PieChart, Pie, Cell, Legend, ResponsiveContainer } from 'recharts';
 import { scroller, Element} from 'react-scroll';
 import { nutriTableHeaders, RADIAN } from '../assets/defaultData';
 import { NutritionItem, NutriTableHeader } from '../types';
+import { BagContext } from '../BagContext';
+import { BagContextType } from '../types';
 
 const { Title } = Typography;
 const COLORS = ["#9c1f16", "#d49b1c", "#68831c"];
@@ -13,7 +15,9 @@ type NutritionItemLayoutProps = {
   chartData: any
 };
 
-const NutritionItemLayout: React.FC<NutritionItemLayoutProps> = (props) => {+
+const NutritionItemLayout: React.FC<NutritionItemLayoutProps> = (props) => {
+  const { isDarkMode } = useContext(BagContext) as BagContextType; 
+
   useEffect(() => {
     scroller.scrollTo('main', {
       smooth: 'easeInOutQuint',
@@ -70,7 +74,7 @@ const NutritionItemLayout: React.FC<NutritionItemLayoutProps> = (props) => {+
       <Title level={3} style={{ marginLeft: '7%'}}>{props.nutriItem.name}</Title>
       <div style={mainStyle}>
         <List
-          style={{ backgroundColor: '#e6e6e6' }}
+          style={{ backgroundColor: isDarkMode ? '#3c3c3c' : '#e6e6e6' }}
           size="small"
           bordered
           dataSource={nutriDisplayItems}

@@ -1,13 +1,14 @@
 import React, { useState, useEffect, useContext } from 'react';
 import { useForm, Controller, useWatch } from 'react-hook-form';
 import { v4 as uuidv4 } from 'uuid';
-import { Input, Divider, Button, Row, Col, Modal, Typography, Space, theme } from 'antd';
+import { Input, Button, Row, Col, Modal, Typography, Space, theme } from 'antd';
 import { PlusOutlined, MinusOutlined, CloseCircleOutlined } from '@ant-design/icons';
 import { useMediaQuery } from 'react-responsive';
 import MenuRadioOptions from './MenuRadioOptions';
+import CustomDivider from './CustomDivider';
 import { BagContext } from '../BagContext';
 import { MenuItem, MenuItemFormValues, BagItem, BagContextType, BagItemOptions } from '../types';
-import { defaultMenuItemFormValues, maxWidthXXS } from '../assets/defaultData';
+import { defaultMenuItemFormValues } from '../assets/defaultData';
 
 const { TextArea } = Input;
 const { Title, Paragraph } = Typography;
@@ -25,6 +26,16 @@ const MenuItemModal: React.FC<MenuItemModalProps> = (props) => {
   const {
     token: { colorPrimary },
   } = theme.useToken();
+
+  const { isDarkMode, addItem, updateItem } = useContext(BagContext) as BagContextType;
+  const [totalItemPrice, setTotalItemPrice] =  useState<string>('0.00');
+
+  const { control, handleSubmit, setValue, getValues, reset, formState: { errors } } = useForm<MenuItemFormValues>({
+    defaultValues: defaultMenuItemFormValues
+  });
+
+  const radioChange = useWatch({ control, name: 'radio' });
+  const quantityChange = useWatch({ control, name: 'quantity' });
 
   const titleStyle: React.CSSProperties = {
     overflow: 'hidden',
@@ -44,20 +55,6 @@ const MenuItemModal: React.FC<MenuItemModalProps> = (props) => {
     borderRadius: 0,
     fontWeight: 600
   };
-
-  const dividerStyle: React.CSSProperties = {
-    borderBlockStart: '1px solid rgba(5, 5, 5, 0.12)'
-  };
-
-  const { addItem, updateItem } = useContext(BagContext) as BagContextType;
-  const [totalItemPrice, setTotalItemPrice] =  useState<string>('0.00');
-
-  const { control, handleSubmit, setValue, getValues, reset, formState: { errors } } = useForm<MenuItemFormValues>({
-    defaultValues: defaultMenuItemFormValues
-  });
-
-  const radioChange = useWatch({ control, name: 'radio' });
-  const quantityChange = useWatch({ control, name: 'quantity' });
 
   const placeHolderText = 'Food allergy? Need something put on the side? Let us know. (additional charges may apply and not all changes are possible)'
 
@@ -215,7 +212,7 @@ const MenuItemModal: React.FC<MenuItemModalProps> = (props) => {
 
   const renderFooter = (
     <div style={{padding: '0px 24px 24px 24px'}}>
-      <Divider style={dividerStyle}/>
+      <CustomDivider />
       <Button
         style={footerButtonStyle}
         aria-label="submit-button"
@@ -248,7 +245,7 @@ const MenuItemModal: React.FC<MenuItemModalProps> = (props) => {
       {renderTeaOptions}
       {renderCokeOptions}
 
-      <Divider style={dividerStyle}/>
+      <CustomDivider />
       <Row>
         <Col xs={10} sm={6} md={4}>
           <Title level={4} style={{ marginTop: '10px'}}>Quantity</Title>
@@ -285,7 +282,7 @@ const MenuItemModal: React.FC<MenuItemModalProps> = (props) => {
         />
       </Row>
 
-      <Divider style={dividerStyle}/>
+      <CustomDivider />
       <Title level={4} style={{ marginTop: '10px'}}>Special Instructions</Title>
       <Controller
         name="specialInstructions"
@@ -294,7 +291,7 @@ const MenuItemModal: React.FC<MenuItemModalProps> = (props) => {
           <TextArea
             {...field}
             styles={{ textarea: {
-              color: 'rgba(0, 0, 0, 0.5)'}
+              color: isDarkMode ? '#FFFFFF' : '#000000'}
             }}
             aria-label="special-instructions-textarea"
             rows={2}

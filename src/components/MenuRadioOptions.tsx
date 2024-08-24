@@ -1,6 +1,7 @@
 import React from 'react';
-import { Row, Col, Radio, Divider, Typography, theme } from 'antd';
+import { Row, Col, Radio, Typography, theme } from 'antd';
 import { Control, Controller, FieldErrors } from 'react-hook-form';
+import CustomDivider from './CustomDivider';
 import { CustomOption, MenuItemFormValues } from '../types';
 
 const { Title } = Typography;
@@ -19,13 +20,9 @@ const MenuRadioOptions: React.FC<MenuRadioOptionsProps> = (props) => {
     token: { colorPrimary },
   } = theme.useToken();
 
-  const dividerStyle: React.CSSProperties = {
-    borderBlockStart: '1px solid rgba(5, 5, 5, 0.12)'
-  };
-
   return (
     <>
-      <Divider style={dividerStyle}/>
+      <CustomDivider />
       <Title level={4} style={{ marginTop: '10px'}}>{props.title}</Title>
       <span>Required | Select 1 option: </span>
       {props.errors.hasOwnProperty('radio') && <span style={{color: colorPrimary, marginLeft: '8px'}}>Please make the required selection</span>}

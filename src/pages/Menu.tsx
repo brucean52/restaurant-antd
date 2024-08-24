@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { Anchor, Row, Typography } from 'antd';
 import { useMediaQuery } from 'react-responsive';
 import { animateScroll } from 'react-scroll';
@@ -8,6 +8,8 @@ import { MenuItem } from '../types';
 import lineImg from '../assets/images/line.png';
 import { menuDataArray } from '../assets/menuData';
 import { defaultMenuItem, minWidthLG } from '../assets/defaultData';
+import { BagContext } from '../BagContext';
+import { BagContextType } from '../types';
 
 const { Title } = Typography;
 
@@ -51,6 +53,10 @@ const navMenuItems = [
 
 const MenuPage: React.FC = () => {
   const isScreenLG = useMediaQuery({minWidth: minWidthLG});
+  const { isDarkMode } = useContext(BagContext) as BagContextType; 
+  const [selectedMenuItem, setSelectedMenuItem] = useState<MenuItem>(defaultMenuItem);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
   const layoutStyle: React.CSSProperties = {
     display: isScreenLG ? 'flex' : 'block',
     padding: isScreenLG ? '0 15% 0 10%' : '0'
@@ -74,9 +80,6 @@ const MenuPage: React.FC = () => {
     animateScroll.scrollTo( 2, { duration: 0 });
   }, []);
 
-  const [selectedMenuItem, setSelectedMenuItem] = useState<MenuItem>(defaultMenuItem);
-  const [isModalOpen, setIsModalOpen] = useState(false);
-
   const handleModalClose = () => {
     setSelectedMenuItem(defaultMenuItem);
     setIsModalOpen(false);
@@ -91,7 +94,7 @@ const MenuPage: React.FC = () => {
     <>
       <div style={layoutStyle}>
         <Anchor
-          className="anchor"
+          className={isDarkMode ? 'anchor-dark' : 'anchor'}
           direction={isScreenLG ? 'vertical': 'horizontal'}
           offsetTop={75}
           targetOffset={125}

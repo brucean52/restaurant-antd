@@ -1,9 +1,11 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import { theme } from 'antd';
 import { PlusSquareOutlined, CloseCircleOutlined } from '@ant-design/icons';
 import NutritionItemLayout from './NutritionItemLayout';
 import { nutriTableHeaders } from '../assets/defaultData';
 import { NutritionItem, NutriTableHeader } from '../types';
+import { BagContext } from '../BagContext';
+import { BagContextType } from '../types';
 
 type NutritionTableLayoutProps = {
   nutritionDataArray: NutritionItem[],
@@ -23,6 +25,7 @@ const NutritionTable: React.FC<NutritionTableLayoutProps> = (props) => {
     }
   } = theme.useToken();
 
+  const { isDarkMode } = useContext(BagContext) as BagContextType; 
   const [isExpanded, setIsExpanded] = useState('');
 
   const layoutStyle: React.CSSProperties = {
@@ -42,7 +45,7 @@ const NutritionTable: React.FC<NutritionTableLayoutProps> = (props) => {
   };
 
   const tableHeaderStyle: React.CSSProperties = {
-    backgroundColor:  '#0d0d0d',
+    backgroundColor:  '#141414',
     borderBottom: `${colorPrimary} 4px solid`,
     color: '#FFFFFF',
     boxShadow: boxShadowSecondary,
@@ -123,7 +126,9 @@ const NutritionTable: React.FC<NutritionTableLayoutProps> = (props) => {
         <tbody>
           {props.nutritionDataArray.map((nutriItem: NutritionItem) => {
             return (
-              <tr key={nutriItem.id} className={isExpanded === '' ? "nutri-table-row" : "nutri-table-row-no-hover"}>
+              <tr 
+                key={nutriItem.id} 
+                className={isDarkMode ? 'nutri-table-row-dark' : 'nutri-table-row'}>
                 {isExpanded === nutriItem.name
                   ? <RenderExpandedRow nutriItem={nutriItem}/>
                   : <RenderDataRow nutriItem={nutriItem}/>}

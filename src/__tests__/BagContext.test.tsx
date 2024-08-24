@@ -60,6 +60,5 @@ describe('Bag Context Tests', () => {
     expect(within(screen.getByLabelText('total-txt')).getByText('0.00')).toBeInTheDocument();
     expect(within(screen.getByLabelText('total-items')).getByText('0')).toBeInTheDocument();
   });
-
 });
 

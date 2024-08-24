@@ -23,7 +23,7 @@ describe('App Layout Component Tests', () => {
     vi.clearAllMocks();
   });
 
-  test('app layout header render test', async () => {
+  test('header render test', async () => {
     render(
       <MemoryRouter initialEntries={["/menu"]}>
         <BagContext.Provider value={mockContextValues}>
@@ -39,7 +39,7 @@ describe('App Layout Component Tests', () => {
     });
   });
 
-  test('app header menu nav click test', async () => {
+  test('menu nav click test', async () => {
     render(
       <BrowserRouter>
         <BagContext.Provider value={mockContextValues}>
@@ -55,7 +55,7 @@ describe('App Layout Component Tests', () => {
     expect(mockNavigate).toHaveBeenCalledWith('menu');
   });
 
-  test('app header bag button click/hover test', async () => {
+  test('nutrition nav click test', async () => {
     render(
       <BrowserRouter>
         <BagContext.Provider value={mockContextValues}>
@@ -63,21 +63,26 @@ describe('App Layout Component Tests', () => {
         </BagContext.Provider>
       </BrowserRouter>
     );
-    const bagButton = screen.getByLabelText('bag-button');
   
-    userEvent.hover(bagButton);
+    userEvent.click(screen.getByText(/nutrition/i));
     await waitFor(() => {
-      expect(bagButton).toHaveStyle({ 'background-color': '#303b41'});
+      expect(mockNavigate).toHaveBeenCalledTimes(1);
     });
+    expect(mockNavigate).toHaveBeenCalledWith('nutrition');
+  });
 
-    userEvent.unhover(bagButton);
+  test('theme button click test', async () => {
+    render(
+      <BrowserRouter>
+        <BagContext.Provider value={mockContextValues}>
+          <AppLayout />
+        </BagContext.Provider>
+      </BrowserRouter>
+    );
+  
+    userEvent.click(screen.getByLabelText('toggle-theme-btn'));
     await waitFor(() => {
-      expect(bagButton).toHaveStyle({ 'background-color': '#0F1519'});
-    });
-
-    userEvent.click(bagButton);
-    await waitFor(() => {
-      expect(screen.getByText(/my bag/i)).toBeInTheDocument();    
+      expect(mockContextValues.toggleDarkMode).toHaveBeenCalledTimes(1);
     });
   });
 });

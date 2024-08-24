@@ -23,6 +23,8 @@ const Home: React.FC = () => {
     token: { colorPrimary },
   } = theme.useToken();
 
+  const navigate = useNavigate();
+
   const homeBannerStyle: React.CSSProperties = {
     backgroundImage: `url(${backgroundMain})`,
     backgroundRepeat: 'no-repeat',
@@ -48,7 +50,7 @@ const Home: React.FC = () => {
   };
   
   const aboutStyle: React.CSSProperties = {
-    backgroundColor: '#0d0d0d',
+    backgroundColor: '#141414',
     textAlign: 'center',
     padding: isScreen4K ? '24px 24%' : '24px 18%'
   };
@@ -80,8 +82,6 @@ const Home: React.FC = () => {
   const locationMarginStyle: React.CSSProperties = {
     marginLeft: isScreenXS ? '50px' : '80px'
   };
-
-  const navigate = useNavigate();
 
   const aboutText = "New Chopstix is a restaurant that is dedicated to serving fresh asian cuisine. " +
   "Since inception, our chefs have been hand chopping and slicing every vegetable and meat, scratch cooking every sauce and wok-cooking each dish with the same standard of perfection. " +

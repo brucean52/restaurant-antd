@@ -12,6 +12,7 @@ const BagProvider: React.FC<{ children: any }> = ({ children }) => {
   const [subtotalText, setSubtotalText] = useState<string>('0.00');
   const [taxText, setTaxText] = useState<string>('0.00');
   const [totalText, setTotalText] = useState<string>('0.00');
+  const [isDarkMode, setIsDarkMode] = useState<boolean>(false);
 
   const calculateCost = (currentSubtotal: string) => {
     let subtotalAmount = parseFloat(currentSubtotal);
@@ -66,6 +67,10 @@ const BagProvider: React.FC<{ children: any }> = ({ children }) => {
     setTotalItems(currentTotalItems);
   };
 
+  const toggleDarkMode = (setDarkMode: boolean) => {
+    setIsDarkMode(setDarkMode);
+  }
+
   return (
     <BagContext.Provider value={{
       bag,
@@ -73,9 +78,11 @@ const BagProvider: React.FC<{ children: any }> = ({ children }) => {
       subtotalText,
       taxText,
       totalText,
+      isDarkMode,
       addItem,
       updateItem,
-      deleteItem
+      deleteItem,
+      toggleDarkMode
     }}>
       {children}
     </BagContext.Provider>

@@ -19,16 +19,24 @@ td:first-child, th:first-child {
   text-align: left;
 }
 
-.nutri-table-row:nth-child(even),
-.nutri-table-row-no-hover:nth-child(even) {
-  background-color: #e6e6e6;
+.nutri-table-row:nth-child(even) {
+  background-color: #e2e2e2 ;
 }
 
 .nutri-table-row:hover {
   background-color: #d0d0d0;
 }
 
-.anchor > .ant-anchor > .ant-anchor-link {
+.nutri-table-row-dark:nth-child(even) {
+  background-color: #3c3c3c;
+}
+
+.nutri-table-row-dark:hover {
+  background-color: #141414;
+}
+
+.anchor > .ant-anchor > .ant-anchor-link,
+.anchor-dark > .ant-anchor > .ant-anchor-link {
   font-size: 18px;
   font-weight: 550;
 }
@@ -68,6 +76,14 @@ td:first-child, th:first-child {
   color: #C11316;
 }
 
+button.bag-button:hover {
+  background-color: #303b41 !important;
+}
+
+button.bag-button-dark:hover {
+  background-color: #CCCCCC !important;
+}
+
 .bag-modify-text {
   cursor: pointer;
 }
@@ -76,13 +92,22 @@ td:first-child, th:first-child {
   text-decoration: underline;
 }
 
-.bag-list {
+.bag-list, .bag-list-dark {
   border: none;
 }
 
-.bag-list.ant-list > .ant-spin-nested-loading > .ant-spin-container > ul.ant-list-items {
+.bag-list.ant-list > .ant-spin-nested-loading > .ant-spin-container > ul.ant-list-items,
+.bag-list-dark.ant-list > .ant-spin-nested-loading > .ant-spin-container > ul.ant-list-items {
   height: 55vh;
   overflow-y: auto;
+}
+
+.bag-list > .ant-list-header {
+  border-bottom: 1px solid rgba(5, 5, 5, 0.12);
+}
+
+.bag-list-dark > .ant-list-header {
+  border-bottom: 1px solid rgba(250, 250, 250, 0.12);
 }
 
 .nutri-category-section {
@@ -96,10 +121,6 @@ td:first-child, th:first-child {
 
 .recharts-default-legend > li {
   margin-right: 24px !important;
-}
-
-.ant-list-header {
-  border-bottom: 1px solid rgba(5, 5, 5, 0.12);
 }
 
 @media (max-device-width: 1600px) { 
@@ -117,6 +138,11 @@ td:first-child, th:first-child {
 @media (max-device-width: 991px) {
   .anchor > .ant-anchor {
     background-color: #FFFFFF;
+    padding: 0 20px;
+  }
+
+  .anchor-dark > .ant-anchor {
+    background-color: #141414;
     padding: 0 20px;
   }
 

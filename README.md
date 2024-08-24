@@ -6,14 +6,16 @@
 
 A demo restaurant app using Ant Design. Includes the following:
 
-- Home, menu, and checkout(disabled inputs/order button) page with routing. (React Router v6)
+- Home, menu, nutrtion and checkout(disabled inputs/order button) page with routing. (React Router v6)
 - Cart/Bag drawer with add, edit, and remove item functionality.
-- Mobile responsive.
+- Mobile Responsive.
+- Dark Mode (default is based on user preference)
 
 ![Alt text](https://github.com/brucean52/restaurant-antd/blob/master/home.png "main")
 ![Alt text](https://github.com/brucean52/restaurant-antd/blob/master/menu.png "menu")
 ![Alt text](https://github.com/brucean52/restaurant-antd/blob/master/add-item.png "add-item")
 ![Alt text](https://github.com/brucean52/restaurant-antd/blob/master/drawer.png "drawer")
+![Alt text](https://github.com/brucean52/restaurant-antd/blob/master/bag-edit.png "bag-edit")
 ![Alt text](https://github.com/brucean52/restaurant-antd/blob/master/checkout.png "checkout")
 ![Alt text](https://github.com/brucean52/restaurant-antd/blob/master/nutrition.png "nutrition")
 ![Alt text](https://github.com/brucean52/restaurant-antd/blob/master/nutrition-chart.png "nutrition-chart")
@@ -28,6 +30,9 @@ Installs the necessary modules to run the application.
 ### `npm start` or `npm run dev`
 Runs the app in development mode.
 Open [http://localhost:5173/](http://localhost:5173/) to view it in your browser.
+
+### `npm run build`
+Creates a production build of the app in the dist directory
 
 ### `npm test`
 Runs the applications tests. Test code was wrtten using React Testing Library.

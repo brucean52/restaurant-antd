@@ -15,6 +15,7 @@ type DeleteConfirmModalProps = {
 };
 
 const DeleteConfirmModal: React.FC<DeleteConfirmModalProps> = (props) => {
+  const { deleteItem } = useContext(BagContext) as BagContextType;
 
   const removeButtonStyle: React.CSSProperties = {
     borderRadius: 0,
@@ -24,9 +25,7 @@ const DeleteConfirmModal: React.FC<DeleteConfirmModalProps> = (props) => {
   const paragraphStyle: React.CSSProperties = {
     margin: '36px 0 30px 0',
     fontSize: '18px'
-  };
-
-  const { deleteItem } = useContext(BagContext) as BagContextType;
+  }; 
 
   const onSubmit = () => {
     deleteItem(props.deleteItemOptions.bagId);

@@ -5,6 +5,8 @@ import MenuRadioOptions from '../components/MenuRadioOptions';
 import { bowlOptions } from '../assets/menuData';
 import { defaultMenuItemFormValues } from '../assets/defaultData';
 import { MenuItemFormValues } from '../types';
+import { mockContextValues } from '../test-util/mockdata';
+import { BagContext } from '../BagContext';
 
 test('renders rice bowl radio options and can click them', async () => {
   const { result } = renderHook(()=>useForm<MenuItemFormValues>({
@@ -12,13 +14,16 @@ test('renders rice bowl radio options and can click them', async () => {
   }));
 
   render(
-    <MenuRadioOptions
-      type="bowl"
-      title="Rice Choice"
-      errors={result.current.formState.errors}
-      options={bowlOptions}
-      control={result.current.control}
-    />
+    <BagContext.Provider value={mockContextValues}>
+      <MenuRadioOptions
+        type="bowl"
+        title="Rice Choice"
+        errors={result.current.formState.errors}
+        options={bowlOptions}
+        control={result.current.control}
+      />
+    </BagContext.Provider>
+
   );
 
   expect(screen.getByText('White Rice')).toBeInTheDocument();

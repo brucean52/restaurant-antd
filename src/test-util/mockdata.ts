@@ -90,9 +90,11 @@ export const mockContextValues: BagContextType = {
   subtotalText: '100.50',
   taxText: '10.80',
   totalText: '111.30',
+  isDarkMode: true,
   addItem: vi.fn(),
   updateItem: vi.fn(),
   deleteItem: vi.fn(),
+  toggleDarkMode: vi.fn()
 };
 
 export const mockEmptyContextValues: BagContextType = {
@@ -101,9 +103,11 @@ export const mockEmptyContextValues: BagContextType = {
   subtotalText: '',
   taxText: '',
   totalText: '',
+  isDarkMode: false,
   addItem: vi.fn(),
   updateItem: vi.fn(),
   deleteItem: vi.fn(),
+  toggleDarkMode: vi.fn()
 };
 
 export const mockBagItemOptionsOne : BagItemOptions = {

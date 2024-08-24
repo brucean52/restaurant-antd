@@ -1,8 +1,9 @@
 import React, { useContext } from 'react';
 import { Link } from 'react-router-dom';
-import { Typography, Row, Button, Col, Input, Card, Divider, List, theme } from 'antd';
+import { Typography, Row, Button, Col, Input, Card, List, theme } from 'antd';
 import { PhoneFilled, EnvironmentFilled } from '@ant-design/icons';
 import { useMediaQuery } from 'react-responsive';
+import CustomDivider from '../components/CustomDivider';
 import { BagContext } from '../BagContext';
 import { BagContextType } from '../types';
 import { TAX_RATE, minWidthMD, minWidthLG } from '../assets/defaultData';
@@ -17,6 +18,10 @@ const Checkout: React.FC = () => {
   const {
     token: { colorPrimary, boxShadowSecondary },
   } = theme.useToken();
+  const { bag, subtotalText, taxText, totalText, isDarkMode } = useContext(BagContext) as BagContextType;
+  const {setOpenDrawer} = useBagDrawer();
+
+  const borderStyle = isDarkMode ? '1px solid rgba(250, 250, 250, 0.12)' :'1px solid rgba(5, 5, 5, 0.12)';
 
   const layoutStyle: React.CSSProperties = {
     padding: isScreenLG ? '0 15%' : '0 5%'
@@ -29,13 +34,13 @@ const Checkout: React.FC = () => {
   };
 
   const cardHeaderStyle: React.CSSProperties = {
-    borderBottom: '1px solid rgba(5, 5, 5, 0.12)'
+    borderBottom: borderStyle
   };
 
   const listItemStyle: React.CSSProperties = {
     display: 'block',
     padding: '16px 22px',
-    borderBottom: '1px solid rgba(5, 5, 5, 0.12)'
+    borderBottom: borderStyle
   };
 
   const listItemTextStyle: React.CSSProperties = {
@@ -61,20 +66,12 @@ const Checkout: React.FC = () => {
     width: '100%'
   };
 
-  const dividerStyle: React.CSSProperties = {
-    borderBlockStart: '1px solid rgba(5, 5, 5, 0.12)',
-    margin: '6px 0'
-  };
-
   const lineStyle: React.CSSProperties = {
     display: 'flex',
     margin: 'auto',
     height: '18px',
     marginBottom: '48px'
   };
-
-  const { bag, subtotalText, taxText, totalText } = useContext(BagContext) as BagContextType;
-  const {setOpenDrawer} = useBagDrawer();
 
   const parseRadioText = (text: string) => {
     let newText = text === 'half-rice' ? '1/2 White, 1/2 Brown Rice' : (
@@ -143,7 +140,7 @@ const Checkout: React.FC = () => {
               <div><EnvironmentFilled style={{color: colorPrimary}}/> 123 Fake Street, Hayward, CA 94544</div>
               <div><PhoneFilled style={{color: colorPrimary}}/> (510) 555-1234</div>
             </div>
-            <Divider style={dividerStyle}/>
+            <CustomDivider style={{ margin: '6px 0' }}/>
             <List
               style={{border: 'none'}}
               size="large"
@@ -167,7 +164,7 @@ const Checkout: React.FC = () => {
               <span style={{ ...boldFontStyle, fontSize: '18px' }}>Subtotal: ${subtotalText}</span>
             </div>
             <div style={{ padding: '0 22px 8px 22px'}}>Tax ({TAX_RATE}%): ${taxText}</div>
-            <Divider style={dividerStyle}/>
+            <CustomDivider style={{ margin: '6px 0' }}/>
             <div style={{ padding: '16px 22px' }}>
               <span style={{ ...boldFontStyle, fontSize: '18px' }}>Total: ${totalText}</span>
             </div>

@@ -1,10 +1,11 @@
 import React, {useState, useContext, Dispatch, SetStateAction} from 'react';
 import { useNavigate } from 'react-router-dom';
-import { ConfigProvider, Button, Drawer, List, Space, Card, theme, Divider, Select, InputNumber } from 'antd';
+import { ConfigProvider, Button, Drawer, List, Space, Card, theme, Select, InputNumber } from 'antd';
 import { PhoneFilled, EnvironmentFilled, CloseOutlined } from '@ant-design/icons';
 import { useMediaQuery } from 'react-responsive';
 import MenuItemModal from './MenuItemModal';
 import DeleteConfirmModal from './DeleteConfirmModal';
+import CustomDivider from './CustomDivider';
 import { BagContext } from '../BagContext';
 import { BagContextType, BagItem, MenuItem, BagItemOptions } from '../types';
 import { defaultMenuItem, defaultBagItemOptions, TAX_RATE, maxWidthXXS } from '../assets/defaultData';
@@ -21,14 +22,25 @@ const defaultDeleteOptions = {
 
 const BagDrawer: React.FC<BagDrawerProps> = (props) => {
   const isScreenXXS = useMediaQuery({maxWidth: maxWidthXXS});
+  const { bag, subtotalText, taxText, totalText, isDarkMode, updateItem } = useContext(BagContext) as BagContextType;
+  const [selectedMenuItem, setSelectedMenuItem] = useState<MenuItem>(defaultMenuItem);
+  const [itemOptions, setItemOptions] = useState<BagItemOptions>(defaultBagItemOptions);
+  const [isEditModalOpen, setIsEditModalOpen] = useState(false);
+  const [deleteOptions, setDeleteOptions] = useState(defaultDeleteOptions);
+  const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
+  const [customQuantityValue, setCustomQuantityValue] = useState<number| null>(null);
+  const [isCustomQuantityId, setIsCustomQuantityId] = useState('');
+  const navigate = useNavigate();
 
   const {
     token: { colorPrimary },
   } = theme.useToken();
 
+  const borderStyle = isDarkMode ? '1px solid rgba(250, 250, 250, 0.12)' :'1px solid rgba(5, 5, 5, 0.12)';
+
   const emptyTextStyle: React.CSSProperties = {
     fontSize: '28px',
-    color: '#000000',
+    color: isDarkMode ? '#FFFFFF' :'#000000',
     marginBottom: '25px'
   };
 
@@ -54,7 +66,7 @@ const BagDrawer: React.FC<BagDrawerProps> = (props) => {
   };
 
   const drawerHeaderStyle: React.CSSProperties = {
-    borderBottom: '1px solid rgba(5, 5, 5, 0.12)'
+    borderBottom: borderStyle
   };
 
   const drawerBodyStyle: React.CSSProperties = {
@@ -64,19 +76,11 @@ const BagDrawer: React.FC<BagDrawerProps> = (props) => {
     justifyContent: 'space-between'
   };
 
-  const dividerStyle: React.CSSProperties = {
-    borderBlockStart: '1px solid rgba(5, 5, 5, 0.12)'
+  const cardFooterStyle: React.CSSProperties = {
+    borderTop: borderStyle,
+    backgroundColor: isDarkMode ? '#1F1F1F' : '#FFFFFF',
+    borderRadius: 0
   };
-
-  const { bag, subtotalText, taxText, totalText, updateItem } = useContext(BagContext) as BagContextType;
-  const [selectedMenuItem, setSelectedMenuItem] = useState<MenuItem>(defaultMenuItem);
-  const [itemOptions, setItemOptions] = useState<BagItemOptions>(defaultBagItemOptions);
-  const [isEditModalOpen, setIsEditModalOpen] = useState(false);
-  const [deleteOptions, setDeleteOptions] = useState(defaultDeleteOptions);
-  const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
-  const [customQuantityValue, setCustomQuantityValue] = useState<number| null>(null);
-  const [isCustomQuantityId, setIsCustomQuantityId] = useState('');
-  const navigate = useNavigate();
 
   const closeDrawer = () => {
     setIsCustomQuantityId('');
@@ -215,12 +219,12 @@ const BagDrawer: React.FC<BagDrawerProps> = (props) => {
 
   const renderCostFooter = (
     <Card
-      style={{ borderTop: '1px solid rgba(5, 5, 5, 0.12)' }}
+      style={cardFooterStyle}
       styles={{ body: { padding: 0 }}}
     >
       <div style={{ padding: '16px 16px 0 16px' }}><span style={{...boldFontStyle, fontSize: '18px'}}>Subtotal: ${subtotalText}</span> </div>
       <div style={{ padding: '0 16px 16px 16px' }}>Tax ({TAX_RATE}%): ${taxText}</div>
-      <Divider style={{ margin: '6px 0', ...dividerStyle}}/>
+      <CustomDivider style={{ margin: '6px 0' }}/>
       <div style={{ padding: '12px' }}><span style={{ ...boldFontStyle, fontSize: '18px' }}>Total: ${totalText}</span> </div>
     </Card>
   );
@@ -255,13 +259,13 @@ const BagDrawer: React.FC<BagDrawerProps> = (props) => {
       >
         <ConfigProvider renderEmpty={customRenderEmpty}>
           <List
-            className="bag-list"
+            className={isDarkMode ? 'bag-list-dark' : 'bag-list'}
             size="large"
             header={renderListHeader}
             bordered
             dataSource={bag}
             renderItem={(item, index) => (
-              <List.Item style={{ display: 'block', borderBottom: '1px solid rgba(5, 5, 5, 0.12)' }}>
+              <List.Item style={{ display: 'block', borderBottom: borderStyle }}>
                 <div style={listItemStyle}>
                   <div style={{ ...boldFontStyle, fontSize: '16px' }}>{item.name}</div>
                   <div style={{ marginTop: '4px' }}>${item.totalItemPrice}</div>

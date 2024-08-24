@@ -1,10 +1,12 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useContext } from 'react';
 import { Anchor, Typography, theme } from 'antd';
 import { useMediaQuery } from 'react-responsive';
 import { animateScroll } from 'react-scroll';
 import NutritionTable from '../components/NutritionTable';
 import { minWidthXL, minWidthLG } from '../assets/defaultData';
 import { nutritionDataArray } from '../assets/nutritionData';
+import { BagContext } from '../BagContext';
+import { BagContextType } from '../types';
 
 const { Title } = Typography;
 
@@ -46,15 +48,20 @@ const Nutrition: React.FC = () => {
   const isScreenLG = useMediaQuery({minWidth: minWidthLG});
   const {
     token: {
-      colorBgLayout,
       boxShadowSecondary
     }
   } = theme.useToken();
+  const { isDarkMode } = useContext(BagContext) as BagContextType;
 
   const layoutStyle: React.CSSProperties = {
     display: 'block',
     padding: isScreenXL ? '0 10%' : '0',
     margin: '0 1%'
+  };
+
+  const anchorStyle: React.CSSProperties = {
+    backgroundColor: isDarkMode ? '#141414': '#FFFFFF',
+    boxShadow: boxShadowSecondary
   };
 
   const nutritionTitleStyle: React.CSSProperties = {
@@ -77,8 +84,8 @@ const Nutrition: React.FC = () => {
   return (
     <>
       <Anchor
-        className="anchor nutri-anchor"
-        style={{ backgroundColor: colorBgLayout, boxShadow: boxShadowSecondary }}
+        className={`${isDarkMode ? 'anchor-dark' : 'anchor'} nutri-anchor`}
+        style={anchorStyle}
         direction="horizontal"
         offsetTop={isScreenLG ? 80 : 79}
         targetOffset={135}

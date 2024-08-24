@@ -1,11 +1,12 @@
 import React, { useState, useContext, useEffect } from 'react';
 import { Outlet, Link, useLocation, useNavigate } from 'react-router-dom';
 import { Layout, Menu, Button, Badge, Space, theme } from 'antd';
-import { ShoppingOutlined } from '@ant-design/icons';
+import { ShoppingOutlined, SunOutlined, MoonOutlined } from '@ant-design/icons';
 import type { MenuProps } from 'antd';
 import { useMediaQuery } from 'react-responsive';
 import { minWidthLG, minWidth4K, maxWidthMdOrLess } from '../assets/defaultData';
-import logo from '../assets/images/logo-light.png'
+import logo from '../assets/images/logo-light.png';
+import logoDark from '../assets/images/logo-dark.png';
 import BagDrawer from './BagDrawer';
 import { BagContext } from '../BagContext';
 import { BagContextType } from '../types';
@@ -24,13 +25,18 @@ const menuItems: MenuProps['items'] = [
 ];
 
 const AppLayout: React.FC = () => {
-
   const {
     token: { colorPrimary, colorBgContainer, boxShadow, colorBgLayout },
   } = theme.useToken();
   const isScreenLG = useMediaQuery({minWidth: minWidthLG});
   const isScreen4K = useMediaQuery({minWidth: minWidth4K});
   const isScreenMdOrLess = useMediaQuery({maxWidth: maxWidthMdOrLess});
+
+  const location = useLocation();
+  const navigate = useNavigate();
+  const { totalItems, isDarkMode, toggleDarkMode } = useContext(BagContext) as BagContextType; 
+  const [openDrawer, setOpenDrawer] = useState<boolean>(false);
+  const [selectedMenu, setSelectedMenu] = useState<string>('');
   
   const headerStyle: React.CSSProperties = {
     backgroundColor: colorBgContainer,
@@ -51,9 +57,11 @@ const AppLayout: React.FC = () => {
 
   const menuStyle: React.CSSProperties = {
     flex: 1,
-    marginLeft: '30px',
+    marginTop: '5px',
+    marginLeft: isScreenMdOrLess ? '10px' : '30px',
     fontSize: isScreenMdOrLess ? '20px' :'24px',
-    fontWeight: 500
+    fontWeight: 500,
+    borderBottom: 'none'
   };
 
   const contentStyle: React.CSSProperties = {
@@ -62,7 +70,7 @@ const AppLayout: React.FC = () => {
   };
 
   const footerStyle: React.CSSProperties = {
-    backgroundColor: '#0d0d0d',
+    backgroundColor: '#141414',
     textAlign: 'center',
     minHeight: '60px',
     color: '#FFFFFF',
@@ -71,12 +79,14 @@ const AppLayout: React.FC = () => {
     paddingBottom: '5px'
   };
 
-  const location = useLocation();
-  const navigate = useNavigate();
-  const { totalItems } = useContext(BagContext) as BagContextType; 
-  const [openDrawer, setOpenDrawer] = useState<boolean>(false);
-  const [isBagBtnHover, setIsBagBtnHover] = useState<boolean>(false);
-  const [selectedMenu, setSelectedMenu] = useState<string>('');
+  const themeBtnStyle: React.CSSProperties = {
+    margin: '24px 16px 0 0'
+  };
+
+  const bagBtnStyle: React.CSSProperties = {
+    backgroundColor: isDarkMode ? '#FFFFFF' :'#0F1519',
+    color: isDarkMode ? '#000000' :'#FFFFFF',
+  };
 
   useEffect(() => {
     switch (location['pathname']) {
@@ -92,7 +102,7 @@ const AppLayout: React.FC = () => {
     }
   }, [location]);
 
-  const onSelectMenu= (item: any): void => {
+  const onSelectMenu = (item: any): void => {
     navigate(item.key);
   };
 
@@ -100,7 +110,7 @@ const AppLayout: React.FC = () => {
     <Layout>
       <Header style={headerStyle}>
         <div>
-          <Link to="/"><img src={logo} alt="logo" style={logoStyle}/></Link>
+          <Link to="/"><img src={isDarkMode ? logoDark : logo} alt="logo" style={logoStyle}/></Link>
         </div>
         <Menu
           mode="horizontal"
@@ -110,18 +120,24 @@ const AppLayout: React.FC = () => {
           items={menuItems}
           onClick={onSelectMenu}
         />
+        <Button
+          aria-label="toggle-theme-btn"
+          shape="circle"
+          icon={isDarkMode ? <SunOutlined /> :<MoonOutlined />}
+          style={themeBtnStyle}
+          onClick={() => toggleDarkMode(!isDarkMode)}
+        />
         {location.pathname !== '/checkout' &&
           <Space size="middle" style={{ marginTop: '6px'}}>
-            <Badge color={colorPrimary} count={totalItems}>
+            <Badge color={colorPrimary} count={totalItems} styles={{ indicator: { color: '#FFFFFF' }}}>
               <Button
+                className={isDarkMode ? 'bag-button-dark' : 'bag-button'}
                 aria-label="bag-button"
                 type="primary"
                 shape="round"
                 size="large"
-                style={{backgroundColor: isBagBtnHover ? '#303b41' :'#0F1519'}}
+                style={bagBtnStyle}
                 icon={<ShoppingOutlined />}
-                onMouseEnter={() => setIsBagBtnHover(true)}
-                onMouseLeave={() => setIsBagBtnHover(false)}
                 onClick={() => setOpenDrawer(true)}
               />
             </Badge>
