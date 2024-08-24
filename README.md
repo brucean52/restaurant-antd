@@ -6,7 +6,7 @@
 
 A demo restaurant app using Ant Design. Includes the following:
 
-- Home, menu, nutrtion and checkout(disabled inputs/order button) page with routing. (React Router v6)
+- Home, menu, nutrition and checkout page with routing. (React Router v6)
 - Cart/Bag drawer with add, edit, and remove item functionality.
 - Mobile Responsive.
 - Dark Mode (default is based on user preference)
