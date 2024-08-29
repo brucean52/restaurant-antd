@@ -11,14 +11,14 @@ A demo restaurant app using Ant Design. Includes the following:
 - Mobile Responsive.
 - Dark Mode (default is based on user preference)
 
-![Alt text](https://github.com/brucean52/restaurant-antd/blob/master/home.png "main")
-![Alt text](https://github.com/brucean52/restaurant-antd/blob/master/menu.png "menu")
-![Alt text](https://github.com/brucean52/restaurant-antd/blob/master/add-item.png "add-item")
-![Alt text](https://github.com/brucean52/restaurant-antd/blob/master/drawer.png "drawer")
-![Alt text](https://github.com/brucean52/restaurant-antd/blob/master/bag-edit.png "bag-edit")
-![Alt text](https://github.com/brucean52/restaurant-antd/blob/master/checkout.png "checkout")
-![Alt text](https://github.com/brucean52/restaurant-antd/blob/master/nutrition.png "nutrition")
-![Alt text](https://github.com/brucean52/restaurant-antd/blob/master/nutrition-chart.png "nutrition-chart")
+![Alt text](https://github.com/brucean52/restaurant-antd/blob/master/sample_images/home.png "main")
+![Alt text](https://github.com/brucean52/restaurant-antd/blob/master/sample_images/menu.png "menu")
+![Alt text](https://github.com/brucean52/restaurant-antd/blob/master/sample_images/add-item.png "add-item")
+![Alt text](https://github.com/brucean52/restaurant-antd/blob/master/sample_images/drawer.png "drawer")
+![Alt text](https://github.com/brucean52/restaurant-antd/blob/master/sample_images/bag-edit.png "bag-edit")
+![Alt text](https://github.com/brucean52/restaurant-antd/blob/master/sample_images/checkout.png "checkout")
+![Alt text](https://github.com/brucean52/restaurant-antd/blob/master/sample_images/nutrition.png "nutrition")
+![Alt text](https://github.com/brucean52/restaurant-antd/blob/master/sample_images/nutrition-chart.png "nutrition-chart")
 
 ## Installation and Setup
 
