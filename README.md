@@ -1,31 +1,43 @@
 # Restaurant AntD -> New Chopstix Restaurant
 
 ### [Live demo](https://restaurant-antd.netlify.app/)
+### [Frontend only branch](https://github.com/brucean52/restaurant-antd/tree/frontend-only)
 
 ## Description
 
-A demo restaurant app using Ant Design. Includes the following:
+A fullstack demo restaurant app using Ant Design, React, TypeScript, Nodejs, Express, and PostgreSQL
 
+Includes the following:
 - Home, menu, nutrition and checkout page with routing. (React Router v6)
 - Cart/Bag drawer with add, edit, and remove item functionality.
 - Mobile Responsive.
-- Dark Mode (default is based on user preference)
+- Dark Mode. (default is based on user preference)
+- Server side REST API with SQL queries to setup the db.
 
-![Alt text](https://github.com/brucean52/restaurant-antd/blob/master/home.png "main")
-![Alt text](https://github.com/brucean52/restaurant-antd/blob/master/menu.png "menu")
-![Alt text](https://github.com/brucean52/restaurant-antd/blob/master/add-item.png "add-item")
-![Alt text](https://github.com/brucean52/restaurant-antd/blob/master/drawer.png "drawer")
-![Alt text](https://github.com/brucean52/restaurant-antd/blob/master/bag-edit.png "bag-edit")
-![Alt text](https://github.com/brucean52/restaurant-antd/blob/master/checkout.png "checkout")
-![Alt text](https://github.com/brucean52/restaurant-antd/blob/master/nutrition.png "nutrition")
-![Alt text](https://github.com/brucean52/restaurant-antd/blob/master/nutrition-chart.png "nutrition-chart")
+![Alt text](https://github.com/brucean52/restaurant-antd/blob/master/sample_images/home.png "main")
+![Alt text](https://github.com/brucean52/restaurant-antd/blob/master/sample_images/menu.png "menu")
+![Alt text](https://github.com/brucean52/restaurant-antd/blob/master/sample_images/add-item.png "add-item")
+![Alt text](https://github.com/brucean52/restaurant-antd/blob/master/sample_images/drawer.png "drawer")
+![Alt text](https://github.com/brucean52/restaurant-antd/blob/master/sample_images/bag-edit.png "bag-edit")
+![Alt text](https://github.com/brucean52/restaurant-antd/blob/master/sample_images/checkout.png "checkout")
+![Alt text](https://github.com/brucean52/restaurant-antd/blob/master/sample_images/nutrition.png "nutrition")
+![Alt text](https://github.com/brucean52/restaurant-antd/blob/master/sample_images/nutrition-chart.png "nutrition-chart")
 
 ## Installation and Setup
 
 In the project directory, you can run:
 
-### `npm install`
-Installs the necessary modules to run the application.
+### 1. Must have a PostgreSQL db setup and running
+Run the SQL queries in the /backend/src/queries to setup the db.
+
+### 2. System configuration setup
+Create a .env file in both the backend and frontend folders using the .env.example files. 
+
+### 3. `npm install` 
+Required in the root directory in order to use the below npm commands concurrently for both frontend and backend folders.
+
+### 4. `npm run install-all`
+Installs the necessary modules for both the frontend and backend directories to run the application.
 
 ### `npm start` or `npm run dev`
 Runs the app in development mode.
@@ -34,7 +46,8 @@ Open [http://localhost:5173/](http://localhost:5173/) to view it in your browser
 ### `npm run build`
 Creates a production build of the app in the dist directory
 
-### `npm test`
+### Front End Directory
+### `npm test` 
 Runs the applications tests. Test code was wrtten using React Testing Library.
 
 ## References

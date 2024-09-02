@@ -7,11 +7,22 @@ yarn-error.log*
 pnpm-debug.log*
 lerna-debug.log*
 
+# Root directory ignored files
 node_modules
-coverage
-dist
-dist-ssr
-*.local
+
+# Frontend directory ignored files
+frontend/node_modules
+frontend/coverage
+frontend/dist
+frontend/dist-ssr
+frontend/*.local
+frontend/.env
+
+# Backend directory ignored files
+backend/dist
+backend/node_modules
+backend/.env
+
 
 # Editor directories and files
 .vscode/*
