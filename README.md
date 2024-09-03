@@ -1,6 +1,6 @@
 # Restaurant AntD -> New Chopstix Restaurant
 
-### [Live demo](https://restaurant-antd.netlify.app/)
+### [Live demo](https://restaurant-antd.xyz/)
 ### [Frontend only branch](https://github.com/brucean52/restaurant-antd/tree/frontend-only)
 
 ## Description
@@ -28,7 +28,7 @@ Includes the following:
 In the project directory, you can run:
 
 ### 1. Must have a PostgreSQL db setup and running
-Run the SQL queries in the /backend/src/queries to setup the db.
+Run the SQL queries in the `/backend/src/queries` directory to setup the db.
 
 ### 2. System configuration setup
 Create a .env file in both the backend and frontend folders using the .env.example files. 
