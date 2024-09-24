@@ -1,30 +1,34 @@
 import { render, screen, fireEvent, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import MenuItemModal from '../components/MenuItemModal';
-import { mockMenuDataArray } from '../test-util/mockMenuData';
+import { mockMenuDataArray } from './test-util/mockMenuData';
 import { defaultBagItemOptions } from '../assets/defaultData';
-import { mockContextValues, mockBagItemOptionsThree, mockBagItemOptionsTwo } from '../test-util/mockdata';
-import { BagContext } from '../BagContext';
+import {
+  mockAppStateValues,
+  mockEmptyAppStateValues,
+  mockBagItemOptionsThree,
+  mockBagItemOptionsTwo
+} from './test-util/mockdata';
+import { useAppStore } from '../store/useAppStore';
 
 describe('Menu Item Modal component tests', () => {
 
   const mockHandleModalClose = vi.fn();
 
-  afterEach(() => {
+  beforeEach(() => {
     vi.clearAllMocks();
+    useAppStore.setState(mockEmptyAppStateValues);
   });
 
   test('modal is hidden', () => {
     render(
-      <BagContext.Provider value={mockContextValues}>
-        <MenuItemModal
-          isEdit={false}
-          editItemOptions={defaultBagItemOptions}
-          isModalOpen={false}
-          menuItem={mockMenuDataArray[0]}
-          handleModalClose={mockHandleModalClose}
-        />
-      </BagContext.Provider>
+      <MenuItemModal
+        isEdit={false}
+        editItemOptions={defaultBagItemOptions}
+        isModalOpen={false}
+        menuItem={mockMenuDataArray[0]}
+        handleModalClose={mockHandleModalClose}
+      />
     );
 
     expect(screen.queryByLabelText('close-item-modal-btn')).not.toBeInTheDocument();
@@ -33,15 +37,13 @@ describe('Menu Item Modal component tests', () => {
 
   test('renders with menu item and can adjust quantity', async () => {
     render(
-      <BagContext.Provider value={mockContextValues}>
-        <MenuItemModal
-          isEdit={false}
-          editItemOptions={defaultBagItemOptions}
-          isModalOpen={true}
-          menuItem={mockMenuDataArray[0]}
-          handleModalClose={mockHandleModalClose}
-        />
-      </BagContext.Provider>
+      <MenuItemModal
+        isEdit={false}
+        editItemOptions={defaultBagItemOptions}
+        isModalOpen={true}
+        menuItem={mockMenuDataArray[0]}
+        handleModalClose={mockHandleModalClose}
+      />
     );
     
     const quantityInput = screen.getByLabelText('qty-input') as HTMLInputElement;
@@ -80,21 +82,19 @@ describe('Menu Item Modal component tests', () => {
     await waitFor(() => {
       expect(mockHandleModalClose).toHaveBeenCalledTimes(1);
     });
-    expect(mockContextValues.updateItem).toHaveBeenCalledTimes(0);
-    expect(mockContextValues.addItem).toHaveBeenCalledTimes(1);
+    expect(useAppStore.getState().updateItem).toHaveBeenCalledTimes(0);
+    expect(useAppStore.getState().addItem).toHaveBeenCalledTimes(1);
   });
 
   test('renders with menu item with radio option and can add special instructions', async () => {
     render(
-      <BagContext.Provider value={mockContextValues}>
-        <MenuItemModal
-          isEdit={false}
-          editItemOptions={defaultBagItemOptions}
-          isModalOpen={true}
-          menuItem={mockMenuDataArray[9]}
-          handleModalClose={mockHandleModalClose}
-        />
-      </BagContext.Provider>
+      <MenuItemModal
+        isEdit={false}
+        editItemOptions={defaultBagItemOptions}
+        isModalOpen={true}
+        menuItem={mockMenuDataArray[9]}
+        handleModalClose={mockHandleModalClose}
+      />
     );
 
     const specialInstructionsInput = screen.getByLabelText('special-instructions-textarea') as HTMLInputElement;
@@ -116,16 +116,16 @@ describe('Menu Item Modal component tests', () => {
   });
 
   test('renders with edit dumpling options and update is clicked', async () => {
+    useAppStore.setState(mockAppStateValues);
+
     render(
-      <BagContext.Provider value={mockContextValues}>
-        <MenuItemModal
-          isEdit={true}
-          editItemOptions={mockBagItemOptionsTwo}
-          isModalOpen={true}
-          menuItem={mockMenuDataArray[5]}
-          handleModalClose={mockHandleModalClose}
-        />
-      </BagContext.Provider>
+      <MenuItemModal
+        isEdit={true}
+        editItemOptions={mockBagItemOptionsTwo}
+        isModalOpen={true}
+        menuItem={mockMenuDataArray[5]}
+        handleModalClose={mockHandleModalClose}
+      />
     );
 
     const quantityInput = screen.getByLabelText('qty-input') as HTMLInputElement;
@@ -147,21 +147,21 @@ describe('Menu Item Modal component tests', () => {
     await waitFor(() => {
       expect(mockHandleModalClose).toHaveBeenCalledTimes(1);
     });
-    expect(mockContextValues.addItem).toHaveBeenCalledTimes(0);
-    expect(mockContextValues.updateItem).toHaveBeenCalledTimes(1);
+    expect(useAppStore.getState().addItem).toHaveBeenCalledTimes(0);
+    expect(useAppStore.getState().updateItem).toHaveBeenCalledTimes(1);
   });
 
   test('renders with edit protein options, but close modal clicked', async () => {
+    useAppStore.setState(mockAppStateValues);
+
     render(
-      <BagContext.Provider value={mockContextValues}>
-        <MenuItemModal
-          isEdit={true}
-          editItemOptions={mockBagItemOptionsThree}
-          isModalOpen={true}
-          menuItem={mockMenuDataArray[34]}
-          handleModalClose={mockHandleModalClose}
-        />
-      </BagContext.Provider>
+      <MenuItemModal
+        isEdit={true}
+        editItemOptions={mockBagItemOptionsThree}
+        isModalOpen={true}
+        menuItem={mockMenuDataArray[34]}
+        handleModalClose={mockHandleModalClose}
+      />
     );
 
     const quantityInput = screen.getByLabelText('qty-input') as HTMLInputElement;
@@ -179,8 +179,8 @@ describe('Menu Item Modal component tests', () => {
     await waitFor(() => {
       expect(mockHandleModalClose).toHaveBeenCalledTimes(1);
     });
-    expect(mockContextValues.addItem).toHaveBeenCalledTimes(0);
-    expect(mockContextValues.updateItem).toHaveBeenCalledTimes(0);
+    expect(useAppStore.getState().addItem).toHaveBeenCalledTimes(0);
+    expect(useAppStore.getState().updateItem).toHaveBeenCalledTimes(0);
   });
 
 });

@@ -1,14 +1,13 @@
-import React, { useContext } from 'react';
+import React from 'react';
 import { Divider } from 'antd';
-import { BagContext } from '../BagContext';
-import { BagContextType } from '../types';
+import { useAppStore } from '../store/useAppStore';
 
 type CustomDividerProps = {
   style?: React.CSSProperties,
 };
 
-const CustomDivider: React.FC<CustomDividerProps> = (props) => {
-  const { isDarkMode } = useContext(BagContext) as BagContextType; 
+const CustomDivider = (props: CustomDividerProps) => {
+  const { isDarkMode } = useAppStore();
 
   const dividerStyle: React.CSSProperties = {
     borderBlockStart: isDarkMode ? '1px solid rgba(250, 250, 250, 0.12)' :'1px solid rgba(5, 5, 5, 0.12)'

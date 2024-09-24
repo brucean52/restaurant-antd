@@ -4,9 +4,7 @@ import userEvent from '@testing-library/user-event';
 import { http, HttpResponse } from 'msw';
 import { setupServer } from 'msw/node';
 import Menu from '../pages/Menu';
-import { mockContextValues } from '../test-util/mockdata';
-import { mockMenuDataArray  } from '../test-util/mockMenuData';
-import { BagContext } from '../BagContext';
+import { mockMenuDataArray  } from './test-util/mockMenuData';
 
 const server = setupServer(
   http.get('/menu', () => {
@@ -21,9 +19,7 @@ afterAll(() => server.close());
 test('menu page render test and click menu nav', async () => {
   render(
     <BrowserRouter>
-      <BagContext.Provider value={mockContextValues}>
-        <Menu />
-      </BagContext.Provider>
+      <Menu />
     </BrowserRouter>
   );
 
@@ -48,9 +44,7 @@ test('menu page render test and click menu nav', async () => {
 test('menu page no API call test', async () => {
   render(
     <BrowserRouter>
-      <BagContext.Provider value={mockContextValues}>
-        <Menu />
-      </BagContext.Provider>
+      <Menu />
     </BrowserRouter>
   );
 

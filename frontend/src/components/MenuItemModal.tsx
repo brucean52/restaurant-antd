@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useForm, Controller, useWatch } from 'react-hook-form';
 import { v4 as uuidv4 } from 'uuid';
 import { Input, Button, Row, Col, Modal, Typography, Space, theme } from 'antd';
@@ -6,8 +6,8 @@ import { PlusOutlined, MinusOutlined, CloseCircleOutlined } from '@ant-design/ic
 import { useMediaQuery } from 'react-responsive';
 import MenuRadioOptions from './MenuRadioOptions';
 import CustomDivider from './CustomDivider';
-import { BagContext } from '../BagContext';
-import { MenuItem, MenuItemFormValues, BagItem, BagContextType, BagItemOptions } from '../types';
+import { useAppStore } from '../store/useAppStore';
+import { MenuItem, MenuItemFormValues, BagItem, BagItemOptions } from '../types';
 import { defaultMenuItemFormValues } from '../assets/defaultData';
 
 const { TextArea } = Input;
@@ -21,13 +21,17 @@ type MenuItemModalProps = {
   handleModalClose: () => void
 };
 
-const MenuItemModal: React.FC<MenuItemModalProps> = (props) => {
+const MenuItemModal = (props: MenuItemModalProps) => {
   const isScreenXXSCustom = useMediaQuery({maxWidth: 400});
   const {
     token: { colorPrimary },
   } = theme.useToken();
 
-  const { isDarkMode, addItem, updateItem } = useContext(BagContext) as BagContextType;
+  const {
+    isDarkMode,
+    addItem,
+    updateItem
+  } = useAppStore();
   const [totalItemPrice, setTotalItemPrice] =  useState<string>('0.00');
 
   const { control, handleSubmit, setValue, getValues, reset, formState: { errors } } = useForm<MenuItemFormValues>({
@@ -168,65 +172,69 @@ const MenuItemModal: React.FC<MenuItemModalProps> = (props) => {
     </div>
   );
 
-  const renderBowlOptions = Object.hasOwn(props.menuItem, 'rice') && (
-    <MenuRadioOptions
-      control={control}
-      errors={errors}
-      type={"rice"}
-      title={"Rice Choice"}
-      options={props.menuItem.rice}
-    />
-  );
-
-  const renderDumplingOptions = Object.hasOwn(props.menuItem, 'dumpling') && (
-    <MenuRadioOptions
-      control={control}
-      errors={errors}
-      type={"dumpling"}
-      title={"Dumpling Type"}
-      options={props.menuItem.dumpling}
-    />
-  );
-
-  const renderSoupOptions = Object.hasOwn(props.menuItem, 'soup') && (
-    <MenuRadioOptions
-      control={control}
-      errors={errors}
-      type={"soup"}
-      title={"Soup Size"}
-      options={props.menuItem.soup}
-    />
-  );
-
-  const renderTeaOptions = Object.hasOwn(props.menuItem, 'tea') && (
-    <MenuRadioOptions
-      control={control}
-      errors={errors}
-      type={"tea"}
-      title={"Tea Choice"}
-      options={props.menuItem.tea}
-    />
-  );
-
-  const renderCokeOptions = Object.hasOwn(props.menuItem, 'soda') && (
-    <MenuRadioOptions
-      control={control}
-      errors={errors}
-      type={"soda"}
-      title={"Soda Choice"}
-      options={props.menuItem.soda}
-    />
-  );
-
-  const renderProteinOptions = Object.hasOwn(props.menuItem, 'protein') && (
-    <MenuRadioOptions
-      control={control}
-      errors={errors}
-      type={"protein"}
-      title={"Protein Choice"}
-      options={props.menuItem.protein}
-    />
-  );
+  const renderOptions = () => {
+    if (Object.hasOwn(props.menuItem, 'rice')) {
+      return (
+        <MenuRadioOptions
+          control={control}
+          errors={errors}
+          type={"rice"}
+          title={"Rice Choice"}
+          options={props.menuItem.rice}
+        />
+      )
+    } else if (Object.hasOwn(props.menuItem, 'dumpling')) {
+        return (
+          <MenuRadioOptions
+            control={control}
+            errors={errors}
+            type={"dumpling"}
+            title={"Dumpling Type"}
+            options={props.menuItem.dumpling}
+          />
+        )
+    } else if (Object.hasOwn(props.menuItem, 'soup')) {
+        return (
+          <MenuRadioOptions
+            control={control}
+            errors={errors}
+            type={"soup"}
+            title={"Soup Size"}
+            options={props.menuItem.soup}
+          />
+        )
+    } else if (Object.hasOwn(props.menuItem, 'tea')) {
+        return (
+          <MenuRadioOptions
+            control={control}
+            errors={errors}
+            type={"tea"}
+            title={"Tea Choice"}
+            options={props.menuItem.tea}
+          />
+        )
+    } else if (Object.hasOwn(props.menuItem, 'soda')) {
+        return (
+          <MenuRadioOptions
+            control={control}
+            errors={errors}
+            type={"soda"}
+            title={"Soda Choice"}
+            options={props.menuItem.soda}
+          />
+        )
+    } else if (Object.hasOwn(props.menuItem, 'protein')) {
+        return (
+          <MenuRadioOptions
+            control={control}
+            errors={errors}
+            type={"protein"}
+            title={"Protein Choice"}
+            options={props.menuItem.protein}
+          />
+        )
+    }
+  }
 
   const renderFooter = (
     <div style={{padding: '0px 24px 24px 24px'}}>
@@ -256,12 +264,7 @@ const MenuItemModal: React.FC<MenuItemModalProps> = (props) => {
       <Title level={2}>{props.menuItem.name}</Title>
       <Paragraph>{props.menuItem.description}</Paragraph>
 
-      {renderBowlOptions}
-      {renderDumplingOptions}
-      {renderSoupOptions}
-      {renderProteinOptions}
-      {renderTeaOptions}
-      {renderCokeOptions}
+      {renderOptions()}
 
       <CustomDivider />
       <Row>

@@ -6,8 +6,8 @@ import { useMediaQuery } from 'react-responsive';
 import MenuItemModal from './MenuItemModal';
 import DeleteConfirmModal from './DeleteConfirmModal';
 import CustomDivider from './CustomDivider';
-import { BagContext } from '../BagContext';
-import { BagContextType, BagItem, MenuItem, BagItemOptions } from '../types';
+import { useAppStore } from '../store/useAppStore';
+import { BagItem, MenuItem, BagItemOptions } from '../types';
 import { defaultMenuItem, defaultBagItemOptions, TAX_RATE, maxWidthXXS } from '../assets/defaultData';
 
 type BagDrawerProps = {
@@ -20,9 +20,16 @@ const defaultDeleteOptions = {
   name: ''
 };
 
-const BagDrawer: React.FC<BagDrawerProps> = (props) => {
+const BagDrawer = (props: BagDrawerProps) => {
   const isScreenXXS = useMediaQuery({maxWidth: maxWidthXXS});
-  const { bag, subtotalText, taxText, totalText, isDarkMode, updateItem } = useContext(BagContext) as BagContextType;
+  const {
+    isDarkMode,
+    bag,
+    subtotalText,
+    taxText,
+    totalText,
+    updateItem
+  } = useAppStore();
   const [selectedMenuItem, setSelectedMenuItem] = useState<MenuItem>(defaultMenuItem);
   const [itemOptions, setItemOptions] = useState<BagItemOptions>(defaultBagItemOptions);
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);

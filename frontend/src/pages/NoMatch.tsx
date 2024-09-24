@@ -2,7 +2,7 @@ import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Button, Result } from 'antd';
 
-const NoMatch: React.FC = () => {
+const NoMatch = () => {
 
   const removeButtonStyle: React.CSSProperties = {
     borderRadius: 0,

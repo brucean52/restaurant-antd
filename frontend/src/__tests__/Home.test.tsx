@@ -2,8 +2,6 @@ import { BrowserRouter } from 'react-router-dom';
 import { render, screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import Home from '../pages/Home';
-import { mockContextValues } from '../test-util/mockdata';
-import { BagContext } from '../BagContext';
 
 const mockNavigate = vi.fn();
 
@@ -20,9 +18,7 @@ vi.mock("react-router-dom", async () => {
 test('home page render test', async () => {
   render(
     <BrowserRouter>
-      <BagContext.Provider value={mockContextValues}>
-        <Home />
-      </BagContext.Provider>
+      <Home />
     </BrowserRouter>
   );
 

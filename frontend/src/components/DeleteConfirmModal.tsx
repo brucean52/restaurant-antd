@@ -1,7 +1,6 @@
-import React, { useContext } from 'react';
+import React from 'react';
 import { Button, Modal, Typography } from 'antd';
-import { BagContext } from '../BagContext';
-import { BagContextType } from '../types';
+import { useAppStore } from '../store/useAppStore';
 
 const { Paragraph } = Typography;
 
@@ -14,8 +13,8 @@ type DeleteConfirmModalProps = {
   handleModalClose: () => void
 };
 
-const DeleteConfirmModal: React.FC<DeleteConfirmModalProps> = (props) => {
-  const { deleteItem } = useContext(BagContext) as BagContextType;
+const DeleteConfirmModal = (props: DeleteConfirmModalProps) => {
+  const { deleteItem } = useAppStore();
 
   const removeButtonStyle: React.CSSProperties = {
     borderRadius: 0,

@@ -1,4 +1,4 @@
-import { BagItem, BagContextType, BagItemOptions } from '../types';
+import { BagItem, AppState, BagItemOptions } from '../../types';
 
 export const mockItemOne: BagItem = {
   bagItemId: 'abc123',
@@ -83,7 +83,7 @@ export const mockItemThree: BagItem = {
   radioOption: 'combo+23.50'
 };
 
-export const mockContextValues: BagContextType = {
+export const mockAppStateValues: AppState = {
   bag: [mockItemOne, mockItemTwo, mockItemThree],
   totalItems: 6,
   subtotalText: '100.50',
@@ -93,10 +93,12 @@ export const mockContextValues: BagContextType = {
   addItem: vi.fn(),
   updateItem: vi.fn(),
   deleteItem: vi.fn(),
-  toggleDarkMode: vi.fn()
+  clearBag: vi.fn(),
+  toggleDarkMode: vi.fn(),
+  setDarkMode: vi.fn()
 };
 
-export const mockEmptyContextValues: BagContextType = {
+export const mockEmptyAppStateValues: AppState = {
   bag: [],
   totalItems: 0,
   subtotalText: '',
@@ -106,7 +108,9 @@ export const mockEmptyContextValues: BagContextType = {
   addItem: vi.fn(),
   updateItem: vi.fn(),
   deleteItem: vi.fn(),
-  toggleDarkMode: vi.fn()
+  clearBag: vi.fn(),
+  toggleDarkMode: vi.fn(),
+  setDarkMode: vi.fn()
 };
 
 export const mockBagItemOptionsOne : BagItemOptions = {

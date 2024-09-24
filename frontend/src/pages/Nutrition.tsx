@@ -1,11 +1,11 @@
-import React, { useEffect, useContext, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Anchor, Typography, Spin, theme } from 'antd';
 import { useMediaQuery } from 'react-responsive';
 import { animateScroll } from 'react-scroll';
 import NutritionTable from '../components/NutritionTable';
 import { minWidthXL, minWidthLG } from '../assets/defaultData';
-import { BagContext } from '../BagContext';
-import { BagContextType, NutritionItem } from '../types';
+import { useAppStore } from '../store/useAppStore';
+import { NutritionItem } from '../types';
 
 const { Title } = Typography;
 
@@ -42,7 +42,7 @@ const navNutritionItems = [
   }
 ];
 
-const Nutrition: React.FC = () => {
+const Nutrition = () => {
   const isScreenXL = useMediaQuery({minWidth: minWidthXL});
   const isScreenLG = useMediaQuery({minWidth: minWidthLG});
   const {
@@ -50,7 +50,7 @@ const Nutrition: React.FC = () => {
       boxShadowSecondary
     }
   } = theme.useToken();
-  const { isDarkMode } = useContext(BagContext) as BagContextType;
+  const { isDarkMode } = useAppStore();
   const [nutritionItemsArray, setNutritionItemsArray] = useState<NutritionItem[]>([]);
   const [isLoading, setIsLoading] = useState(false);
 

@@ -3,8 +3,8 @@ import { MemoryRouter, Routes, Route, Outlet } from 'react-router-dom';
 import { render, screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import Checkout from '../pages/Checkout';
-import { mockContextValues } from '../test-util/mockdata';
-import { BagContext } from '../BagContext';
+import { mockAppStateValues } from './test-util/mockdata';
+import { useAppStore } from '../store/useAppStore';
 
 interface RenderRouteWithOutletContextProps<T = any> {
   context: T;
@@ -30,11 +30,11 @@ const RenderRouteWithOutletContext = <T,>({
 const outletContextMock = vi.fn();
 
 test('checkout page render test', async () => {
+  useAppStore.setState(mockAppStateValues);
+  
   render(
     <RenderRouteWithOutletContext context={{setOpenDrawer: outletContextMock}}>
-      <BagContext.Provider value={mockContextValues}>
-        <Checkout />
-      </BagContext.Provider>
+      <Checkout />
     </RenderRouteWithOutletContext>
   );
 

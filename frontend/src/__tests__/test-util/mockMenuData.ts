@@ -1,4 +1,4 @@
-import { MenuItem, CustomOption } from "../types";
+import { MenuItem, CustomOption } from "../../types";
 
 export const riceOptions: CustomOption[] = [
   {

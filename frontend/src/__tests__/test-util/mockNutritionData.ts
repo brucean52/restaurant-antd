@@ -1,4 +1,4 @@
-import { NutritionItem } from "../types";
+import { NutritionItem } from "../../types";
 
 export const mockNutritionDataArray: NutritionItem[] = [
   {

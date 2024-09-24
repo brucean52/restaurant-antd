@@ -11,7 +11,7 @@ type MenuItemCardProps = {
   handleMenuItemClicked: (menuItem: MenuItem) => void;
 };
 
-const MenuItemCard: React.FC<MenuItemCardProps> = (props) => {
+const MenuItemCard = (props: MenuItemCardProps) => {
   const isScreenXL = useMediaQuery({minWidth: minWidthXL});
 
   const {

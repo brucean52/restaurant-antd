@@ -2,23 +2,22 @@ import { BrowserRouter } from 'react-router-dom';
 import { render, screen, waitFor, fireEvent } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import BagDrawer from '../components/BagDrawer';
-import { mockContextValues, mockEmptyContextValues } from '../test-util/mockdata';
-import { BagContext } from '../BagContext';
+import { mockAppStateValues, mockEmptyAppStateValues } from './test-util/mockdata';
+import { useAppStore } from '../store/useAppStore';
 
 describe('Bag Drawer component tests', () => {
 
   const mockSetOpenDrawer = vi.fn();
 
-  afterEach(() => {
+  beforeEach(() => {
     vi.clearAllMocks();
+    useAppStore.setState(mockEmptyAppStateValues);
   });
 
   test('bag drawer is hidden', () => {
     render(
       <BrowserRouter>
-        <BagContext.Provider value={mockEmptyContextValues}>
-          <BagDrawer openDrawer={false} setOpenDrawer={mockSetOpenDrawer}/>
-        </BagContext.Provider>
+        <BagDrawer openDrawer={false} setOpenDrawer={mockSetOpenDrawer}/>
       </BrowserRouter>
     );
 
@@ -29,9 +28,7 @@ describe('Bag Drawer component tests', () => {
   test('can render empty bag', async () => {
     render(
       <BrowserRouter>
-        <BagContext.Provider value={mockEmptyContextValues}>
-          <BagDrawer openDrawer={true} setOpenDrawer={mockSetOpenDrawer}/>
-        </BagContext.Provider>
+        <BagDrawer openDrawer={true} setOpenDrawer={mockSetOpenDrawer}/>
       </BrowserRouter>
     );
 
@@ -45,11 +42,11 @@ describe('Bag Drawer component tests', () => {
   });
 
   test('can render bag with items', async () => {
+    useAppStore.setState(mockAppStateValues);
+
     render(
       <BrowserRouter>
-        <BagContext.Provider value={mockContextValues}>
-          <BagDrawer openDrawer={true} setOpenDrawer={mockSetOpenDrawer}/>
-        </BagContext.Provider>
+        <BagDrawer openDrawer={true} setOpenDrawer={mockSetOpenDrawer}/>
       </BrowserRouter>
     );
 
@@ -72,11 +69,11 @@ describe('Bag Drawer component tests', () => {
   });
 
   test('edit item click test', async () => {
+    useAppStore.setState(mockAppStateValues);
+
     render(
       <BrowserRouter>
-        <BagContext.Provider value={mockContextValues}>
-          <BagDrawer openDrawer={true} setOpenDrawer={mockSetOpenDrawer}/>
-        </BagContext.Provider>
+        <BagDrawer openDrawer={true} setOpenDrawer={mockSetOpenDrawer}/>
       </BrowserRouter>
     );
 
@@ -87,11 +84,11 @@ describe('Bag Drawer component tests', () => {
   });
 
   test('delete item click test', async () => {
+    useAppStore.setState(mockAppStateValues);
+
     render(
       <BrowserRouter>
-        <BagContext.Provider value={mockContextValues}>
-          <BagDrawer openDrawer={true} setOpenDrawer={mockSetOpenDrawer}/>
-        </BagContext.Provider>
+        <BagDrawer openDrawer={true} setOpenDrawer={mockSetOpenDrawer}/>
       </BrowserRouter>
     );
 
@@ -102,11 +99,11 @@ describe('Bag Drawer component tests', () => {
   });
 
   test('close button click test', async () => {
+    useAppStore.setState(mockAppStateValues);
+
     render(
       <BrowserRouter>
-        <BagContext.Provider value={mockContextValues}>
-          <BagDrawer openDrawer={true} setOpenDrawer={mockSetOpenDrawer}/>
-        </BagContext.Provider>
+        <BagDrawer openDrawer={true} setOpenDrawer={mockSetOpenDrawer}/>
       </BrowserRouter>
     );
 
@@ -117,11 +114,11 @@ describe('Bag Drawer component tests', () => {
   });
 
   test('update quantity select test', async () => {
+    useAppStore.setState(mockAppStateValues);
+
     render(
       <BrowserRouter>
-        <BagContext.Provider value={mockContextValues}>
-          <BagDrawer openDrawer={true} setOpenDrawer={mockSetOpenDrawer}/>
-        </BagContext.Provider>
+        <BagDrawer openDrawer={true} setOpenDrawer={mockSetOpenDrawer}/>
       </BrowserRouter>
     );
 
@@ -131,16 +128,16 @@ describe('Bag Drawer component tests', () => {
     });
     userEvent.click(screen.getByText('5'));
     await waitFor(() => {
-      expect(mockContextValues.updateItem).toHaveBeenCalledTimes(1);
+      expect(useAppStore.getState().updateItem).toHaveBeenCalledTimes(1);
     });
   });
 
   test('custom input update quantity test', async () => {
+    useAppStore.setState(mockAppStateValues);
+
     render(
       <BrowserRouter>
-        <BagContext.Provider value={mockContextValues}>
-          <BagDrawer openDrawer={true} setOpenDrawer={mockSetOpenDrawer}/>
-        </BagContext.Provider>
+        <BagDrawer openDrawer={true} setOpenDrawer={mockSetOpenDrawer}/>
       </BrowserRouter>
     );
 
@@ -152,11 +149,11 @@ describe('Bag Drawer component tests', () => {
     await waitFor(() => {
       expect(screen.getByLabelText('custom-input-qty-1')).toBeInTheDocument();
     });
-    expect(mockContextValues.updateItem).toHaveBeenCalledTimes(0);
+    expect(useAppStore.getState().updateItem).toHaveBeenCalledTimes(0);
     fireEvent.change(screen.getByLabelText('custom-input-qty-1'), {target: {value: '10'}});
     userEvent.click(screen.getByLabelText('update-qty-btn-1'));
     await waitFor(() => {
-      expect(mockContextValues.updateItem).toHaveBeenCalledTimes(1);
+      expect(useAppStore.getState().updateItem).toHaveBeenCalledTimes(1);
     });
   });
 });

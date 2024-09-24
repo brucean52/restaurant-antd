@@ -7,8 +7,7 @@ import MenuItemModal from '../components/MenuItemModal';
 import { MenuItem } from '../types';
 import lineImg from '../assets/images/line.png';
 import { defaultMenuItem, minWidthLG } from '../assets/defaultData';
-import { BagContext } from '../BagContext';
-import { BagContextType } from '../types';
+import { useAppStore } from '../store/useAppStore';
 
 const { Title } = Typography;
 
@@ -50,9 +49,9 @@ const navMenuItems = [
   },
 ];
 
-const MenuPage: React.FC = () => {
+const MenuPage = () => {
   const isScreenLG = useMediaQuery({minWidth: minWidthLG});
-  const { isDarkMode } = useContext(BagContext) as BagContextType; 
+  const { isDarkMode } = useAppStore();
   const [menuItemsArray, setMenuItemsArray] = useState<MenuItem[]>([]);
   const [selectedMenuItem, setSelectedMenuItem] = useState<MenuItem>(defaultMenuItem);
   const [isModalOpen, setIsModalOpen] = useState(false);

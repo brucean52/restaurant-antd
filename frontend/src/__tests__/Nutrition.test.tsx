@@ -4,9 +4,7 @@ import userEvent from '@testing-library/user-event';
 import { http, HttpResponse } from 'msw';
 import { setupServer } from 'msw/node';
 import Nutrition from '../pages/Nutrition';
-import { mockContextValues } from '../test-util/mockdata';
-import { mockNutritionDataArray } from '../test-util/mockNutritionData';
-import { BagContext } from '../BagContext';
+import { mockNutritionDataArray } from './test-util/mockNutritionData';
 
 const server = setupServer(
   http.get('/nutrition', () => {
@@ -21,9 +19,7 @@ afterAll(() => server.close());
 test('nutrition page render test and click nutrition nav', async () => {
   render(
     <BrowserRouter>
-      <BagContext.Provider value={mockContextValues}>
-        <Nutrition />
-      </BagContext.Provider>
+      <Nutrition />
     </BrowserRouter>
   );
 
@@ -43,9 +39,7 @@ test('nutrition page render test and click nutrition nav', async () => {
 test('nutrition page no API call test', async () => {
   render(
     <BrowserRouter>
-      <BagContext.Provider value={mockContextValues}>
-        <Nutrition />
-      </BagContext.Provider>
+      <Nutrition />
     </BrowserRouter>
   );
 

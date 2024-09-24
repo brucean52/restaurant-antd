@@ -1,26 +1,22 @@
 import { render, screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import MenuItemCard from '../components/MenuItemCard';
-import { mockMenuDataArray } from '../test-util/mockMenuData';
-import { mockContextValues } from '../test-util/mockdata';
-import { BagContext } from '../BagContext';
+import { mockMenuDataArray } from './test-util/mockMenuData';
 
 describe('Menu Item Card component tests', () => {
 
   const mockHandleMenuItemClicked = vi.fn();
 
-  afterEach(() => {
+  beforeEach(() => {
     vi.clearAllMocks();
   });
 
   test('renders item with no options, shows price', async () => {
     render(
-      <BagContext.Provider value={mockContextValues}>
-        <MenuItemCard
-          menuItem={mockMenuDataArray[0]}
-          handleMenuItemClicked={mockHandleMenuItemClicked}
-        />
-      </BagContext.Provider>
+      <MenuItemCard
+        menuItem={mockMenuDataArray[0]}
+        handleMenuItemClicked={mockHandleMenuItemClicked}
+      />
     );
 
     expect(screen.getByText(/chicken lettuce wraps/i)).toBeInTheDocument();
@@ -33,12 +29,10 @@ describe('Menu Item Card component tests', () => {
 
   test('renders item with options, does not show price', async () => {
     render(
-      <BagContext.Provider value={mockContextValues}>
-        <MenuItemCard
-          menuItem={mockMenuDataArray[9]}
-          handleMenuItemClicked={mockHandleMenuItemClicked}
-        />
-      </BagContext.Provider>
+      <MenuItemCard
+        menuItem={mockMenuDataArray[9]}
+        handleMenuItemClicked={mockHandleMenuItemClicked}
+      />
     );
 
     expect(screen.getByText(/egg drop soup/i)).toBeInTheDocument();

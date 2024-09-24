@@ -8,8 +8,7 @@ import { minWidthLG, minWidth4K, maxWidthMdOrLess } from '../assets/defaultData'
 import logo from '../assets/images/logo-light.png';
 import logoDark from '../assets/images/logo-dark.png';
 import BagDrawer from './BagDrawer';
-import { BagContext } from '../BagContext';
-import { BagContextType } from '../types';
+import { useAppStore } from '../store/useAppStore';
 
 const { Header, Content, Footer } = Layout;
 
@@ -24,7 +23,7 @@ const menuItems: MenuProps['items'] = [
   }
 ];
 
-const AppLayout: React.FC = () => {
+const AppLayout = () => {
   const {
     token: { colorPrimary, colorBgContainer, boxShadow, colorBgLayout },
   } = theme.useToken();
@@ -34,7 +33,11 @@ const AppLayout: React.FC = () => {
 
   const location = useLocation();
   const navigate = useNavigate();
-  const { totalItems, isDarkMode, toggleDarkMode } = useContext(BagContext) as BagContextType; 
+  const {
+    isDarkMode,
+    totalItems,
+    toggleDarkMode
+  } = useAppStore();
   const [openDrawer, setOpenDrawer] = useState<boolean>(false);
   const [selectedMenu, setSelectedMenu] = useState<string>('');
   
@@ -125,7 +128,7 @@ const AppLayout: React.FC = () => {
           shape="circle"
           icon={isDarkMode ? <SunOutlined /> :<MoonOutlined />}
           style={themeBtnStyle}
-          onClick={() => toggleDarkMode(!isDarkMode)}
+          onClick={() => toggleDarkMode()}
         />
         {location.pathname !== '/checkout' &&
           <Space size="middle" style={{ marginTop: '6px'}}>

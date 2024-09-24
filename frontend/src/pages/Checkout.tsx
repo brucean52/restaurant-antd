@@ -4,21 +4,26 @@ import { Typography, Row, Button, Col, Input, Card, List, theme } from 'antd';
 import { PhoneFilled, EnvironmentFilled } from '@ant-design/icons';
 import { useMediaQuery } from 'react-responsive';
 import CustomDivider from '../components/CustomDivider';
-import { BagContext } from '../BagContext';
-import { BagContextType } from '../types';
+import { useAppStore } from '../store/useAppStore';
 import { TAX_RATE, minWidthMD, minWidthLG } from '../assets/defaultData';
 import useBagDrawer from '../hooks/UseBagDrawer';
 import lineImg from '../assets/images/line.png';
 
 const { Title } = Typography;
 
-const Checkout: React.FC = () => {
+const Checkout = () => {
   const isScreenMD = useMediaQuery({minWidth: minWidthMD});
   const isScreenLG = useMediaQuery({minWidth: minWidthLG});
   const {
     token: { colorPrimary, boxShadowSecondary },
   } = theme.useToken();
-  const { bag, subtotalText, taxText, totalText, isDarkMode } = useContext(BagContext) as BagContextType;
+  const {
+    isDarkMode,
+    bag,
+    subtotalText,
+    taxText,
+    totalText
+  } = useAppStore();
   const {setOpenDrawer} = useBagDrawer();
 
   const borderStyle = isDarkMode ? '1px solid rgba(250, 250, 250, 0.12)' :'1px solid rgba(5, 5, 5, 0.12)';

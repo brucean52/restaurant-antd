@@ -13,7 +13,7 @@ import backgroundMain from '../assets/images/main.webp';
 
 const { Title, Paragraph } = Typography;
 
-const Home: React.FC = () => {
+const Home = () => {
   const isScreenXS = useMediaQuery({maxWidth: maxWidthXS});
   const isScreenMD = useMediaQuery({minWidth: minWidthMD});
   const isScreenXL = useMediaQuery({minWidth: minWidthXL});

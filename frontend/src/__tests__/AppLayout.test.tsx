@@ -2,8 +2,8 @@ import { BrowserRouter, MemoryRouter } from 'react-router-dom';
 import { render, screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import AppLayout from '../components/AppLayout';
-import { mockContextValues } from '../test-util/mockdata';
-import { BagContext } from '../BagContext';
+import { mockAppStateValues, mockEmptyAppStateValues } from './test-util/mockdata';
+import { useAppStore } from '../store/useAppStore';
 
 const mockNavigate = vi.fn();
 
@@ -19,16 +19,17 @@ vi.mock("react-router-dom", async () => {
 
 describe('App Layout Component Tests', () => {
 
-  afterEach(() => {
+  beforeEach(() => {
     vi.clearAllMocks();
+    useAppStore.setState(mockEmptyAppStateValues);
   });
 
-  test('header render test', async () => {
+  test('header render test with non-empty bag', async () => {
+    useAppStore.setState(mockAppStateValues)
+
     render(
       <MemoryRouter initialEntries={["/menu"]}>
-        <BagContext.Provider value={mockContextValues}>
-          <AppLayout />
-        </BagContext.Provider>
+        <AppLayout />
       </MemoryRouter>
     );
   
@@ -42,9 +43,7 @@ describe('App Layout Component Tests', () => {
   test('menu nav click test', async () => {
     render(
       <BrowserRouter>
-        <BagContext.Provider value={mockContextValues}>
-          <AppLayout />
-        </BagContext.Provider>
+        <AppLayout />
       </BrowserRouter>
     );
   
@@ -58,9 +57,7 @@ describe('App Layout Component Tests', () => {
   test('nutrition nav click test', async () => {
     render(
       <BrowserRouter>
-        <BagContext.Provider value={mockContextValues}>
-          <AppLayout />
-        </BagContext.Provider>
+        <AppLayout />
       </BrowserRouter>
     );
   
@@ -74,15 +71,13 @@ describe('App Layout Component Tests', () => {
   test('theme button click test', async () => {
     render(
       <BrowserRouter>
-        <BagContext.Provider value={mockContextValues}>
-          <AppLayout />
-        </BagContext.Provider>
+        <AppLayout />
       </BrowserRouter>
     );
   
     userEvent.click(screen.getByLabelText('toggle-theme-btn'));
     await waitFor(() => {
-      expect(mockContextValues.toggleDarkMode).toHaveBeenCalledTimes(1);
+      expect(useAppStore.getState().toggleDarkMode).toHaveBeenCalledTimes(1);
     });
   });
 });

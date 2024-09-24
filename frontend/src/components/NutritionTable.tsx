@@ -4,8 +4,7 @@ import { PlusSquareOutlined, CloseCircleOutlined } from '@ant-design/icons';
 import NutritionItemLayout from './NutritionItemLayout';
 import { nutriTableHeaders } from '../assets/defaultData';
 import { NutritionItem, NutriTableHeader } from '../types';
-import { BagContext } from '../BagContext';
-import { BagContextType } from '../types';
+import { useAppStore } from '../store/useAppStore';
 
 type NutritionTableLayoutProps = {
   nutritionDataArray: NutritionItem[],
@@ -25,7 +24,7 @@ const NutritionTable: React.FC<NutritionTableLayoutProps> = (props) => {
     }
   } = theme.useToken();
 
-  const { isDarkMode } = useContext(BagContext) as BagContextType; 
+  const { isDarkMode } = useAppStore();
   const [isExpanded, setIsExpanded] = useState('');
 
   const layoutStyle: React.CSSProperties = {
@@ -55,7 +54,7 @@ const NutritionTable: React.FC<NutritionTableLayoutProps> = (props) => {
     return <th key={column.id} style={tableHeaderStyle} className="nutri-table-header">{column.title}</th>
   });
 
-  const RenderDataRow: React.FC<TableDataRowProps> = (props) => {
+  const RenderDataRow = (props: TableDataRowProps) => {
     const { nutriItem } = props;
     // let name = nutriItem.name;
     // if (name.includes('|')) {

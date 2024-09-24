@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from 'react';
+import { useEffect } from 'react';
 import { Routes, Route } from 'react-router-dom';
 import { ConfigProvider, theme } from 'antd';
 import { StyleProvider } from '@ant-design/cssinjs';
@@ -8,17 +8,16 @@ import Menu from './pages/Menu';
 import Checkout from './pages/Checkout';
 import NoMatch from './pages/NoMatch';
 import Nutrition from './pages/Nutrition';
-import { BagContext } from './BagContext';
-import { BagContextType } from './types';
+import { useAppStore } from './store/useAppStore';
 
-const App: React.FC = () => {
-  const { isDarkMode, toggleDarkMode } = useContext(BagContext) as BagContextType; 
+const App = () => {
+  const { isDarkMode, setDarkMode } = useAppStore();
 
   useEffect(() => { 
     if (window.matchMedia("(prefers-color-scheme: dark)")) {
-      toggleDarkMode(true);
+      setDarkMode(true);
     } else {
-      toggleDarkMode(false);
+      setDarkMode(false);
     }
   }, []);
 

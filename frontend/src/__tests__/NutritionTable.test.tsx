@@ -1,17 +1,13 @@
 import { render, screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import NutritionTable from '../components/NutritionTable';
-import { mockNutritionDataArray } from '../test-util/mockNutritionData';
-import { mockContextValues } from '../test-util/mockdata';
-import { BagContext } from '../BagContext';
+import { mockNutritionDataArray } from './test-util/mockNutritionData';
 
 test('renders the nutrition table', async () => {
   render(
-    <BagContext.Provider value={mockContextValues}>
-      <NutritionTable
-        nutritionDataArray={mockNutritionDataArray}
-      />
-    </BagContext.Provider>
+    <NutritionTable
+      nutritionDataArray={mockNutritionDataArray}
+    />
   );
 
   expect(screen.getByText('Chicken Lettuce Wraps')).toBeInTheDocument();
@@ -22,11 +18,9 @@ test('renders the nutrition table', async () => {
 
 test('click the expand icon and then click the close expanded icon', async () => {
   render(
-    <BagContext.Provider value={mockContextValues}>
-      <NutritionTable
-        nutritionDataArray={mockNutritionDataArray}
-      />
-    </BagContext.Provider>
+    <NutritionTable
+      nutritionDataArray={mockNutritionDataArray}
+    />
   );
   expect(screen.getByText('Chicken Lettuce Wraps')).toBeInTheDocument();
 

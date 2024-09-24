@@ -1,18 +1,14 @@
 import { render, screen } from '@testing-library/react';
 import NutritionItemLayout from '../components/NutritionItemLayout';
-import { mockNutritionDataArray } from '../test-util/mockNutritionData';
-import { mockChartData } from '../test-util/mockdata';
-import { mockContextValues } from '../test-util/mockdata';
-import { BagContext } from '../BagContext';
+import { mockNutritionDataArray } from './test-util/mockNutritionData';
+import { mockChartData } from './test-util/mockdata';
 
 test('renders the nutrition item layout', async () => {
   render(
-    <BagContext.Provider value={mockContextValues}>
-      <NutritionItemLayout
-        nutriItem={mockNutritionDataArray[1]} 
-        chartData={mockChartData}
-      />
-    </BagContext.Provider>
+    <NutritionItemLayout
+      nutriItem={mockNutritionDataArray[1]} 
+      chartData={mockChartData}
+    />
   );
 
   expect(screen.getByText('Chili Garlic Green Beans')).toBeInTheDocument();

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Row, Col, Radio, Typography, theme } from 'antd';
 import { Control, Controller, FieldErrors } from 'react-hook-form';
 import CustomDivider from './CustomDivider';
@@ -15,7 +15,7 @@ type MenuRadioOptionsProps = {
   control: Control<MenuItemFormValues>
 };
 
-const MenuRadioOptions: React.FC<MenuRadioOptionsProps> = (props) => {
+const MenuRadioOptions = (props: MenuRadioOptionsProps) => {
   const {
     token: { colorPrimary },
   } = theme.useToken();

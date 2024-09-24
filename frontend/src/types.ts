@@ -1,3 +1,18 @@
+export type AppState = {
+  bag: BagItem[];
+  totalItems: number;
+  subtotalText: string;
+  taxText: string;
+  totalText: string;
+  isDarkMode: boolean;
+  addItem: (bagItem: BagItem) => void;
+  deleteItem: (bagItemId: string) => void;
+  updateItem: (bagItem: BagItem) => void;
+  clearBag: () => void;
+  toggleDarkMode: () => void;
+  setDarkMode: (darkMode: boolean) => void;
+};
+
 export type CustomOption = {
   id: string;
   name: string;
@@ -46,23 +61,9 @@ export interface BagItem extends MenuItem {
   specialInstructions: string;
 };
 
-export type BagContextType = {
-  bag: BagItem[];
-  totalItems: number;
-  subtotalText: string;
-  taxText: string;
-  totalText: string;
-  isDarkMode: boolean;
-  addItem: (bagItem: BagItem) => void;
-  updateItem: (bagItem: BagItem) => void;
-  deleteItem: (bagItemId: string) => void;
-  toggleDarkMode: (setDarkMode: boolean) => void;
-};
-
 export type NutriTableKey = 'id' |'category' | 'name' | 'servings' | 'calories'
   | 'calsFromFat' | 'fat' | 'saturatedFat'| 'transFat' | 'cholesterol' | 'sodium'
   | 'carbohydrates' | 'fiber' | 'sugar'| 'protein';
-
 
 export type NutriTableHeader = {
   title: string;
@@ -86,3 +87,8 @@ export interface NutritionItem {
   sugar: string;
   protein: string;
 };
+
+export type TotalCostText = {
+  taxText: string;
+  totalText: string;
+}
