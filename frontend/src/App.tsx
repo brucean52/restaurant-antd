@@ -8,7 +8,7 @@ import Menu from './pages/Menu';
 import Checkout from './pages/Checkout';
 import NoMatch from './pages/NoMatch';
 import Nutrition from './pages/Nutrition';
-import { useAppStore } from './store/useAppStore';
+import { useAppStore } from './store/UseAppStore';
 
 const App = () => {
   const { isDarkMode, setDarkMode } = useAppStore();

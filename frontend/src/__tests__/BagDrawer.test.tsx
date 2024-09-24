@@ -3,7 +3,7 @@ import { render, screen, waitFor, fireEvent } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import BagDrawer from '../components/BagDrawer';
 import { mockAppStateValues, mockEmptyAppStateValues } from './test-util/mockdata';
-import { useAppStore } from '../store/useAppStore';
+import { useAppStore } from '../store/UseAppStore';
 
 describe('Bag Drawer component tests', () => {
 

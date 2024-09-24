@@ -1,7 +1,7 @@
 import { render, screen } from '@testing-library/react';
 import CustomDivider from '../components/CustomDivider';
 import { mockAppStateValues, mockEmptyAppStateValues } from './test-util/mockdata';
-import { useAppStore } from '../store/useAppStore';
+import { useAppStore } from '../store/UseAppStore';
 
 test('custom divider dark mode', async () => {
   useAppStore.setState(mockAppStateValues);

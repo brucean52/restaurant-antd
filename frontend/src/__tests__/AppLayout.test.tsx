@@ -3,7 +3,7 @@ import { render, screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import AppLayout from '../components/AppLayout';
 import { mockAppStateValues, mockEmptyAppStateValues } from './test-util/mockdata';
-import { useAppStore } from '../store/useAppStore';
+import { useAppStore } from '../store/UseAppStore';
 
 const mockNavigate = vi.fn();
 

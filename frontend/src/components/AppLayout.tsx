@@ -8,7 +8,7 @@ import { minWidthLG, minWidth4K, maxWidthMdOrLess } from '../assets/defaultData'
 import logo from '../assets/images/logo-light.png';
 import logoDark from '../assets/images/logo-dark.png';
 import BagDrawer from './BagDrawer';
-import { useAppStore } from '../store/useAppStore';
+import { useAppStore } from '../store/UseAppStore';
 
 const { Header, Content, Footer } = Layout;
 
@@ -132,7 +132,7 @@ const AppLayout = () => {
         />
         {location.pathname !== '/checkout' &&
           <Space size="middle" style={{ marginTop: '6px'}}>
-            <Badge color={colorPrimary} count={totalItems} styles={{ indicator: { color: '#FFFFFF' }}}>
+            <Badge aria-label="bag-total-items" color={colorPrimary} count={totalItems} styles={{ indicator: { color: '#FFFFFF' }}}>
               <Button
                 className={isDarkMode ? 'bag-button-dark' : 'bag-button'}
                 aria-label="bag-button"

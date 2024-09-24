@@ -6,7 +6,7 @@ import { useMediaQuery } from 'react-responsive';
 import MenuItemModal from './MenuItemModal';
 import DeleteConfirmModal from './DeleteConfirmModal';
 import CustomDivider from './CustomDivider';
-import { useAppStore } from '../store/useAppStore';
+import { useAppStore } from '../store/UseAppStore';
 import { BagItem, MenuItem, BagItemOptions } from '../types';
 import { defaultMenuItem, defaultBagItemOptions, TAX_RATE, maxWidthXXS } from '../assets/defaultData';
 

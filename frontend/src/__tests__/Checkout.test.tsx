@@ -4,7 +4,7 @@ import { render, screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import Checkout from '../pages/Checkout';
 import { mockAppStateValues } from './test-util/mockdata';
-import { useAppStore } from '../store/useAppStore';
+import { useAppStore } from '../store/UseAppStore';
 
 interface RenderRouteWithOutletContextProps<T = any> {
   context: T;
@@ -31,7 +31,7 @@ const outletContextMock = vi.fn();
 
 test('checkout page render test', async () => {
   useAppStore.setState(mockAppStateValues);
-  
+
   render(
     <RenderRouteWithOutletContext context={{setOpenDrawer: outletContextMock}}>
       <Checkout />

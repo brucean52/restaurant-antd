@@ -1,6 +1,6 @@
 import React from 'react';
 import { Divider } from 'antd';
-import { useAppStore } from '../store/useAppStore';
+import { useAppStore } from '../store/UseAppStore';
 
 type CustomDividerProps = {
   style?: React.CSSProperties,

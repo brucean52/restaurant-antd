@@ -4,7 +4,7 @@ import { useMediaQuery } from 'react-responsive';
 import { animateScroll } from 'react-scroll';
 import NutritionTable from '../components/NutritionTable';
 import { minWidthXL, minWidthLG } from '../assets/defaultData';
-import { useAppStore } from '../store/useAppStore';
+import { useAppStore } from '../store/UseAppStore';
 import { NutritionItem } from '../types';
 
 const { Title } = Typography;

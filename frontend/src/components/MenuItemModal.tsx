@@ -6,7 +6,7 @@ import { PlusOutlined, MinusOutlined, CloseCircleOutlined } from '@ant-design/ic
 import { useMediaQuery } from 'react-responsive';
 import MenuRadioOptions from './MenuRadioOptions';
 import CustomDivider from './CustomDivider';
-import { useAppStore } from '../store/useAppStore';
+import { useAppStore } from '../store/UseAppStore';
 import { MenuItem, MenuItemFormValues, BagItem, BagItemOptions } from '../types';
 import { defaultMenuItemFormValues } from '../assets/defaultData';
 

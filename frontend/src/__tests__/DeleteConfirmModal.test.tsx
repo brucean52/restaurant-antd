@@ -2,7 +2,7 @@ import { render, screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import DeleteConfirmModal from '../components/DeleteConfirmModal';
 import { mockEmptyAppStateValues, mockItemOne } from './test-util/mockdata';
-import { useAppStore } from '../store/useAppStore';
+import { useAppStore } from '../store/UseAppStore';
 
 describe('Delete Confirm Modal tests', () => {
   const mockHandleModalClose = vi.fn();

@@ -9,7 +9,7 @@ import {
   mockBagItemOptionsThree,
   mockBagItemOptionsTwo
 } from './test-util/mockdata';
-import { useAppStore } from '../store/useAppStore';
+import { useAppStore } from '../store/UseAppStore';
 
 describe('Menu Item Modal component tests', () => {
 

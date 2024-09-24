@@ -1,6 +1,6 @@
 import React from 'react';
 import { Button, Modal, Typography } from 'antd';
-import { useAppStore } from '../store/useAppStore';
+import { useAppStore } from '../store/UseAppStore';
 
 const { Paragraph } = Typography;
 

@@ -4,7 +4,7 @@ import { PieChart, Pie, Cell, Legend, ResponsiveContainer } from 'recharts';
 import { scroller, Element} from 'react-scroll';
 import { nutriTableHeaders, RADIAN } from '../assets/defaultData';
 import { NutritionItem, NutriTableHeader } from '../types';
-import { useAppStore } from '../store/useAppStore';
+import { useAppStore } from '../store/UseAppStore';
 
 const { Title } = Typography;
 const COLORS = ["#9c1f16", "#d49b1c", "#68831c"];

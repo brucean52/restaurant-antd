@@ -4,7 +4,7 @@ import { PlusSquareOutlined, CloseCircleOutlined } from '@ant-design/icons';
 import NutritionItemLayout from './NutritionItemLayout';
 import { nutriTableHeaders } from '../assets/defaultData';
 import { NutritionItem, NutriTableHeader } from '../types';
-import { useAppStore } from '../store/useAppStore';
+import { useAppStore } from '../store/UseAppStore';
 
 type NutritionTableLayoutProps = {
   nutritionDataArray: NutritionItem[],
@@ -14,7 +14,7 @@ type TableDataRowProps = {
   nutriItem: NutritionItem,
 };
 
-const NutritionTable: React.FC<NutritionTableLayoutProps> = (props) => {
+const NutritionTable = (props: NutritionTableLayoutProps) => {
   const {
     token: { 
       colorPrimary,
@@ -87,7 +87,7 @@ const NutritionTable: React.FC<NutritionTableLayoutProps> = (props) => {
     )
   };
 
-  const RenderExpandedRow: React.FC<TableDataRowProps> = (props) => {
+  const RenderExpandedRow = (props: TableDataRowProps) => {
     let fatAmount = parseInt(props.nutriItem.fat.replace('g', ''));
     let carbsAmount = parseInt(props.nutriItem.carbohydrates.replace('g', ''));
     let proteinAmount = parseInt(props.nutriItem.protein.replace('g', ''));

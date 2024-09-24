@@ -7,7 +7,7 @@ import MenuItemModal from '../components/MenuItemModal';
 import { MenuItem } from '../types';
 import lineImg from '../assets/images/line.png';
 import { defaultMenuItem, minWidthLG } from '../assets/defaultData';
-import { useAppStore } from '../store/useAppStore';
+import { useAppStore } from '../store/UseAppStore';
 
 const { Title } = Typography;
 

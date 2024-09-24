@@ -4,7 +4,7 @@ import { Typography, Row, Button, Col, Input, Card, List, theme } from 'antd';
 import { PhoneFilled, EnvironmentFilled } from '@ant-design/icons';
 import { useMediaQuery } from 'react-responsive';
 import CustomDivider from '../components/CustomDivider';
-import { useAppStore } from '../store/useAppStore';
+import { useAppStore } from '../store/UseAppStore';
 import { TAX_RATE, minWidthMD, minWidthLG } from '../assets/defaultData';
 import useBagDrawer from '../hooks/UseBagDrawer';
 import lineImg from '../assets/images/line.png';
