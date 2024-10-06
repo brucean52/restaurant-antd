@@ -16,6 +16,8 @@ export const minWidthLG = 992;
 export const minWidthXL = 1200;
 export const minWidth4K = 2500;
 
+export const COLORS = ["#9c1f16", "#d49b1c", "#68831c"];
+
 export const defaultBagItem: BagItem = {
   bagItemId: '',
   id: '',
@@ -77,3 +79,6 @@ export const nutriTableHeaders: NutriTableHeader[] = [
 ];
 
 export const RADIAN = Math.PI / 180;
+
+export const DAILY_VALUE_TEXT = '*The % Daily Value (DV) tells you how much a nutrient in a serving of food contributes ' +
+  'to a daily diet. 2,000 calories a day is used for general nutrition advice.'

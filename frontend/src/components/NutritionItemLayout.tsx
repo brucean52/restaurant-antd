@@ -1,13 +1,37 @@
-import React, { useEffect, useContext } from 'react';
-import { List, Typography } from 'antd';
-import { PieChart, Pie, Cell, Legend, ResponsiveContainer } from 'recharts';
-import { scroller, Element} from 'react-scroll';
-import { nutriTableHeaders, RADIAN } from '../assets/defaultData';
-import { NutritionItem, NutriTableHeader } from '../types';
-import { useAppStore } from '../store/UseAppStore';
+import React, { useEffect, useState } from 'react';
+import { Typography, Segmented, theme } from 'antd';
+import {
+  PictureOutlined,
+  PieChartOutlined,
+  BarChartOutlined
+} from '@ant-design/icons';
+import {
+  BarChart,
+  Bar,
+  PieChart,
+  Pie,
+  Cell,
+  Legend,
+  XAxis,
+  YAxis,
+  CartesianGrid,
+  ResponsiveContainer,
+  Tooltip,
+  TooltipProps
+} from 'recharts';
+import {
+  ValueType,
+  NameType,
+} from 'recharts/types/component/DefaultTooltipContent';
+import { scroller, Element } from 'react-scroll';
+import NutritionItemLabel from './NutritionItemLabel';
+import { RADIAN, COLORS } from '../assets/defaultData';
+import {
+  NutritionItem,
+  NutriVisualSegment
+} from '../types';
 
-const { Title } = Typography;
-const COLORS = ["#9c1f16", "#d49b1c", "#68831c"];
+const { Title, Text } = Typography;
 
 type NutritionItemLayoutProps = {
   nutriItem: NutritionItem,
@@ -15,7 +39,10 @@ type NutritionItemLayoutProps = {
 };
 
 const NutritionItemLayout = (props: NutritionItemLayoutProps) => {
-  const { isDarkMode } = useAppStore();
+  const {
+    token: { colorPrimary },
+  } = theme.useToken();
+  const [showNutriVisual, setShowNutriVisual] = useState<NutriVisualSegment>('image');
 
   useEffect(() => {
     scroller.scrollTo('main', {
@@ -26,28 +53,34 @@ const NutritionItemLayout = (props: NutritionItemLayoutProps) => {
 
   const mainStyle: React.CSSProperties = {
     display: 'grid',
-    gridTemplateColumns: '200px auto',
-    padding: '1% 7%'
+    height: '500px',
+    gridTemplateColumns: '275px auto',
+    padding: '1% 6rem'
   };
 
-  const nutriDisplayItems = nutriTableHeaders.slice(1).map((column: NutriTableHeader) => {
-    return {
-      key: column.id,
-      label: column.title,
-      children: props.nutriItem[column.id],
-    }
-  });
-
-  const renderNutriListItem = (item: any) => {
-    return (
-      <List.Item>
-        <div style={{ fontWeight: 500 }}>{item.label}</div>
-        <div>{item.children}</div>
-      </List.Item>
-    )
+  const imgStyle: React.CSSProperties = {
+    border: `5px ridge ${colorPrimary}`,
+    width: '100%',
+    height: 'auto',
+    maxWidth: '500px'
   };
 
-  const renderCustomLabel = (labelItem: any) => {
+  const segmentContainerStyle: React.CSSProperties = {
+    display: 'flex',
+    justifyContent: 'space-between',
+    margin: '16px 6rem 0 6rem'
+  };
+
+  const customTooltipStyle: React.CSSProperties = {
+    backgroundColor: '#EEEEEE',
+    fontSize: '14px',
+    padding: '4px 12px',
+    border: '1px solid #AAAAAA',
+    color: 'black',
+    borderRadius: '2px'
+  };
+
+  const renderCustomChartLabel = (labelItem: any) => {
     if (labelItem.percent !== 0){
       const radius = labelItem.innerRadius + (labelItem.outerRadius - labelItem.innerRadius) * 0.5;
       const x = labelItem.cx + radius * Math.cos(-labelItem.midAngle * RADIAN);
@@ -62,44 +95,111 @@ const NutritionItemLayout = (props: NutritionItemLayoutProps) => {
           textAnchor={x > labelItem.cx ? 'start' : 'end'}
           dominantBaseline="central"
         >
-          {`${(labelItem.percent * 100).toFixed(0)}%`}
+          {`${labelItem.percent}%`}
         </text>
       );
     }
   };
 
+  const CustomTooltip = ({ active, payload }: TooltipProps<ValueType, NameType>) => {
+    if (active) {
+    return (
+      <div style={customTooltipStyle}>
+        <p>{`${payload?.[0].value}g`}</p>
+      </div>
+      );
+    }
+
+    return null;
+  };
+
+  const CustomPieTooltip = ({ active, payload }: TooltipProps<ValueType, NameType>) => {
+    if (active) {
+    return (
+      <div style={customTooltipStyle}>
+        <p>{`${payload?.[0].name}`}</p>
+      </div>
+      );
+    }
+
+    return null;
+  };
+
   return (
     <Element name="main" style={{ minHeight: '700px' }}>
-      <Title level={3} style={{ marginLeft: '7%'}}>{props.nutriItem.name}</Title>
-      <div style={mainStyle}>
-        <List
-          style={{ backgroundColor: isDarkMode ? '#3c3c3c' : '#e6e6e6' }}
-          size="small"
-          bordered
-          dataSource={nutriDisplayItems}
-          renderItem={renderNutriListItem}
+      <Title level={3} style={{ margin: '0 0 0 6rem'}}>{props.nutriItem.name}</Title>
+      
+      <div style={segmentContainerStyle}>
+        <Text>{props.nutriItem.description}</Text>
+        <Segmented
+          size="large"
+          options={[
+            { value: 'image', icon: <PictureOutlined /> },
+            { value: 'barChart', icon: <BarChartOutlined /> },
+            { value: 'pieChart', icon: <PieChartOutlined /> },
+          ]}
+          value={showNutriVisual}
+          onChange={setShowNutriVisual}
         />
-        <ResponsiveContainer width="100%" height={500}>
-          <PieChart width={500} height={500}>
-            <Pie
-              dataKey="value"
-              data={props.chartData}
-              nameKey="name"
-              labelLine={false}
-              label={renderCustomLabel}
-              cy="60%"
-              outerRadius={150}
-            >
-              {props.chartData.map((_: any, index: number) => (
-                <Cell key={`cell-${index}`} fill={COLORS[index]} />
-              ))}
-            </Pie>
-            <Legend
-              iconType='circle'
-              wrapperStyle={{ top: '50px', fontSize: '24px'}}
-            />
-          </PieChart>
-        </ResponsiveContainer>
+      </div>
+      <div
+        className={showNutriVisual === 'image'  ? 'nutri-item-main-image' : 'nutri-item-main-chart'}
+        style={mainStyle}
+      >
+        <NutritionItemLabel nutriItem={props.nutriItem}/>
+
+        {showNutriVisual === 'image'
+          ?
+            <img style={imgStyle} alt={props.nutriItem.name} src={props.nutriItem.imgSrc} />
+          :
+            <ResponsiveContainer style={{ margin: showNutriVisual === 'barChart' ? '0 1rem' : 0 }}>
+              {showNutriVisual === 'barChart' 
+              ?
+                <BarChart
+                  width={500}
+                  height={300}
+                  data={props.chartData}
+                  margin={{
+                    top: 20,
+                    right: 30,
+                    left: 20,
+                    bottom: 5,
+                  }}
+                >
+                  <CartesianGrid strokeDasharray="3 3" />
+                  <XAxis dataKey="name" />
+                  <YAxis />
+                  <Tooltip cursor={{ fill: 'rgba(0, 0, 0, 0.2)' }} content={<CustomTooltip />}/>
+                  <Bar dataKey="grams" >
+                    {props.chartData.map((_: any, index: number) => (
+                      <Cell key={`cell-${index}`} fill={COLORS[index]} />
+                    ))}
+                  </Bar>
+                </BarChart>
+              :
+                <PieChart width={500} height={500}>
+                  <Pie
+                    dataKey="percent"
+                    data={props.chartData}
+                    nameKey="name"
+                    labelLine={false}
+                    label={renderCustomChartLabel}
+                    cy="50%"
+                    outerRadius={150}
+                  >
+                    {props.chartData.map((_: any, index: number) => (
+                      <Cell key={`cell-${index}`} fill={COLORS[index]} />
+                    ))}
+                  </Pie>
+                  <Legend
+                    iconType='circle'
+                    wrapperStyle={{ top: '0px', fontSize: '24px' }}
+                  />
+                  <Tooltip content={<CustomPieTooltip />}/>
+                </PieChart>
+            }
+            </ResponsiveContainer>
+        }
       </div>
     </Element>
   );

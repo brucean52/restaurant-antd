@@ -8,6 +8,8 @@ export const getAllNutritionalItemData = async () => {
     const { 
       item_identifier,
       item_name,
+      item_description,
+      item_image_path,
       variation_name,
       category_name,
       servings,
@@ -21,7 +23,13 @@ export const getAllNutritionalItemData = async () => {
       carbohydrates,
       fiber,
       sugar,
-      protein
+      protein,
+      dv_fat,
+      dv_saturated_fat,
+      dv_cholesterol,
+      dv_sodium,
+      dv_carbohydrates,
+      dv_fiber
     } = item;
 
     let id = variation_name
@@ -38,6 +46,8 @@ export const getAllNutritionalItemData = async () => {
       id,
       category,
       name,
+      description: item_description,
+      imgSrc: item_image_path,
       servings,
       calories,
       calsFromFat: calories_from_fat,
@@ -49,7 +59,13 @@ export const getAllNutritionalItemData = async () => {
       carbohydrates,
       fiber,
       sugar,
-      protein
+      protein,
+      dvFat: dv_fat,
+      dvSaturatedFat: dv_saturated_fat,
+      dvCholesterol: dv_cholesterol,
+      dvSodium: dv_sodium,
+      dvCarbohydrates: dv_carbohydrates,
+      dvFiber: dv_fiber
     }
 
     return nutritionItem

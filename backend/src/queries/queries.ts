@@ -30,6 +30,8 @@ SELECT
     i.id AS item_id,
 	i.identifier AS item_identifier,
     i.name AS item_name,
+	i.description AS item_description,
+	i.image_path AS item_image_path,
     NULL AS variation_name,
 	c.name AS category_name,
     inut.servings,
@@ -43,7 +45,13 @@ SELECT
     inut.carbohydrates,
     inut.fiber,
     inut.sugar,
-    inut.protein
+    inut.protein,
+	inut.dv_fat,
+    inut.dv_saturated_fat,
+    inut.dv_cholesterol,
+    inut.dv_sodium,
+    inut.dv_carbohydrates,
+    inut.dv_fiber
 FROM 
     item_nutritionals inut
 JOIN 
@@ -57,6 +65,8 @@ SELECT
     i.id AS item_id,
 	i.identifier AS item_identifier,
     i.name AS item_name,
+	i.description AS item_description,
+	i.image_path AS item_image_path,
     v.name AS variation_name,
 	c.name AS category_name,
     vn.servings,
@@ -70,7 +80,13 @@ SELECT
     vn.carbohydrates,
     vn.fiber,
     vn.sugar,
-    vn.protein
+    vn.protein,
+	vn.dv_fat,
+    vn.dv_saturated_fat,
+    vn.dv_cholesterol,
+    vn.dv_sodium,
+    vn.dv_carbohydrates,
+    vn.dv_fiber
 FROM 
     variation_nutritionals vn
 JOIN 

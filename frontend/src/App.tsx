@@ -32,7 +32,7 @@ const App = () => {
         },
         token: {
           colorPrimary: '#C11316',
-          colorBgLayout: isDarkMode ? '#262626' : '#F0F0F0',
+          colorBgLayout: isDarkMode ? '#262626' : '#DDDDDD',
           boxShadowSecondary: 'rgba(0, 0, 0, 0.08) 0px 4px 10px 0px,rgba(0, 0, 0, 0.12) 0px 3px 6px -4px,' +
             'rgba(0, 0, 0, 0.05) 0px 7px 16px 5px'
         }

@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React from 'react';
 import { Link } from 'react-router-dom';
 import { Typography, Row, Button, Col, Input, Card, List, theme } from 'antd';
 import { PhoneFilled, EnvironmentFilled } from '@ant-design/icons';

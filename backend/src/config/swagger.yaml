@@ -1,0 +1,167 @@
+openapi: "3.0.0"
+info:
+  version: 1.0.0
+  title: Restaurant AntD
+  description: A simple REST API for a restaurant
+tags:
+  - name: api
+paths:
+  /menu:
+    get:
+      tags:
+          - api
+      description: 
+        Returns all menu items
+
+      operationId: getMenuItems
+      responses:
+        '200':
+          description: all menu items response
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Menu'
+        '500':
+          description: internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /nutrition:
+    get:
+      tags:
+          - api
+      description: 
+        Returns all nutrition items
+
+      operationId: getNutritionItems
+      responses:
+        '200':
+          description: all nutrition items response
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Nutrition'
+        '500':
+          description: internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+components:
+  schemas:
+    Menu:
+        type: object
+        required:
+          - id
+          - category
+          - imgSrc
+          - name
+          - description
+          - price
+        properties:
+          id:
+            type: string
+          category:
+            type: string
+          imgSrc:
+            type: string
+          name:
+            type: string
+          description:
+            type: string
+          price:
+            type: string
+          dumpling:
+            type: '#/components/schemas/CustomOption'
+          soup:
+            type: '#/components/schemas/CustomOption'
+          rice:
+            type: '#/components/schemas/CustomOption'
+          protein:
+            type: '#/components/schemas/CustomOption'
+          tea:
+            type: '#/components/schemas/CustomOption'
+          soda:
+            type: '#/components/schemas/CustomOption'
+
+    Nutrition:
+      type: object
+      required: true 
+      properties:
+          id:
+            type: string
+          category:
+            type: string
+          imgSrc:
+            type: string
+          name:
+            type: string
+          description:
+            type: string
+          servings:
+            type: integer
+          calories:
+            type: integer
+          calsFromFat:
+            type: integer
+          fat:
+            type: string
+          saturatedFat:
+            type: string
+          transFat:
+            type: string
+          cholesterol:
+            type: string
+          sodium:
+            type: string
+          carbohydrates:
+            type: string
+          fiber:
+            type: string
+          sugar:
+            type: string
+          protein:
+            type: string
+          dvFat:
+            type: integer
+          dvSaturatedFat:
+            type: integer
+          dvCholesterol:
+            type: integer
+          dvSodium:
+            type: integer
+          dvCarbohydrates:
+            type: integer
+          dvFiber:
+            type: integer
+
+    CustomOption:
+      type: object
+      required:
+        - id
+        - name
+        - price  
+      properties:
+        id:
+          type: string
+        name:
+          type: string    
+        price:
+          type: string  
+
+    Error:
+      type: object
+      required:
+        - code
+        - message
+      properties:
+        code:
+          type: integer
+          format: int32
+        message:
+          type: string

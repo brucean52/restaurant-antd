@@ -52,7 +52,7 @@ const Nutrition = () => {
   } = theme.useToken();
   const { isDarkMode } = useAppStore();
   const [nutritionItemsArray, setNutritionItemsArray] = useState<NutritionItem[]>([]);
-  const [isLoading, setIsLoading] = useState(false);
+  const [isLoading, setIsLoading] = useState<boolean>(false);
 
   const layoutStyle: React.CSSProperties = {
     display: 'block',

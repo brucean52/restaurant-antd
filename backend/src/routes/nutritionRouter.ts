@@ -1,8 +1,8 @@
 import { Router } from 'express';
-import { getNutrtionItems } from '../controllers/nutritionController';
+import { getNutritionItems } from '../controllers/nutritionController';
 
 const router = Router();
 
-router.get('/', getNutrtionItems);
+router.get('/', getNutritionItems);
 
 export default router

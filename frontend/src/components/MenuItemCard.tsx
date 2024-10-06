@@ -32,7 +32,7 @@ const MenuItemCard = (props: MenuItemCardProps) => {
 
   const priceTextStyle: React.CSSProperties = {
     margin: 0,
-    fontSize: isScreenXL ? '14px' : '12px'
+    fontSize: isScreenXL ? '16px' : '14px'
   };
 
   return (

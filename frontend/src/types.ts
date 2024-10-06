@@ -25,7 +25,7 @@ export type MenuCategory = '' |'appetizers' | 'soups' | 'main-entree' | 'bowls'
 export interface MenuItem {
   id: string;
   category: MenuCategory;
-  imgSrc: string
+  imgSrc: string;
   name: string;
   description: string;
   price: string;
@@ -74,6 +74,8 @@ export interface NutritionItem {
   id: string;
   category: MenuCategory;
   name: string;
+  imgSrc: string;
+  description: string;
   servings: number;
   calories: number;
   calsFromFat: number;
@@ -86,9 +88,17 @@ export interface NutritionItem {
   fiber: string;
   sugar: string;
   protein: string;
+  dvFat: number;
+  dvSaturatedFat: number;
+  dvCholesterol: number;
+  dvSodium: number;
+  dvCarbohydrates: number;
+  dvFiber: number;
 };
 
 export type TotalCostText = {
   taxText: string;
   totalText: string;
 }
+
+export type NutriVisualSegment = 'image' | 'barChart' | 'pieChart';

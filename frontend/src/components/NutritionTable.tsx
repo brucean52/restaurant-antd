@@ -1,4 +1,4 @@
-import React, { useState, useContext } from 'react';
+import React, { useState } from 'react';
 import { theme } from 'antd';
 import { PlusSquareOutlined, CloseCircleOutlined } from '@ant-design/icons';
 import NutritionItemLayout from './NutritionItemLayout';
@@ -18,9 +18,8 @@ const NutritionTable = (props: NutritionTableLayoutProps) => {
   const {
     token: { 
       colorPrimary,
-      colorBgLayout,
       borderRadius,
-      boxShadowSecondary,
+      boxShadowSecondary
     }
   } = theme.useToken();
 
@@ -50,16 +49,16 @@ const NutritionTable = (props: NutritionTableLayoutProps) => {
     boxShadow: boxShadowSecondary,
   };
 
+  const expandedRowStyle: React.CSSProperties = {
+    backgroundColor:  isDarkMode ? '#212121' : '#FAFAFA'
+  };
+
   const renderTableHeaders = nutriTableHeaders.map((column: NutriTableHeader) => {
     return <th key={column.id} style={tableHeaderStyle} className="nutri-table-header">{column.title}</th>
   });
 
   const RenderDataRow = (props: TableDataRowProps) => {
     const { nutriItem } = props;
-    // let name = nutriItem.name;
-    // if (name.includes('|')) {
-    //   name.split('|')
-    // }
     
     return (
       <>
@@ -98,19 +97,22 @@ const NutritionTable = (props: NutritionTableLayoutProps) => {
     let chartData = [
       {
         name: 'Fat',
-        value: fatPercent
+        grams: fatAmount,
+        percent: fatPercent
       },
       {
         name: 'Carbs',
-        value: carbsPercent
+        grams: carbsAmount,
+        percent: carbsPercent
       },
       {
         name: 'Protein',
-        value: proteinPercent
+        grams: proteinAmount,
+        percent: proteinPercent
       },
     ];
     return (
-      <td style={{ backgroundColor: colorBgLayout }} colSpan={13}>
+      <td style={expandedRowStyle} colSpan={13}>
         <CloseCircleOutlined
           className="nutri-expand-close-icon"
           aria-label={`close-expanded-icon-${props.nutriItem.id}`} 

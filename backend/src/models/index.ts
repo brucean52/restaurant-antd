@@ -10,7 +10,7 @@ type CustomOption = {
 export interface MenuItem {
   id: string;
   category: MenuCategory;
-  imgSrc: string
+  imgSrc: string;
   name: string;
   description: string;
   price: string;
@@ -26,6 +26,8 @@ export interface NutritionItem {
   id: string;
   category: MenuCategory;
   name: string;
+  description: string;
+  imgSrc: string;
   servings: number;
   calories: number;
   calsFromFat: number;
@@ -38,4 +40,10 @@ export interface NutritionItem {
   fiber: string;
   sugar: string;
   protein: string;
+  dvFat: number;
+  dvSaturatedFat: number;
+  dvCholesterol: number;
+  dvSodium: number;
+  dvCarbohydrates: number;
+  dvFiber: number;
 };

@@ -3,7 +3,7 @@ import { StatusCodes, getReasonPhrase } from 'http-status-codes';
 import { getAllNutritionalItemData } from '../services/nutritionService';
 
 
-export const getNutrtionItems = async (req: Request, res: Response) => {
+export const getNutritionItems = async (req: Request, res: Response) => {
   try {
     const nutritionItems = await getAllNutritionalItemData();
     res.json(nutritionItems)

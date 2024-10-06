@@ -20,7 +20,7 @@ td:first-child, th:first-child {
 }
 
 .nutri-table-row:nth-child(even) {
-  background-color: #e2e2e2 ;
+  background-color: #EAEAEA ;
 }
 
 .nutri-table-row:hover {
@@ -123,15 +123,29 @@ button.bag-button-dark:hover {
   margin-right: 24px !important;
 }
 
+.nutri-item-main-image {
+  gap: 10rem;
+}
+
+.nutri-item-main-chart {
+  gap: 0;
+}
+
 @media (max-device-width: 1600px) { 
   .menu-item-card.ant-card > .ant-card-body {
     padding: 12px;
+  }
+  .nutri-item-main-image {
+    gap: 5rem;
   }
 }
 
 @media (max-device-width: 1199px) {
   .menu-item-card.ant-card > .ant-card-body {
     height: 90px;
+  }
+  .nutri-item-main-image {
+    gap: 2rem;
   }
 }
 

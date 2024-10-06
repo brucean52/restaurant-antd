@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Anchor, Row, Typography, Spin } from 'antd';
 import { useMediaQuery } from 'react-responsive';
 import { animateScroll } from 'react-scroll';
@@ -54,8 +54,8 @@ const MenuPage = () => {
   const { isDarkMode } = useAppStore();
   const [menuItemsArray, setMenuItemsArray] = useState<MenuItem[]>([]);
   const [selectedMenuItem, setSelectedMenuItem] = useState<MenuItem>(defaultMenuItem);
-  const [isModalOpen, setIsModalOpen] = useState(false);
-  const [isLoading, setIsLoading] = useState(false);
+  const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
+  const [isLoading, setIsLoading] = useState<boolean>(false);
 
   const layoutStyle: React.CSSProperties = {
     display: isScreenLG ? 'flex' : 'block',

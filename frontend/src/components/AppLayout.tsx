@@ -1,4 +1,4 @@
-import React, { useState, useContext, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Outlet, Link, useLocation, useNavigate } from 'react-router-dom';
 import { Layout, Menu, Button, Badge, Space, theme } from 'antd';
 import { ShoppingOutlined, SunOutlined, MoonOutlined } from '@ant-design/icons';
