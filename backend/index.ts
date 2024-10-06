@@ -1,22 +1,17 @@
 import express, { Request, Response, NextFunction } from 'express';
 import cors from 'cors';
 import { StatusCodes, getReasonPhrase } from 'http-status-codes';
-import swaggerUi from 'swagger-ui-express';
-import YAML from 'yamljs';
-import path from 'path';
 import menuRoutes from './src/routes/menuRouter';
 import nutritionRoutes from './src/routes/nutritionRouter';
 import { db } from './src/config/dbConnect';
 
 const app = express();
 const port = process.env.PORT || 3000;
-const swaggerDocument = YAML.load(path.join(__dirname, 'src', 'config', 'swagger.yaml'));
 
 app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 app.use('/menu', menuRoutes);
 app.use('/nutrition', nutritionRoutes);
 
