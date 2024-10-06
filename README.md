@@ -21,7 +21,9 @@ Includes the following:
 ![Alt text](https://github.com/brucean52/restaurant-antd/blob/master/sample_images/bag-edit.png "bag-edit")
 ![Alt text](https://github.com/brucean52/restaurant-antd/blob/master/sample_images/checkout.png "checkout")
 ![Alt text](https://github.com/brucean52/restaurant-antd/blob/master/sample_images/nutrition.png "nutrition")
-![Alt text](https://github.com/brucean52/restaurant-antd/blob/master/sample_images/nutrition-chart.png "nutrition-chart")
+![Alt text](https://github.com/brucean52/restaurant-antd/blob/master/sample_images/nutri-item1.png "nutrition-item1")
+![Alt text](https://github.com/brucean52/restaurant-antd/blob/master/sample_images/nutri-item2.png "nutrition-item2")
+![Alt text](https://github.com/brucean52/restaurant-antd/blob/master/sample_images/nutri-item3.png "nutrition-item3")
 
 ## Installation and Setup
 
