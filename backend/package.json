@@ -3,9 +3,11 @@
   "version": "1.0.0",
   "main": "index.ts",
   "scripts": {
+    "clean": "rimraf dist",
     "start": "nodemon --exec ts-node index.ts",
     "dev": "nodemon --exec ts-node index.ts",
-    "build": "tsc",
+    "build": "npm run clean && tsc && terser dist/*.js --compress --mangle --output dist/bundle.min.js",
+    "prod": "node dist/bundle.min.js",
     "serve": "node dist/index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -29,6 +31,8 @@
     "@types/http-status-codes": "^1.2.0",
     "@types/node": "^22.4.1",
     "nodemon": "^3.1.4",
+    "rimraf": "^6.0.1",
+    "terser": "^5.34.1",
     "ts-node": "^10.9.2",
     "typescript": "^5.5.4"
   }
