@@ -1,6 +1,5 @@
 # Restaurant AntD -> New Chopstix Restaurant
 
-### [Live demo](https://restaurant-antd.xyz/)
 ### [Frontend only branch](https://github.com/brucean52/restaurant-antd/tree/frontend-only)
 
 ## Description
