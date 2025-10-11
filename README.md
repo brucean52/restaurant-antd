@@ -1,7 +1,5 @@
 # Restaurant AntD -> New Chopstix Restaurant
 
-### [Live demo](https://restaurant-antd.netlify.app/)
-
 ## Description
 
 A demo restaurant app using Ant Design. Includes the following:
